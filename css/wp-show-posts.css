@@ -137,48 +137,48 @@ a.wp-show-posts-read-more:focus {
 
 /* Bootstrap grid system */
 @media (min-width: 768px) {
-  .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col-20 {
+  .wpsp-col-1, .wpsp-col-2, .wpsp-col-3, .wpsp-col-4, .wpsp-col-5, .wpsp-col-6, .wpsp-col-7, .wpsp-col-8, .wpsp-col-9, .wpsp-col-10, .wpsp-col-11, .wpsp-col-12, .wpsp-col-20 {
     float: left;
   }
-  .col-1 {
+  .wpsp-col-1 {
     width: 8.333333%;
   }
-  .col-2 {
+  .wpsp-col-2 {
     width: 16.666667%;
   }
-  .col-3 {
+  .wpsp-col-3 {
     width: 25%;
   }
-  .col-4 {
+  .wpsp-col-4 {
     width: 33.333%;
   }
-  .col-5 {
+  .wpsp-col-5 {
     width: 41.666667%;
   }
-  .col-6 {
+  .wpsp-col-6 {
     width: 50%;
   }
-  .col-7 {
+  .wpsp-col-7 {
     width: 58.333333%;
   }
-  .col-8 {
+  .wpsp-col-8 {
     width: 66.666667%;
   }
-  .col-9 {
+  .wpsp-col-9 {
     width: 75%;
   }
-  .col-10 {
+  .wpsp-col-10 {
     width: 83.333333%;
   }
-  .col-11 {
+  .wpsp-col-11 {
     width: 91.666667%;
   }
-  .col-12 {
+  .wpsp-col-12 {
     width: 100%;
   }
   
   /* 5 columns */
-  .col-20 {
+  .wpsp-col-20 {
 	width: 20%;
    }
 }
