@@ -1,44 +1,6 @@
 <?php
-if ( ! function_exists( 'wpsp_excerpt' ) ) :
-/** 
- * Create our own excerpt function
- * @since 0.1
- */
-function wpsp_excerpt( $text = '', $excerpt_length = 55 ) {
-	if ( ! $excerpt_length )
-		return;
-	
-	$raw_excerpt = $text;
-	if ( '' == $text ) {
-		$text = get_the_content('');
-
-		$text = strip_shortcodes( $text );
-
-		/** This filter is documented in wp-includes/post-template.php */
-		$text = apply_filters( 'the_content', $text );
-		$text = str_replace(']]>', ']]&gt;', $text);
-
-		/**
-		 * Filter the string in the "more" link displayed after a trimmed excerpt.
-		 *
-		 * @since 2.9.0
-		 *
-		 * @param string $more_string The string shown within the more link.
-		 */
-		$excerpt_more = apply_filters( 'wpsp_excerpt_more', '...' );
-		$text = wp_trim_words( $text, $excerpt_length, $excerpt_more );
-	}
-	/**
-	 * Filter the trimmed excerpt string.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @param string $text        The trimmed text.
-	 * @param string $raw_excerpt The text prior to trimming.
-	 */
-	echo apply_filters( 'wp_trim_excerpt', $text, $raw_excerpt );
-}
-endif;
+// No direct access, please
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! function_exists( 'wpsp_meta' ) ) :
 /** 
