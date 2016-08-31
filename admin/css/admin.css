@@ -1,0 +1,37 @@
+#butterbean-control-taxonomy,
+#butterbean-control-terms {
+	display: none;
+}
+
+#butterbean-ui-wp_show_posts input,
+#butterbean-ui-wp_show_posts select,
+#butterbean-ui-wp_show_posts textarea {
+	padding: 10px;
+	width: 100%;
+	height: auto;
+}
+
+.wpsp-pro {
+	background: orange;
+	padding: 5px;
+	color: white;
+	font-size: 80%;
+}
+
+#butterbean-ui-wp_show_posts .butterbean-control-color input {
+    width: 80px;
+    padding: 3px 5px;
+    line-height: 16px;
+}
+
+#butterbean-ui-wp_show_posts input[type="checkbox"] {
+    width: initial;
+    height: 16px;
+}
+
+.mce-i-wpsp-add-icon:before {
+	content: "\f163";
+	font: normal 20px/1 'dashicons';
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
