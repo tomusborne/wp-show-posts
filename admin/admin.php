@@ -1,4 +1,7 @@
 <?php
+// No direct access, please
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( ! function_exists( 'wpsp_admin_scripts' ) ) :
 /** 
  * Add our admin scripts and styles

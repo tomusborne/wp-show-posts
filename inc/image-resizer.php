@@ -20,6 +20,9 @@
  *
  * @return str|array
  */
+ 
+// No direct access, please
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 if( ! class_exists( 'WPSP_Resize' ) ) {
     class WPSP_Exception extends Exception {}

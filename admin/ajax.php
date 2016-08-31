@@ -1,4 +1,7 @@
 <?php
+// No direct access, please
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( ! function_exists( 'wpsp_get_json_option' ) ) :
 /** 
  * Get the current option value

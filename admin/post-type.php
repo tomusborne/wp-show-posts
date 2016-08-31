@@ -1,4 +1,7 @@
 <?php
+// No direct access, please
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( ! function_exists( 'wp_show_posts_type' ) ) :
 /** 
  * Create our WP Show Posts post type
