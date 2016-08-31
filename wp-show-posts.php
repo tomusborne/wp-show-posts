@@ -11,6 +11,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: wp-show-posts
 */
 
+// No direct access, please
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 // Define the current version
 define( 'WPSP_VERSION', 0.5 );
 
@@ -94,7 +97,7 @@ if ( ! function_exists( 'wpsp_display' ) ) :
  * @since 0.1
  */
 function wpsp_display( $id ) 
-{
+{	
 	// Set the global ID of our object
 	global $wpsp_id;
 	$wpsp_id = $id;
@@ -239,7 +242,7 @@ function wpsp_display( $id )
 	}
 	
 	// If Exclude Current
-	if( is_singular() && $exclude_current )
+	if( ( is_singular() && $exclude_current ) || is_single() )
 		$args['post__not_in'] = array( get_the_ID() );
 	
 	// Border
@@ -266,16 +269,16 @@ function wpsp_display( $id )
 	$current_post = '';
 	if ( $columns !== 'col-12' && $featured_post ) :
 		if ( $columns == 'col-6' )
-			$current_post = 'col-12';
+			$current_post = 'wpsp-col-12';
 
 		if ( $columns == 'col-4' )
-			$current_post = 'col-8';
+			$current_post = 'wpsp-col-8';
 
 		if ( $columns == 'col-3' )
-			$current_post = 'col-6';
+			$current_post = 'wpsp-col-6';
 
 		if ( $columns == 'col-20' )
-			$current_post = 'col-6';
+			$current_post = 'wpsp-col-6';
 	endif;
 
 	// Masonry
@@ -340,7 +343,7 @@ function wpsp_display( $id )
 	echo '<' . $wrapper . $wrapper_id . $wrapper_class . $wrapper_style . $wrapper_atts . '>';
 
 	if ( $masonry )
-		echo '<div class="grid-sizer ' . $columns . '"></div>';
+		echo '<div class="grid-sizer wpsp-' . $columns . '"></div>';
 
 	// Start the query
 	$query = new WP_Query( apply_filters( 'wp_show_posts_shortcode_args', $args ) );
@@ -361,10 +364,10 @@ function wpsp_display( $id )
 				if ( $query->current_post == 0 && $paged == 1 ) {
 					$featured = ' featured-column ' . $current_post;
 				} else {
-					$featured = ' ' . $columns;
+					$featured = ' wpsp-' . $columns;
 				}
 			elseif ( $columns !== 'col-12' ) :
-				$column_class .= ' ' . $columns;
+				$column_class .= ' wpsp-' . $columns;
 			endif;
 			
 			$terms_list = '';
@@ -403,7 +406,7 @@ function wpsp_display( $id )
 					// The excerpt or full content
 					if ( 'excerpt' == $content_type && $excerpt_length ) : ?>
 						<div class="wp-show-posts-entry-summary" itemprop="text">
-							<?php wpsp_excerpt( '', $excerpt_length ); ?>
+							<?php echo wp_trim_words( get_the_content(), $excerpt_length, '' ); ?>
 						</div><!-- .entry-summary -->
 					<?php elseif ( 'full' == $content_type ) : ?>
 						<div class="wp-show-posts-entry-content" itemprop="text">
@@ -457,7 +460,7 @@ function wpsp_display( $id )
 			wp_enqueue_style( 'wpsp-featherlight-gallery' );
 		}
 	}
-
+	
 	// Restore original Post Data
 	wp_reset_postdata();
 }
