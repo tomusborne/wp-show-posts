@@ -1,11 +1,14 @@
 <?php
+// No direct access, please
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 if ( ! function_exists( 'wpsp_remove_metaboxes' ) ) :
 /** 
  * Remove all metaboxes from our WP Show Posts post type
  * @since 0.1
  */
-add_action('add_meta_boxes', 'wpsp_remove_metaboxes', 99, 2);
-function wpsp_remove_metaboxes( $post_type, $post ){
+add_action('add_meta_boxes', 'wpsp_remove_metaboxes', 99);
+function wpsp_remove_metaboxes( $post_type ){
 
     // If we're not in the wp_show_posts post type, bail.
     if( ! in_array( $post_type, array( 'wp_show_posts' ) ) )
@@ -67,14 +70,9 @@ if ( ! function_exists( 'wpsp_load_butterbean' ) ) :
  * Load butterbean inside our post type
  * @since 0.1
  */
-add_action( 'load-post.php',     'wpsp_load_butterbean' );
-add_action( 'load-post-new.php', 'wpsp_load_butterbean' );
-function wpsp_load_butterbean() {
-
-	// Bail if not our post type.
-	if ( 'wp_show_posts' !== get_current_screen()->post_type )
-		return;
-
+add_action( 'plugins_loaded', 'wpsp_load_butterbean' );
+function wpsp_load_butterbean() 
+{
 	require_once( trailingslashit( dirname( __FILE__ ) ) . '/butterbean/butterbean.php'	);
 }
 endif;
