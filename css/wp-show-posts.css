@@ -189,6 +189,10 @@ a.wp-show-posts-read-more:focus {
 		margin-left: 0 !important;
 		margin-right: 0 !important;
    }
+   .wp-show-posts-columns .wp-show-posts-single {
+    	display: block;
+    	width: 100%;
+	}
 }
 
 /* Spacing */
@@ -224,12 +228,12 @@ a.wp-show-posts-read-more:focus {
 }
 
 .wpsp-clearfix:after {
-  content: ".";
-  display: block;
-  overflow: hidden;
-  visibility: hidden;
-  font-size: 0;
-  line-height: 0;
-  width: 0;
-  height: 0;
+	content: ".";
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	font-size: 0;
+	line-height: 0;
+	width: 0;
+	height: 0;
 }
