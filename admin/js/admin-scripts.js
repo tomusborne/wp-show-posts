@@ -1,4 +1,5 @@
-function wpsp_get_taxonomy( type = 'post' ) {
+function wpsp_get_taxonomy() {
+	type = typeof type !== 'undefined' ? type : 'post';
     var response = jQuery.getJSON({
 		type: 'POST',
 		url: ajaxurl,
@@ -14,7 +15,8 @@ function wpsp_get_taxonomy( type = 'post' ) {
 	return response.responseJSON;
 }
 
-function wpsp_get_terms( type = 'post' ) {
+function wpsp_get_terms( type ) {
+	type = typeof type !== 'undefined' ? type : 'post';
     var response = jQuery.getJSON({
 		type: 'POST',
 		url: ajaxurl,
@@ -30,7 +32,8 @@ function wpsp_get_terms( type = 'post' ) {
 	return response.responseJSON;
 }
 
-function wpsp_get_option( key = 'wpsp_taxonomy' ) {
+function wpsp_get_option() {
+	key = typeof key !== 'undefined' ? key : 'wpsp_taxonomy';
 	var response = jQuery.getJSON({
 		type: 'POST',
 		url: ajaxurl,
@@ -51,7 +54,6 @@ function wpsp_get_option( key = 'wpsp_taxonomy' ) {
 }
 
 jQuery( document ).ready( function( $ ) {
-	
 	// Populate taxonomy select based on current post type value
 	var taxonomies = wpsp_get_taxonomy( $( '#wpsp-post-type' ).val() );
 
