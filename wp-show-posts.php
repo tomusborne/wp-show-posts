@@ -403,12 +403,16 @@ function wpsp_display( $id )
 					
 					do_action( 'wpsp_before_content' );
 					
+					// Check to see if we have the more tag
+					global $post;
+					$more_tag = apply_filters( 'wpsp_more_tag', @strpos( $post->post_content, '<!--more-->' ) );
+					
 					// The excerpt or full content
-					if ( 'excerpt' == $content_type && $excerpt_length ) : ?>
+					if ( 'excerpt' == $content_type && $excerpt_length && ! $more_tag && 'none' !== $content_type ) : ?>
 						<div class="wp-show-posts-entry-summary" itemprop="text">
 							<?php echo wp_trim_words( get_the_content(), $excerpt_length, '' ); ?>
 						</div><!-- .entry-summary -->
-					<?php elseif ( 'full' == $content_type ) : ?>
+					<?php elseif ( ( 'full' == $content_type || $more_tag ) && 'none' !== $content_type ) : ?>
 						<div class="wp-show-posts-entry-content" itemprop="text">
 							<?php the_content( false, false ); ?>
 						</div><!-- .entry-content -->
