@@ -149,6 +149,15 @@ In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
 
+= 0.7 =
+* Prevent direct access to files
+* Add prefix to all column classes to avoid conflicts
+* Use wp_trim_words() function for excerpts
+* Fix conflict with Maintenance plugin
+* Make columns full width on mobile
+* Allow more tag usage when excerpt is set
+* Add blank option in widget to fix bug in Customizer/Elementor
+
 = 0.6 =
 * Add height: auto to images to prevent image stretching in Beaver Builder
 * Prevent horizontal scrolling when posts are in columns
@@ -185,6 +194,13 @@ In most cases, #1 will work fine and is way easier.
 * Initial release
 
 == Upgrade Notice ==
+
+= 0.7 =
+* Prevent direct access to files
+* Add prefix to all column classes to avoid conflicts
+* Use wp_trim_words() function for excerpts
+* Fix conflict with Maintenance plugin
+* Make columns full width on mobile
 
 = 0.6 =
 * Add height: auto to images to prevent image stretching in Beaver Builder
