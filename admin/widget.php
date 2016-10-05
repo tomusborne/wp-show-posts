@@ -52,6 +52,7 @@ class WPSP_Widget extends WP_Widget {
 		</p>
 		<p>
 			<select name="<?php echo $this->get_field_name( 'wpsp_id' );?>" id="<?php echo $this->get_field_id( 'wpsp_id' );?>">
+			<option value=""></option>
 			<?php
 				$args = array(
 					'posts_per_page'   => -1,
