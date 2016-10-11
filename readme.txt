@@ -3,8 +3,8 @@ Contributors: edge22
 Donate link: https://wpshowposts.com
 Tags: show posts, display posts shortcode, portfolio, gallery, post columns
 Requires at least: 4.0
-Tested up to: 4.6
-Stable tag: 0.6
+Tested up to: 4.6.1
+Stable tag: 0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -201,6 +201,8 @@ In most cases, #1 will work fine and is way easier.
 * Use wp_trim_words() function for excerpts
 * Fix conflict with Maintenance plugin
 * Make columns full width on mobile
+* Allow more tag usage when excerpt is set
+* Add blank option in widget to fix bug in Customizer/Elementor
 
 = 0.6 =
 * Add height: auto to images to prevent image stretching in Beaver Builder
