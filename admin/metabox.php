@@ -187,7 +187,7 @@ function wpsp_register( $butterbean, $post_type ) {
 		array(
 			'type'        => 'checkbox',
 			'section'     => 'wpsp_posts',
-			'label'       => __( 'Pagination','wp-show-posts-pro' ),
+			'label'       => __( 'Pagination','wp-show-posts' ),
 			'description' => __( 'Pagination should only be used if your posts are the only thing in the content area to prevent duplicate content issues.','wp-show-posts' ),
 			'attr' => array( 'id' => 'wpsp-pagination' )
 		)
@@ -413,7 +413,7 @@ function wpsp_register( $butterbean, $post_type ) {
 		array(
 			'type'        => 'checkbox',
 			'section'     => 'wpsp_content',
-			'label'       => __( 'Include title','wp-show-posts-pro' ),
+			'label'       => __( 'Include title','wp-show-posts' ),
 			'attr' => array( 'id' => 'wpsp-include-title' )
 		)
 	);
@@ -456,7 +456,7 @@ function wpsp_register( $butterbean, $post_type ) {
 		array(
 			'type'        => 'checkbox',
 			'section'     => 'wpsp_post_meta',
-			'label'       => __( 'Include author','wp-show-posts-pro' ),
+			'label'       => __( 'Include author','wp-show-posts' ),
 			'attr' => array( 'id' => 'wpsp-include-author' )
 		)
 	);
@@ -496,7 +496,7 @@ function wpsp_register( $butterbean, $post_type ) {
 		array(
 			'type'        => 'checkbox',
 			'section'     => 'wpsp_post_meta',
-			'label'       => __( 'Include date','wp-show-posts-pro' ),
+			'label'       => __( 'Include date','wp-show-posts' ),
 			'attr' => array( 'id' => 'wpsp-include-date' )
 		)
 	);
@@ -536,7 +536,7 @@ function wpsp_register( $butterbean, $post_type ) {
 		array(
 			'type'        => 'checkbox',
 			'section'     => 'wpsp_post_meta',
-			'label'       => __( 'Include terms','wp-show-posts-pro' ),
+			'label'       => __( 'Include terms','wp-show-posts' ),
 			'attr' => array( 'id' => 'wpsp-include-terms' )
 		)
 	);
@@ -602,7 +602,7 @@ function wpsp_register( $butterbean, $post_type ) {
 		array(
 			'type'        => 'checkbox',
 			'section'     => 'wpsp_query_args',
-			'label'       => __( 'Exclude current','wp-show-posts-pro' ),
+			'label'       => __( 'Exclude current','wp-show-posts' ),
 			'attr' => array( 'id' => 'wpsp-exclude-current' )
 		)
 	);
@@ -654,7 +654,7 @@ function wpsp_register( $butterbean, $post_type ) {
 		array(
 			'type'        => 'checkbox',
 			'section'     => 'wpsp_query_args',
-			'label'       => __( 'Ignore sticky posts','wp-show-posts-pro' ),
+			'label'       => __( 'Ignore sticky posts','wp-show-posts' ),
 			'attr' => array( 'id' => 'wpsp-ignore-sticky-posts' )
 		)
 	);
