@@ -4,7 +4,7 @@ Donate link: https://wpshowposts.com
 Tags: show posts, display posts shortcode, portfolio, gallery, post columns
 Requires at least: 4.0
 Tested up to: 4.6.1
-Stable tag: 0.7
+Stable tag: 0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -149,6 +149,11 @@ In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
 
+= 0.8 =
+* Strip shortcodes from excerpts
+* Add ellipses after excerpts
+* Fix some broken text domains for translations
+
 = 0.7 =
 * Prevent direct access to files
 * Add prefix to all column classes to avoid conflicts
@@ -194,6 +199,11 @@ In most cases, #1 will work fine and is way easier.
 * Initial release
 
 == Upgrade Notice ==
+
+= 0.8 =
+* Strip shortcodes from excerpts
+* Add ellipses after excerpts
+* Fix some broken text domains for translations
 
 = 0.7 =
 * Prevent direct access to files
