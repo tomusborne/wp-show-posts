@@ -1,4 +1,4 @@
-function wpsp_get_taxonomy() {
+function wpsp_get_taxonomy( type ) {
 	type = typeof type !== 'undefined' ? type : 'post';
     var response = jQuery.getJSON({
 		type: 'POST',
@@ -32,7 +32,7 @@ function wpsp_get_terms( type ) {
 	return response.responseJSON;
 }
 
-function wpsp_get_option() {
+function wpsp_get_option( key ) {
 	key = typeof key !== 'undefined' ? key : 'wpsp_taxonomy';
 	var response = jQuery.getJSON({
 		type: 'POST',
