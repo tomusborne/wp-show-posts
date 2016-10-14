@@ -347,7 +347,6 @@ function wpsp_display( $id )
 
 	// Start the query
 	$query = new WP_Query( apply_filters( 'wp_show_posts_shortcode_args', $args ) );
-
 	// Start the loop
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) {
@@ -410,7 +409,7 @@ function wpsp_display( $id )
 					// The excerpt or full content
 					if ( 'excerpt' == $content_type && $excerpt_length && ! $more_tag && 'none' !== $content_type ) : ?>
 						<div class="wp-show-posts-entry-summary" itemprop="text">
-							<?php wpsp_excerpt(); ?>
+							<?php wpsp_excerpt( $excerpt_length ); ?>
 						</div><!-- .entry-summary -->
 					<?php elseif ( ( 'full' == $content_type || $more_tag ) && 'none' !== $content_type ) : ?>
 						<div class="wp-show-posts-entry-content" itemprop="text">

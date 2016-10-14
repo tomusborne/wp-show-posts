@@ -3,51 +3,19 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! function_exists( 'wpsp_excerpt' ) ) :
-/** 
- * Build our excerpt function
- * @since 0.9
- */
-function wpsp_excerpt()
-{
-	global $wpsp_id;
+function wpsp_excerpt( $excerpt_length )
+{	
+	// Run our content through wp_trim_words()
+	$content = wp_trim_words( get_the_content(), $excerpt_length, apply_filters( 'wpsp_ellipses', '...' ) );
 	
-	if ( ! isset( $wpsp_id ) )
-		return;
+	// Strip shortcodes from our content
+	$content = strip_shortcodes( $content );
 	
-	add_filter( 'excerpt_length','wpsp_excerpt_length' );
-	add_filter( 'excerpt_more','wpsp_excerpt_more' );
-	the_excerpt();
-	remove_filter( 'excerpt_length','wpsp_excerpt_length' );
-	remove_filter( 'excerpt_more','wpsp_excerpt_more' );
-}
-endif;
-
-if ( ! function_exists( 'wpsp_excerpt_length' ) ) :
-/** 
- * Set our excerpt length
- * @since 0.9
- */
-function wpsp_excerpt_length( $excerpt_length )
-{
-	global $wpsp_id;
+	// Strip URLs from our excerpt (oembeds etc..)
+	$content = preg_replace( '~http(s)?://[^\s]*~i', '', $content );
 	
-	if ( ! isset( $wpsp_id ) )
-		return;
-	
-	$excerpt_length = absint( wpsp_get_setting( $wpsp_id, 'wpsp_excerpt_length' ) );
-	
-	return $excerpt_length;
-}
-endif;
-
-if ( ! function_exists( 'wpsp_excerpt_more' ) ) :
-/** 
- * Set our more tag
- * @since 0.9
- */
-function wpsp_excerpt_more()
-{
-	return apply_filters( 'wpsp_ellipses', '...' );
+	// Return our content
+	echo $content;
 }
 endif;
 
