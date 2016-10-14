@@ -2,6 +2,55 @@
 // No direct access, please
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+if ( ! function_exists( 'wpsp_excerpt' ) ) :
+/** 
+ * Build our excerpt function
+ * @since 0.9
+ */
+function wpsp_excerpt()
+{
+	global $wpsp_id;
+	
+	if ( ! isset( $wpsp_id ) )
+		return;
+	
+	add_filter( 'excerpt_length','wpsp_excerpt_length' );
+	add_filter( 'excerpt_more','wpsp_excerpt_more' );
+	the_excerpt();
+	remove_filter( 'excerpt_length','wpsp_excerpt_length' );
+	remove_filter( 'excerpt_more','wpsp_excerpt_more' );
+}
+endif;
+
+if ( ! function_exists( 'wpsp_excerpt_length' ) ) :
+/** 
+ * Set our excerpt length
+ * @since 0.9
+ */
+function wpsp_excerpt_length( $excerpt_length )
+{
+	global $wpsp_id;
+	
+	if ( ! isset( $wpsp_id ) )
+		return;
+	
+	$excerpt_length = absint( wpsp_get_setting( $wpsp_id, 'wpsp_excerpt_length' ) );
+	
+	return $excerpt_length;
+}
+endif;
+
+if ( ! function_exists( 'wpsp_excerpt_more' ) ) :
+/** 
+ * Set our more tag
+ * @since 0.9
+ */
+function wpsp_excerpt_more()
+{
+	return apply_filters( 'wpsp_ellipses', '...' );
+}
+endif;
+
 if ( ! function_exists( 'wpsp_meta' ) ) :
 /** 
  * Build our post meta

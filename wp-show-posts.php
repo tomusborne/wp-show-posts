@@ -410,7 +410,7 @@ function wpsp_display( $id )
 					// The excerpt or full content
 					if ( 'excerpt' == $content_type && $excerpt_length && ! $more_tag && 'none' !== $content_type ) : ?>
 						<div class="wp-show-posts-entry-summary" itemprop="text">
-							<?php echo strip_shortcodes( wp_trim_words( get_the_content(), $excerpt_length, apply_filters( 'wpsp_ellipses', '...' ) ) ); ?>
+							<?php wpsp_excerpt(); ?>
 						</div><!-- .entry-summary -->
 					<?php elseif ( ( 'full' == $content_type || $more_tag ) && 'none' !== $content_type ) : ?>
 						<div class="wp-show-posts-entry-content" itemprop="text">
