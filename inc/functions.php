@@ -3,6 +3,10 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 if ( ! function_exists( 'wpsp_excerpt' ) ) :
+/** 
+ * Build our excerpt
+ * @since 0.9
+ */
 function wpsp_excerpt( $excerpt_length )
 {	
 	// Run our content through wp_trim_words()
