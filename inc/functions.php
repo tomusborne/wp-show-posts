@@ -174,7 +174,10 @@ function wpsp_post_image()
 	$hover = ( '' !== $image_hover_effect ) ? $image_hover_effect : '';
 	?>
 	<div class="wp-show-posts-image <?php echo $hover . ' wpsp-image-' . $image_alignment; ?> ">
-		<?php printf( '<a href="%1$s" %2$s title="%3$s">',
+		<?php 
+		do_action( 'wpsp_inside_image_container' );
+		
+		printf( '<a href="%1$s" %2$s title="%3$s">',
 		apply_filters( 'wpsp_image_href', esc_url( get_the_permalink() ) ),
 		apply_filters( 'wpsp_image_data', '' ),
 		apply_filters( 'wpsp_image_title', esc_attr( get_the_title() ) )
