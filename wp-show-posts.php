@@ -138,7 +138,6 @@ function wpsp_display( $id )
 	$tax_term		 	 	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_tax_term' ) );
 	$taxonomy		 	 	= sanitize_key( wpsp_get_setting( $id, 'wpsp_taxonomy' ) );
 	$wrapper			 	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_wrapper' ) );
-	$wrapper_id			 	= sanitize_html_class( wpsp_get_setting( $id, 'wpsp_wrapper_id' ) );
 	$wrapper_class 	 	 	= array_map( 'sanitize_html_class', ( explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_class' ) ) ) );
 	$wrapper_style 		 	= explode( ' ', esc_attr( wpsp_get_setting( $id, 'wpsp_wrapper_style' ) ) );
 	$no_results 		 	= wp_kses_post( wpsp_get_setting( $id, 'wpsp_no_results' ) );
@@ -157,6 +156,10 @@ function wpsp_display( $id )
 	
 	if ( '' !== $orderby )
 		$args[ 'orderby' ] = $orderby;
+	
+	if ( 'rand' == $orderby && $pagination ) {
+		$args[ 'orderby' ] = 'rand(' . $id . ')';
+	}
 	
 	if ( '' !== $post_type )
 		$args[ 'post_type' ] = $post_type;
@@ -248,7 +251,9 @@ function wpsp_display( $id )
 	// Border
 	if ( '' !== $border ) {
 		$wrapper_class[] = 'include-border';
-		$border = 'border-color: ' . $border . ';';
+		if ( ! function_exists( 'wpsp_styling' ) ) :
+			$border = 'border-color: ' . $border . ';';
+		endif;
 	}
 	
 	// Padding
@@ -261,8 +266,10 @@ function wpsp_display( $id )
 	if ( $columns !== 'col-12' ) :
 		wp_enqueue_script( 'wpsp-matchHeight', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/jquery.matchHeight.js', array( 'jquery' ), WPSP_VERSION, true );
 		$wrapper_class[] = 'wp-show-posts-columns';
-		$wrapper_style[] = 'margin-left:-' . $columns_gutter . ';';
-		$inner_wrapper_style[] = 'margin: 0 0 ' . $columns_gutter . ' ' . $columns_gutter . ';' . $border . $padding;
+		if ( ! function_exists( 'wpsp_styling' ) ) :
+			$wrapper_style[] = 'margin-left:-' . $columns_gutter . ';';
+			$inner_wrapper_style[] = 'margin: 0 0 ' . $columns_gutter . ' ' . $columns_gutter . ';' . $padding;
+		endif;
 	endif;
 
 	// Featured post class
@@ -323,8 +330,7 @@ function wpsp_display( $id )
 		$inner_wrapper_style = ' style="' . implode( ' ', $inner_wrapper_style ) . '"';
 
 	// Get the wrapper ID
-	if( !empty( $wrapper_id ) )
-		$wrapper_id = ' id="' . $wrapper_id . '"';
+	$wrapper_id = ' id="wpsp-' . $id . '"';
 	
 	$wrapper_atts = apply_filters( 'wpsp_wrapper_atts', '' );
 
