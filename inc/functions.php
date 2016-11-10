@@ -8,7 +8,9 @@ if ( ! function_exists( 'wpsp_excerpt' ) ) :
  * @since 0.9
  */
 function wpsp_excerpt( $excerpt_length )
-{	
+{
+	global $post;
+	
 	// Run our content through wp_trim_words()
 	$content = wp_trim_words( get_the_content(), $excerpt_length, apply_filters( 'wpsp_ellipses', '...' ) );
 	
@@ -17,6 +19,11 @@ function wpsp_excerpt( $excerpt_length )
 	
 	// Strip URLs from our excerpt (oembeds etc..)
 	$content = preg_replace( '~http(s)?://[^\s]*~i', '', $content );
+	
+	// If we have a manual excerpt, use it instead
+	if ( '' !== $post->post_excerpt ) {
+		$content = $post->post_excerpt;
+	}
 	
 	// Return our content
 	echo $content;
