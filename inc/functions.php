@@ -405,9 +405,7 @@ function wpsp_pagination( $max_num_pages ) {
 	) );
 
 	if ( $links ) :
-
-		echo $links; 
-
+		echo '<div class="wpsp-load-more">' . $links . '</div>'; 
 	endif;
 }
 endif;

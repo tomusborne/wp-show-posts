@@ -77,7 +77,10 @@ a.wp-show-posts-read-more:focus {
 
 .wp-show-posts-entry-meta {
 	font-size: 0.8em;
-	color: rgba( 0,0,0,0.5 );
+}
+
+.wp-show-posts-separator {
+	opacity: 0.5;
 }
 
 .wp-show-posts-meta a,
@@ -119,6 +122,10 @@ a.wp-show-posts-read-more:focus {
 
 .wp-show-posts:not(.wp-show-posts-columns) .wp-show-posts-single:not(:last-child) {
 	margin-bottom: 2em;
+}
+
+.wpsp-load-more {
+	margin-top: 2em;
 }
 
 .wp-show-posts-columns .wp-show-posts-entry-title {
