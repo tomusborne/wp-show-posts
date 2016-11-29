@@ -25,10 +25,6 @@ function wpsp_get_defaults()
 		'wpsp_image_alignment'	  => 'center',
 		'wpsp_image_height'        => '',
 		'wpsp_image_location'	  => 'below-title',
-		'wpsp_image_lightbox'		=> false,
-		'wpsp_image_gallery'		=> false,
-		'wpsp_image_overlay_color' => '',
-		'wpsp_image_overlay_icon' => '',
 		'wpsp_image_width'         => '',
 		'wpsp_include_title'       => true,
 		'wpsp_include_terms'       => false,
@@ -58,23 +54,7 @@ function wpsp_get_defaults()
 		'wpsp_wrapper_class'       => '',
 		'wpsp_wrapper_id'          => false,
 		'wpsp_wrapper_style'       => '',
-		'wpsp_no_results'		   => __( 'Sorry, no posts were found.','wp-show-posts' ),
-		'wpsp_ajax_pagination'     => false,
-		'wpsp_masonry'			  => false,
-		'wpsp_social_sharing'	  => false,
-		'wpsp_social_sharing_alignment' => 'right',
-		'wpsp_twitter'			  => false,
-		'wpsp_facebook'			  => false,
-		'wpsp_googleplus'		  => false,
-		'wpsp_pinterest'		  => false,
-		'wpsp_love'				  => false,
-		'wpsp_featured_post'		  => false,
-		'wpsp_image_hover_effect'  => '',
-		'wpsp_read_more_style'  	  => 'hollow',
-		'wpsp_read_more_color'  	  => 'black',
-		'wpsp_border'			  => '',
-		'wpsp_padding' 			  => '',
-		'wpsp_filter'			  => false
+		'wpsp_no_results'		   => __( 'Sorry, no posts were found.','wp-show-posts' )
 	);
 		
 	return apply_filters( 'wpsp_defaults', $defaults );
