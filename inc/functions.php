@@ -249,13 +249,11 @@ function wpsp_read_more()
 		return;
 	
 	$read_more_text = wp_kses_post( wpsp_get_setting( $wpsp_id, 'wpsp_read_more_text' ) );
-	$read_more_style = esc_attr( wpsp_get_setting( $wpsp_id, 'wpsp_read_more_style' ) );
-	$read_more_color = sanitize_text_field( wpsp_get_setting( $wpsp_id, 'wpsp_read_more_color' ) );
 	
 	// The read more button
 	if ( $read_more_text ) : ?>
 		<div class="wpsp-read-more">
-			<a title="<?php echo esc_attr( get_the_title() ); ?>" class="wp-show-posts-read-more <?php echo $read_more_style; ?> <?php echo $read_more_color; ?>" href="<?php esc_url( the_permalink() ); ?>"><?php echo $read_more_text; ?></a>
+			<a title="<?php echo esc_attr( get_the_title() ); ?>" class="wp-show-posts-read-more" href="<?php esc_url( the_permalink() ); ?>"><?php echo $read_more_text; ?></a>
 		</div>
 	<?php endif;
 }
