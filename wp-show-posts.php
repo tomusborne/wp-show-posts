@@ -15,7 +15,7 @@ Text Domain: wp-show-posts
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Define the current version
-define( 'WPSP_VERSION', 0.9 );
+define( 'WPSP_VERSION', 1.0 );
 
 // Add defaults
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/defaults.php';

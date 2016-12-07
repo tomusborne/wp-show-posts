@@ -3,8 +3,8 @@ Contributors: edge22
 Donate link: https://wpshowposts.com
 Tags: show posts, display posts shortcode, portfolio, gallery, post columns
 Requires at least: 4.0
-Tested up to: 4.6.1
-Stable tag: 0.9
+Tested up to: 4.7
+Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -89,6 +89,10 @@ https://vimeo.com/175660953
 
 * Masonry
 * Featured post
+* Background color
+* Background color hover
+* Border color
+* Border color hover
 
 = Images =
 
@@ -102,18 +106,27 @@ https://vimeo.com/175660953
 
 * Read more style
 * Read more color
+* Content link color
+* Content link color hover
+* Content text color
+* Title color
+* Title color hover
 
-= Styling =
+= Meta = 
 
-* Border color
-* Padding
+* Meta color
+* Meta color hover
 
 = Social =
 
 * Twitter
+* Twitter color + hover
 * Facebook
+* Facebook color + hover
 * Google+
+* Google+ color + hover
 * Pinterest
+* Pinterest color + hover
 * Love it
 * Alignment
 
@@ -148,6 +161,13 @@ In most cases, #1 will work fine and is way easier.
 7. The "More query ars" settings tab.
 
 == Changelog ==
+
+= 1.0 =
+* Add new hook inside image container: wpsp_inside_image_container
+* Fix issue with pagination and random post ordering
+* Clean up defaults to only include free options
+* Add margin to the top of pagination
+* Use manual excerpt if it's set
 
 = 0.9 =
 * Fix bug where terms weren't saving
@@ -203,6 +223,13 @@ In most cases, #1 will work fine and is way easier.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.0 =
+* Add new hook inside image container: wpsp_inside_image_container
+* Fix issue with pagination and random post ordering
+* Clean up defaults to only include free options
+* Add margin to the top of pagination
+* Use manual excerpt if it's set
 
 = 0.9 =
 * Fix bug where terms weren't saving
