@@ -142,6 +142,16 @@ a.wp-show-posts-read-more:focus {
     flex: 1;
 }
 
+.wp-show-posts-inner:after {
+	clear: both;
+	display: table;
+	content: '';
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	visibility: hidden;
+}
+
 /* Bootstrap grid system */
 @media (min-width: 768px) {
   .wpsp-col-1, .wpsp-col-2, .wpsp-col-3, .wpsp-col-4, .wpsp-col-5, .wpsp-col-6, .wpsp-col-7, .wpsp-col-8, .wpsp-col-9, .wpsp-col-10, .wpsp-col-11, .wpsp-col-12, .wpsp-col-20 {
