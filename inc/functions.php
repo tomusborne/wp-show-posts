@@ -90,8 +90,9 @@ function wpsp_meta( $location, $post_meta_style )
 	
 	// Show the terms
 	if ( $include_terms && $location == $terms_location ) :
+		$separator = apply_filters( 'wpsp_term_separator', ', ' );
 		$output[] = sprintf( '<span class="wp-show-posts-terms wp-show-posts-meta">%1$s</span>',
-			get_the_term_list( get_the_ID(), $taxonomy, '', ', ' )
+			get_the_term_list( get_the_ID(), $taxonomy, '', $separator )
 		);
 	endif;
 	
