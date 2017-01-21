@@ -210,6 +210,12 @@ a.wp-show-posts-read-more:focus {
     	display: block;
     	width: 100%;
 	}
+	.wp-show-posts-image.wpsp-image-left,
+	.wp-show-posts-image.wpsp-image-right {
+		float: none;
+		margin-right: 0;
+		margin-left: 0;
+	}
 }
 
 /* Spacing */
