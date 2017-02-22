@@ -479,6 +479,7 @@ function wpsp_display( $id )
 		$image_gallery = sanitize_text_field( wpsp_get_setting( $id, 'wpsp_image_gallery' ) );
 		if ( $image_gallery ) {
 			wp_enqueue_script( 'wpsp-featherlight-gallery' );
+			wp_add_inline_script( 'wpsp-featherlight-gallery', "jQuery(function(a){a('#wpsp-{$id} .wp-show-posts-image a').featherlightGallery({previousIcon:'',nextIcon:''})}),jQuery('body').on('wpsp_items_loaded',function(){jQuery(function(a){jQuery('#wpsp-{$id} .wp-show-posts-image a').featherlightGallery({previousIcon:'',nextIcon:''})})});" );
 			wp_enqueue_style( 'wpsp-featherlight-gallery' );
 		}
 	}
