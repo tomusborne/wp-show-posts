@@ -306,15 +306,6 @@ function wpsp_display( $id )
 		wp_enqueue_script( 'jquery-masonry' );
 		wp_add_inline_script( 'jquery-masonry', 'jQuery(function($){var $container = $(".wp-show-posts-masonry");$container.imagesLoaded( function(){$container.fadeIn( 1000 ).masonry({itemSelector : ".wp-show-posts-masonry-block",columnWidth: ".grid-sizer"}).css("opacity","1");});});' );
 	endif;
-	
-	// Filter
-	// $filter = wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_filter' ) );
-	// if ( $filter ) :
-		// wp_enqueue_script( 'wpsp-imagesloaded' );
-		// wp_enqueue_script( 'wpsp-filterizr' );
-		// wp_add_inline_script( 'wpsp-filterizr', 'jQuery(function($){ var $filterizd = $( ".wp-show-posts" );$filterizd.imagesLoaded( function(){ $( ".wp-show-posts" ).filterizr("setOptions", {layout: "sameWidth"}); } )});' );
-		// $inner_wrapper_class[] = 'filtr-item';
-	// endif;
 
 	// Add the default inner wrapper class
 	// We don't create the class element up here like below, as we need to add classes inside the loop below as well
@@ -344,15 +335,6 @@ function wpsp_display( $id )
 	$wrapper_atts = apply_filters( 'wpsp_wrapper_atts', '' );
 
 	do_action( 'wpsp_before_wrapper' );
-	
-	// if ( $filter ) :
-		// $post_terms = get_terms( sanitize_text_field( $taxonomy ), 'orderby=count&hide_empty=1' );
-		// echo '<ul>';
-			// foreach ( $post_terms as $term ) {
-				// echo '<li data-filter="' . $term->term_id . '">' . $term->name . '</li>';
-			// }
-		// echo '</ul>';
-	// endif;
 	
 	// Start the wrapper
 	echo '<' . $wrapper . $wrapper_id . $wrapper_class . $wrapper_style . $wrapper_atts . '>';
@@ -384,15 +366,6 @@ function wpsp_display( $id )
 				$column_class .= ' wpsp-' . $columns;
 			endif;
 			
-			$terms_list = '';
-			// if ( $filter ) :
-				// $terms_list = wp_get_post_terms( get_the_ID(), $taxonomy );
-				// $output_terms = array();
-				// foreach ( $terms_list as $term ) {
-					// $output_terms[] = $term->term_id;
-				// }
-				// $terms_list = 'data-category="' . implode( ', ', $output_terms ) . '"';
-			// endif;
 			// Get our title element
 			if ( ! empty( wpsp_get_setting( $id, 'wpsp_title_element' ) ) ) {
 				$title_element = wpsp_get_setting( $id, 'wpsp_title_element' );
@@ -401,7 +374,7 @@ function wpsp_display( $id )
 			}
 			
 			// Start inner container
-			echo '<' . $inner_wrapper . ' class="' . implode( ' ', $inner_wrapper_class ) . $column_class . $featured . '" itemtype="http://schema.org/' . $itemtype . '" itemscope ' . $terms_list . '>';
+			echo '<' . $inner_wrapper . ' class="' . implode( ' ', $inner_wrapper_class ) . $column_class . $featured . '" itemtype="http://schema.org/' . $itemtype . '" itemscope>';
 				echo '<div class="wp-show-posts-inner"' . $inner_wrapper_style . '>';
 					
 					do_action( 'wpsp_before_header' );
