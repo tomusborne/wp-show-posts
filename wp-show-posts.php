@@ -393,6 +393,12 @@ function wpsp_display( $id )
 				// }
 				// $terms_list = 'data-category="' . implode( ', ', $output_terms ) . '"';
 			// endif;
+			// Get our title element
+			if ( ! empty( wpsp_get_setting( $id, 'wpsp_title_element' ) ) ) {
+				$title_element = wpsp_get_setting( $id, 'wpsp_title_element' );
+			} else {
+				$title_element = 'h2';
+			}
 			
 			// Start inner container
 			echo '<' . $inner_wrapper . ' class="' . implode( ' ', $inner_wrapper_class ) . $column_class . $featured . '" itemtype="http://schema.org/' . $itemtype . '" itemscope ' . $terms_list . '>';
@@ -407,8 +413,9 @@ function wpsp_display( $id )
 							
 							do_action( 'wpsp_before_title' );
 							
-							if ( $include_title ) 
-								the_title( sprintf( '<h2 class="wp-show-posts-entry-title" itemprop="headline"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); 
+							if ( $include_title ) {
+								the_title( sprintf( '<' . $title_element . ' class="wp-show-posts-entry-title" itemprop="headline"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></' . $title_element . '>' ); 
+							}
 							
 							do_action( 'wpsp_after_title' );
 							?>
