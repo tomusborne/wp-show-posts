@@ -149,18 +149,17 @@ function wpsp_register( $butterbean, $post_type ) {
 	$manager->register_control(
         'wpsp_tax_term', // Same as setting name.
         array(
-            'type'    => 'select',
+            'type'    => 'checkboxes',
             'section' => 'wpsp_posts',
             'label'   => esc_html__( 'Terms', 'wp-show-posts' ),
-            'choices' => array(),
-			'attr' => array( 'id' => 'wpsp-terms' )
+			'choices' => array(),
         )
     );
 	
 	$manager->register_setting(
         'wpsp_tax_term', // Same as control name.
         array(
-            'sanitize_callback' => 'sanitize_text_field',
+            'sanitize_callback' => '',
 			'default' => $defaults[ 'wpsp_tax_term' ] ? $defaults[ 'wpsp_tax_term' ] : ''
         )
     );

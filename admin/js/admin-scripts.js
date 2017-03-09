@@ -53,6 +53,18 @@ function wpsp_get_option( key ) {
 	return response.responseJSON;
 }
 
+function wpsp_inArray(needle, haystack) {
+	if ( null == haystack ) {
+		return false;
+	}
+    var length = haystack.length;
+    for(var i = 0; i < length; i++) {
+		console.log(haystack);
+        if(haystack[i] == needle) return true;
+    }
+    return false;
+}
+
 jQuery( document ).ready( function( $ ) {
 	// Populate taxonomy select based on current post type value
 	var taxonomies = wpsp_get_taxonomy( $( '#wpsp-post-type' ).val() );
@@ -65,18 +77,19 @@ jQuery( document ).ready( function( $ ) {
 	// Set the selected taxonomy value on load
 	$( '#wpsp-taxonomy' ).val( wpsp_get_option( 'wpsp_taxonomy' ) );
 
+	// Show any selected terms
 	var terms = wpsp_get_terms( $( '#wpsp-taxonomy' ).val() );
-	$('#wpsp-terms').append( $( '<option></option>' ) );
 	$.each(terms, function(key, value) {
-		$('#wpsp-terms').append( $( '<option></option>' ).attr( 'value', value ).text( value ) );
+		if ( null !== value ) {
+			var checked = ( wpsp_inArray( value, wpsp_get_option( 'wpsp_tax_term' ) ) ) ? 'checked="checked"' : '';
+			$('#butterbean-control-wpsp_tax_term .butterbean-checkbox-list').append( $( '<li><label><input ' + checked + ' type="checkbox" value="' + value + '" name="butterbean_wp_show_posts_setting_wpsp_tax_term[]" />' + value + '</label></li>' ) );
+		}
 	});
 	
-	// Set the selected term value on load
-	$( '#wpsp-terms' ).val( wpsp_get_option( 'wpsp_tax_term' ) );
-	
 	// Hide the terms of taxonomy is empty on load
-	if ( '' == $( '#wpsp-taxonomy' ).val() )
+	if ( '' == $( '#wpsp-taxonomy' ).val() ) {
 		$( '#butterbean-control-wpsp_tax_term' ).hide();
+	}
 	
 	// When changing the post type option
 	$( '#wpsp-post-type' ).change(function() {
@@ -104,18 +117,25 @@ jQuery( document ).ready( function( $ ) {
 	// When changing the taxonomy option
 	$( '#wpsp-taxonomy' ).change(function() {
 		
-		$( '#wpsp-terms' ).empty();
+		// Empty the list of terms
+		$( '#butterbean-control-wpsp_tax_term .butterbean-checkbox-list' ).empty();
+		
+		// Get any selected terms
 		var selectValues = wpsp_get_terms( $(this).val() );
 
-		$('#wpsp-terms').append( $( '<option></option>' ) );
+		// For each selected term, add the checkbox
 		$.each(selectValues, function(key, value) {
-			 $('#wpsp-terms').append( $( '<option></option>' ).attr( 'value', value ).text( value ) );
+			if ( null !== value ) {
+				$('#butterbean-control-wpsp_tax_term .butterbean-checkbox-list').append( $( '<li><label><input type="checkbox" value="' + value + '" name="butterbean_wp_show_posts_setting_wpsp_tax_term[]" />' + value + '</label></li>' ) );
+			}
 		});
 
-		if ( '' == selectValues || ',' == selectValues )
+		// Hide the terms area if we don't have any terms
+		if ( '' == selectValues || ',' == selectValues ) {
 			$( '#butterbean-control-wpsp_tax_term' ).hide();
-		else
+		} else {
 			$( '#butterbean-control-wpsp_tax_term' ).show();
+		}
 	});
 	
 	// Dealing with the image options
