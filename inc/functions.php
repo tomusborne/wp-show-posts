@@ -317,7 +317,7 @@ function wpsp_image_attributes( $og_width = '', $og_height = '', $new_width = ''
 		}
 	}
 	
-	return apply_filters( 'generate_blog_image_attributes', $image_atts );
+	return apply_filters( 'wpsp_image_attributes', $image_atts );
 }
 endif;
 
