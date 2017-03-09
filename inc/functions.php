@@ -259,12 +259,14 @@ endif;
 
 if ( ! function_exists( 'wpsp_sanitize_hex_color' ) ) :
 function wpsp_sanitize_hex_color( $color ) {
-    if ( '' === $color )
+    if ( '' === $color ) {
         return '';
+	}
  
     // 3 or 6 hex digits, or the empty string.
-    if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) )
+    if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) ) {
         return $color;
+	}
 }
 endif;
 
@@ -276,8 +278,6 @@ if ( ! function_exists( 'wpsp_image_attributes' ) ) :
 function wpsp_image_attributes( $og_width = '', $og_height = '', $new_width = '', $new_height = '' )
 {
 	$ignore_crop = array( '', '0', '9999' );
-	
-	$image_atts = array();
 	
 	$image_atts = array(
 		'width' => ( in_array( $new_width, $ignore_crop ) ) ? 9999 : intval( $new_width ),
@@ -358,8 +358,8 @@ function wpsp_pagination( $max_num_pages ) {
 		'next_text' => __( 'Next &rarr;', 'wp-show-posts' ),
 	) );
 
-	if ( $links ) :
+	if ( $links ) {
 		echo '<div class="wpsp-load-more">' . $links . '</div>'; 
-	endif;
+	}
 }
 endif;

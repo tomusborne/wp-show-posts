@@ -30,10 +30,11 @@ if ( ! function_exists( 'wpsp_get_terms' ) ) :
 add_action( 'wp_ajax_wpsp_get_terms', 'wpsp_get_terms' );
 function wpsp_get_terms()
 {
-	if ( ! isset( $_POST[ 'wpsp_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'wpsp_nonce' ], 'wpsp_nonce' ) )
+	if ( ! isset( $_POST[ 'wpsp_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'wpsp_nonce' ], 'wpsp_nonce' ) ) {
 		wp_die( 'Permission declined' );
+	}
 	
-	$terms = get_terms( sanitize_text_field( $_POST[ 'taxonomy' ] ), 'orderby=count&hide_empty=1' );
+	$terms = get_terms( sanitize_key( $_POST[ 'taxonomy' ] ), 'orderby=count&hide_empty=1' );
 	$count = count( $terms );
 	$types = array();
 	if ( $count > 0 ) {

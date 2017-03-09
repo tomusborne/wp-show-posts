@@ -12,7 +12,9 @@ Text Domain: wp-show-posts
 */
 
 // No direct access, please
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 // Define the current version
 define( 'WPSP_VERSION', 1.0 );
@@ -30,7 +32,9 @@ require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/metabox.php
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/ajax.php';
 
 // Add resizer script
-if ( ! class_exists( 'WPSP_Resize' ) ) require_once plugin_dir_path( __FILE__ ) . 'inc/image-resizer.php';
+if ( ! class_exists( 'WPSP_Resize' ) ) {
+	require_once plugin_dir_path( __FILE__ ) . 'inc/image-resizer.php';
+}
 
 // Add functions
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/functions.php';
@@ -92,8 +96,9 @@ function wpsp_get_setting( $id, $key )
 	$defaults = wpsp_get_defaults();
 	
 	// Bail if our default isn't set
-	if ( ! isset( $defaults[ $key ] ) )
+	if ( ! isset( $defaults[ $key ] ) ) {
 		return false;
+	}
 	
 	// If we have a default, let's return a value
 	return get_post_meta( $id, $key ) ? get_post_meta( $id, $key, true ) : $defaults[ $key ];
@@ -235,8 +240,9 @@ function wpsp_display( $id, $custom_settings = false )
 		}
 	}
 		
-	if( !empty( $validated ) )		
+	if ( ! empty( $validated ) ) {	
 		$args['post_status'] = $validated;
+	}
 	
 	// If taxonomy attributes, create a taxonomy query
 	if ( ! empty( $settings[ 'taxonomy' ] ) && ! empty( $settings[ 'tax_term' ] ) ) {
@@ -452,7 +458,7 @@ function wpsp_display( $id, $custom_settings = false )
 					
 					// Check to see if we have the more tag
 					global $post;
-					$more_tag = apply_filters( 'wpsp_more_tag', @strpos( $post->post_content, '<!--more-->' ) );
+					$more_tag = apply_filters( 'wpsp_more_tag', strpos( $post->post_content, '<!--more-->' ) );
 					
 					// The excerpt or full content
 					if ( 'excerpt' == $settings[ 'content_type' ] && $settings[ 'excerpt_length' ] && ! $more_tag && 'none' !== $settings[ 'content_type' ] ) : ?>
@@ -487,21 +493,22 @@ function wpsp_display( $id, $custom_settings = false )
 	if ( $settings[ 'pagination' ] && $query->have_posts() && ! is_single() ) {
 		$ajax_pagination = wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_ajax_pagination' ) );
 		
-		if ( $ajax_pagination && function_exists( 'wpsp_ajax_pagination' ) ) :
+		if ( $ajax_pagination && function_exists( 'wpsp_ajax_pagination' ) ) {
 			
 			$max_page = $query->max_num_pages;
 			$nextpage = intval( $paged ) + 1;
 
-			if ( $nextpage <= $max_page )
+			if ( $nextpage <= $max_page ) {
 				$next_page_url = next_posts( $max_page, false );
+			}
 			
 			wpsp_ajax_pagination( $next_page_url, $paged, $max_page );
 			wp_enqueue_script( 'wpsp-imagesloaded' );
 			wp_enqueue_script( 'wpsp-ajax-pagination' );
-		else :
+		} else {
 			wpsp_pagination( $query->max_num_pages );
-		endif;
-	endif;
+		}
+	}
 	
 	// Lightbox and gallery
 	$image_lightbox = sanitize_text_field( wpsp_get_setting( $id, 'wpsp_image_lightbox' ) );
