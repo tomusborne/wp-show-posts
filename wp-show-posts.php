@@ -106,241 +106,294 @@ if ( ! function_exists( 'wpsp_display' ) ) :
  * $id parameter needs to match ID of custom post type entry
  * @since 0.1
  */
-function wpsp_display( $id ) 
-{	
+function wpsp_display( $id, $custom_settings = false ) 
+{
 	// Set the global ID of our object
 	global $wpsp_id;
 	$wpsp_id = $id;
 	
 	// Build our setting variables
-	$author              	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_author' ) );
-	$columns     			= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns' ) );
-	$columns_gutter      	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns_gutter' ) );
-	$content_type        	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_content_type' ) );
-	$exclude_current     	= wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_exclude_current' ) );
-	$excerpt_length      	= absint( wpsp_get_setting( $id, 'wpsp_excerpt_length' ) );
-	$post_id      		 	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_id' ) );
-	$exclude_post_id      	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_exclude_post_id' ) );
-	$ignore_sticky_posts 	= wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_ignore_sticky_posts' ) );
-	$include_title 		 	= wp_validate_boolean( get_post_meta( $id, 'wpsp_include_title', true ) );
-	$author_location     	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_author_location' ) );
-	$date_location       	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_date_location' ) );
-	$terms_location		 	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_terms_location' ) );
-	$include_author 	 	= wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_include_author' ) );
-	$include_terms 	     	= wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_include_terms' ) );
-	$include_date 	     	= wp_validate_boolean( get_post_meta( $id, 'wpsp_include_date', true ) );
-	$inner_wrapper       	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_inner_wrapper' ) );
-	$inner_wrapper_class 	= array_map( 'sanitize_html_class', ( explode( ' ', wpsp_get_setting( $id, 'wpsp_inner_wrapper_class' ) ) ) );
-	$inner_wrapper_style 	= explode( ' ', esc_attr( wpsp_get_setting( $id, 'wpsp_inner_wrapper_style' ) ) );
-	$itemtype				= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_itemtype' ) );
-	$meta_key   	     	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_meta_key' ) );
-	$meta_value   	     	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_meta_value' ) );
-	$offset   			 	= absint( wpsp_get_setting( $id, 'wpsp_offset' ) );
-	$order   			 	= sanitize_key( wpsp_get_setting( $id, 'wpsp_order' ) );
-	$orderby   			 	= sanitize_key( wpsp_get_setting( $id, 'wpsp_orderby' ) );
-	$pagination				= wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_pagination' ) );
-	$post_type			 	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_type' ) );
-	$post_status		 	= wpsp_get_setting( $id, 'wpsp_post_status' ); // Validated later
-	$posts_per_page		 	= intval( wpsp_get_setting( $id, 'wpsp_posts_per_page' ) );
-	$tax_operator		 	= wpsp_get_setting( $id, 'wpsp_tax_operator' ); // Validated later
-	$tax_term		 	 	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_tax_term' ) );
-	$taxonomy		 	 	= sanitize_key( wpsp_get_setting( $id, 'wpsp_taxonomy' ) );
-	$wrapper			 	= sanitize_text_field( wpsp_get_setting( $id, 'wpsp_wrapper' ) );
-	$wrapper_class 	 	 	= array_map( 'sanitize_html_class', ( explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_class' ) ) ) );
-	$wrapper_style 		 	= explode( ' ', esc_attr( wpsp_get_setting( $id, 'wpsp_wrapper_style' ) ) );
-	$no_results 		 	= wp_kses_post( wpsp_get_setting( $id, 'wpsp_no_results' ) );
+	$settings = apply_filters( 'wpsp_settings', array(
+		'list_id'				 => absint( $id ),
+		'author' 				 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_author' ) ),
+		'columns'     			 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns' ) ),
+		'columns_gutter'      	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns_gutter' ) ),
+		'content_type'        	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_content_type' ) ),
+		'exclude_current'     	 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_exclude_current' ) ),
+		'excerpt_length'      	 => absint( wpsp_get_setting( $id, 'wpsp_excerpt_length' ) ),
+		'post_id'      		 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_id' ) ),
+		'exclude_post_id'      	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_exclude_post_id' ) ),
+		'ignore_sticky_posts' 	 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_ignore_sticky_posts' ) ),
+		'include_title' 		 => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_title', true ) ),
+		'author_location'     	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_author_location' ) ),
+		'date_location'       	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_date_location' ) ),
+		'terms_location'		 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_terms_location' ) ),
+		'image'					 => sanitize_text_field( get_post_meta( $id, 'wpsp_image', true ), FILTER_VALIDATE_BOOLEAN ),
+		'image_location'		 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_image_location' ) ),
+		'image_alignment'		 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_image_alignment' ) ),
+		'image_height'			 => absint( wpsp_get_setting( $id, 'wpsp_image_height' ) ),
+		'image_width'			 => absint( wpsp_get_setting( $id, 'wpsp_image_width' ) ),
+		'image_overlay_color' 	 => wpsp_sanitize_hex_color( wpsp_get_setting( $id, 'wpsp_image_overlay_color' ) ),
+		'image_overlay_icon' 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_image_overlay_icon' ) ),
+		'image_hover_effect' 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_image_hover_effect' ) ),
+		'include_author' 	 	 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_include_author' ) ),
+		'include_terms' 	     => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_include_terms' ) ),
+		'include_date' 	     	 => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_date', true ) ),
+		'inner_wrapper'       	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_inner_wrapper' ) ),
+		'inner_wrapper_class' 	 => array_map( 'sanitize_html_class', ( explode( ' ', wpsp_get_setting( $id, 'wpsp_inner_wrapper_class' ) ) ) ),
+		'inner_wrapper_style' 	 => explode( ' ', esc_attr( wpsp_get_setting( $id, 'wpsp_inner_wrapper_style' ) ) ),
+		'itemtype'				 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_itemtype' ) ),
+		'meta_key'   	     	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_meta_key' ) ),
+		'meta_value'   	     	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_meta_value' ) ),
+		'offset'   			 	 => absint( wpsp_get_setting( $id, 'wpsp_offset' ) ),
+		'order'   			 	 => sanitize_key( wpsp_get_setting( $id, 'wpsp_order' ) ),
+		'orderby'  			 	 => sanitize_key( wpsp_get_setting( $id, 'wpsp_orderby' ) ),
+		'pagination'			 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_pagination' ) ),
+		'post_type'			 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_type' ) ),
+		'post_status'		 	 => wpsp_get_setting( $id, 'wpsp_post_status' ), // Validated later
+		'posts_per_page'		 => intval( wpsp_get_setting( $id, 'wpsp_posts_per_page' ) ),
+		'tax_operator'		 	 => wpsp_get_setting( $id, 'wpsp_tax_operator' ), // Validated later
+		'tax_term'		 	 	 => wpsp_get_setting( $id, 'wpsp_tax_term' ),
+		'taxonomy'		 	 	 => sanitize_key( wpsp_get_setting( $id, 'wpsp_taxonomy' ) ),
+		'read_more_text'		 => wp_kses_post( wpsp_get_setting( $id, 'wpsp_read_more_text' ) ),
+		'wrapper'			 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_wrapper' ) ),
+		'wrapper_class' 	 	 => array_map( 'sanitize_html_class', ( explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_class' ) ) ) ),
+		'wrapper_style' 		 => explode( ' ', esc_attr( wpsp_get_setting( $id, 'wpsp_wrapper_style' ) ) ),
+		'no_results' 		 	 => wp_kses_post( wpsp_get_setting( $id, 'wpsp_no_results' ) ),
+		'post_meta_bottom_style' => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_bottom_style' ) ),
+		'post_meta_top_style' 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_top_style' ) ),
+	) );
+	
+	// Replace args with any custom args
+	if ( ! empty( $custom_settings ) ) {
+		if ( is_array( $custom_settings ) ) {
+			$settings = array_replace( $settings, $custom_settings );
+		}
+		
+		if ( ! is_array( $custom_settings ) ) {
+			$settings_string = parse_str( $custom_settings, $custom_settings );
+			$settings = array_replace( $settings, $custom_settings );
+		}
+	}
 	
 	// Grab initiate args for query
 	$args = array();
 	
-	if ( '' !== $order )
-		$args[ 'order' ] = $order;
+	if ( '' !== $settings[ 'order' ] ) {
+		$args[ 'order' ] = $settings[ 'order' ];
+	}
 	
-	if ( '' !== $orderby )
-		$args[ 'orderby' ] = $orderby;
+	if ( '' !== $settings[ 'orderby' ] ) {
+		$args[ 'orderby' ] = $settings[ 'orderby' ];
+	}
 	
-	if ( 'rand' == $orderby && $pagination ) {
+	if ( 'rand' == $settings[ 'orderby' ] && $settings[ 'pagination' ] ) {
 		$args[ 'orderby' ] = 'rand(' . $id . ')';
 	}
 	
-	if ( '' !== $post_type )
-		$args[ 'post_type' ] = $post_type;
+	if ( '' !== $settings[ 'post_type' ] ) {
+		$args[ 'post_type' ] = $settings[ 'post_type' ];
+	}
 	
-	if ( '' !== $posts_per_page )
-		$args[ 'posts_per_page' ] = $posts_per_page;
+	if ( '' !== $settings[ 'posts_per_page' ] ) {
+		$args[ 'posts_per_page' ] = $settings[ 'posts_per_page' ];
+	}
 	
-	if ( $ignore_sticky_posts )
-		$args[ 'ignore_sticky_posts' ] = $ignore_sticky_posts;
+	if ( $settings[ 'ignore_sticky_posts' ] ) {
+		$args[ 'ignore_sticky_posts' ] = $settings[ 'ignore_sticky_posts' ];
+	}
 	
-	if ( '' !== $meta_key )
-		$args[ 'meta_key' ] = $meta_key;
+	if ( '' !== $settings[ 'meta_key' ] ) {
+		$args[ 'meta_key' ] = $settings[ 'meta_key' ];
+	}
 	
-	if ( '' !== $meta_value )
-		$args[ 'meta_value' ] = $meta_value;
+	if ( '' !== $settings[ 'meta_value' ] ) {
+		$args[ 'meta_value' ] = $settings[ 'meta_value' ];
+	}
 	
-	if ( $offset > 0 )
-		$args[ 'offset' ] = $offset;
+	if ( $settings[ 'offset' ] > 0 ) {
+		$args[ 'offset' ] = $settings[ 'offset' ];
+	}
 	
-	if ( '' !== $author )
-		$args[ 'author' ] = array( $author );
+	if ( '' !== $settings[ 'author' ] ) {
+		$args[ 'author' ] = array( $setting[ 'author' ] );
+	}
 	
-	if ( $pagination && ! is_single() ) :
+	if ( $settings[ 'pagination' ] && ! is_single() ) {
 		$paged_query = is_front_page() ? 'page' : 'paged';
 		$args[ 'paged' ] = get_query_var( $paged_query );
-	endif;
+	}
 	
 	// Post Status	
-	$post_status = explode( ', ', $post_status );		
+	$settings[ 'post_status' ] = explode( ', ', $settings[ 'post_status' ] );		
 	$validated = array();
 	$available = array( 'publish', 'pending', 'draft', 'auto-draft', 'future', 'private', 'inherit', 'trash', 'any' );
 	
-	foreach ( $post_status as $unvalidated )
-		if ( in_array( $unvalidated, $available ) )
+	foreach ( $settings[ 'post_status' ] as $unvalidated ) {
+		if ( in_array( $unvalidated, $available ) ) {
 			$validated[] = $unvalidated;
+		}
+	}
 		
 	if( !empty( $validated ) )		
 		$args['post_status'] = $validated;
 	
 	// If taxonomy attributes, create a taxonomy query
-	if ( !empty( $taxonomy ) && !empty( $tax_term ) ) {
+	if ( ! empty( $settings[ 'taxonomy' ] ) && ! empty( $settings[ 'tax_term' ] ) ) {
+		
+		if ( is_array( $settings[ 'tax_term' ] ) ) {
+			$settings[ 'tax_term' ] = implode( ', ', $settings[ 'tax_term' ] );
+		}
 	
-		if ( 'current' == $tax_term ) {
+		if ( 'current' == $settings[ 'tax_term' ] ) {
 			global $post;
-			$terms = wp_get_post_terms(get_the_ID(), $taxonomy);
-			$tax_term = array();
+			$terms = wp_get_post_terms(get_the_ID(), $settings[ 'taxonomy' ]);
+			$settings[ 'tax_term' ] = array();
 			foreach ($terms as $term) {
-				$tax_term[] = $term->slug;
+				$settings[ 'tax_term' ][] = $term->slug;
 			}
 		} else {
 			// Term string to array
-			$tax_term = explode( ', ', $tax_term );
+			$settings[ 'tax_term' ] = explode( ', ', $settings[ 'tax_term' ] );
 		}
 		
 		// Validate operator
-		if( !in_array( $tax_operator, array( 'IN', 'NOT IN', 'AND' ) ) )
-			$tax_operator = 'IN';
+		if ( ! in_array( $settings[ 'tax_operator' ], array( 'IN', 'NOT IN', 'AND' ) ) ) {
+			$settings[ 'tax_operator' ] = 'IN';
+		}
 					
 		$tax_args = array(
 			'tax_query' => array(
 				array(
-					'taxonomy' => $taxonomy,
+					'taxonomy' => $settings[ 'taxonomy' ],
 					'field'    => 'slug',
-					'terms'    => $tax_term,
-					'operator' => $tax_operator
+					'terms'    => $settings[ 'tax_term' ],
+					'operator' => $settings[ 'tax_operator' ]
 				)
 			)
 		);
 		
 		$args = array_merge( $args, $tax_args );
+		
 	}
 	
 	// If Post IDs
-	if( $post_id ) {
-		$posts_in = array_map( 'intval', explode( ',', $post_id ) );
+	if( $settings[ 'post_id' ] ) {
+		$posts_in = array_map( 'intval', explode( ',', $settings[ 'post_id' ] ) );
 		$args['post__in'] = $posts_in;
 	}
 	
 	// If Exclude Post IDs
-	if( $exclude_post_id ) {
-		$posts_not_in = array_map( 'intval', explode( ',', $exclude_post_id ) );
+	if( $settings[ 'exclude_post_id' ] ) {
+		$posts_not_in = array_map( 'intval', explode( ',', $settings[ 'exclude_post_id' ] ) );
 		$args['post__not_in'] = $posts_not_in;
 	}
 	
 	// If Exclude Current
-	if( ( is_singular() && $exclude_current ) || is_single() )
+	if( ( is_singular() && $settings[ 'exclude_current' ] ) || is_single() ) {
 		$args['post__not_in'] = array( get_the_ID() );
+	}
 	
 	// Border
 	$border = wpsp_sanitize_hex_color( wpsp_get_setting( $id, 'wpsp_border' ) );
 	if ( '' !== $border ) {
-		$wrapper_class[] = 'include-border';
-		if ( ! function_exists( 'wpsp_styling' ) ) :
+		$settings[ 'wrapper_class' ][] = 'include-border';
+		if ( ! function_exists( 'wpsp_styling' ) ) {
 			$border = 'border-color: ' . $border . ';';
-		endif;
+		}
 	}
 	
 	// Padding
 	$padding = sanitize_text_field( wpsp_get_setting( $id, 'wpsp_padding' ) );
 	if ( '' !== $padding ) {
-		$wrapper_class[] = 'include-padding';
+		$settings[ 'wrapper_class' ][] = 'include-padding';
 		$padding = 'padding:' . $padding . ';';
 	}
 	
 	// Columns
-	if ( $columns !== 'col-12' ) :
+	if ( $settings[ 'columns' ] !== 'col-12' ) {
 		wp_enqueue_script( 'wpsp-matchHeight', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/jquery.matchHeight.js', array( 'jquery' ), WPSP_VERSION, true );
-		$wrapper_class[] = 'wp-show-posts-columns';
-		if ( ! function_exists( 'wpsp_styling' ) ) :
-			$wrapper_style[] = 'margin-left:-' . $columns_gutter . ';';
-			$inner_wrapper_style[] = 'margin: 0 0 ' . $columns_gutter . ' ' . $columns_gutter . ';' . $padding;
-		endif;
-	endif;
+		$settings[ 'wrapper_class' ][] = 'wp-show-posts-columns';
+		if ( ! function_exists( 'wpsp_styling' ) ) {
+			$settings[ 'wrapper_style' ][] = 'margin-left:-' . $settings[ 'columns_gutter' ] . ';';
+			$settings[ 'inner_wrapper_style' ][] = 'margin: 0 0 ' . $settings[ 'columns_gutter' ] . ' ' . $settings[ 'columns_gutter' ] . ';' . $padding;
+		}
+	}
 
 	// Featured post class
 	$featured_post = wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_featured_post' ) );
 	
 	$current_post = '';
-	if ( $columns !== 'col-12' && $featured_post ) :
-		if ( $columns == 'col-6' )
+	if ( $settings[ 'columns' ] !== 'col-12' && $featured_post ) {
+		if ( $settings[ 'columns' ] == 'col-6' ) {
 			$current_post = 'wpsp-col-12';
+		}
 
-		if ( $columns == 'col-4' )
+		if ( $settings[ 'columns' ] == 'col-4' ) {
 			$current_post = 'wpsp-col-8';
+		}
 
-		if ( $columns == 'col-3' )
+		if ( $settings[ 'columns' ] == 'col-3' ) {
 			$current_post = 'wpsp-col-6';
+		}
 
-		if ( $columns == 'col-20' )
+		if ( $settings[ 'columns' ] == 'col-20' ) {
 			$current_post = 'wpsp-col-6';
-	endif;
+		}
+	}
 
 	// Masonry
 	$masonry = wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_masonry' ) );
 	
-	if ( $masonry ) :
-		$wrapper_class[] = 'wp-show-posts-masonry';
-		$inner_wrapper_class[] = ' wp-show-posts-masonry-' . $columns;
-		$inner_wrapper_class[] = ' wp-show-posts-masonry-block';
+	if ( $masonry ) {
+		$settings[ 'wrapper_class' ][] = 'wp-show-posts-masonry';
+		$settings[ 'inner_wrapper_class' ][] = ' wp-show-posts-masonry-' . $settings[ 'columns' ];
+		$settings[ 'inner_wrapper_class' ][] = ' wp-show-posts-masonry-block';
 
 		wp_enqueue_script( 'wpsp-imagesloaded' );
 		wp_enqueue_script( 'jquery-masonry' );
 		wp_add_inline_script( 'jquery-masonry', 'jQuery(function($){var $container = $(".wp-show-posts-masonry");$container.imagesLoaded( function(){$container.fadeIn( 1000 ).masonry({itemSelector : ".wp-show-posts-masonry-block",columnWidth: ".grid-sizer"}).css("opacity","1");});});' );
-	endif;
+	}
 
 	// Add the default inner wrapper class
 	// We don't create the class element up here like below, as we need to add classes inside the loop below as well
-	$inner_wrapper_class[] = 'wp-show-posts-single';
+	$settings[ 'inner_wrapper_class' ][] = 'wp-show-posts-single';
 	
-	if ( 'col-12' == $columns )
-		$inner_wrapper_class[] = 'wpsp-clearfix';
+	if ( 'col-12' == $settings[ 'columns' ] ) {
+		$settings[ 'inner_wrapper_class' ][] = 'wpsp-clearfix';
+	}
 
 	// Add the default wrapper class
-	$wrapper_class[] = 'wp-show-posts';
+	$settings[ 'wrapper_class' ][] = 'wp-show-posts';
 
 	// Get the wrapper class
-	if( !empty( $wrapper_class ) )
-		$wrapper_class = ' class="' . implode( ' ', $wrapper_class ) . '"';
+	if( !empty( $settings[ 'wrapper_class' ] ) ) {
+		$settings[ 'wrapper_class' ] = ' class="' . implode( ' ', $settings[ 'wrapper_class' ] ) . '"';
+	}
 
 	// Get the wrapper style
-	if( !empty( $wrapper_style ) )
-		$wrapper_style = ' style="' . implode( ' ', $wrapper_style ) . '"';
+	if( !empty( $settings[ 'wrapper_style' ] ) ) {
+		$settings[ 'wrapper_style' ] = ' style="' . implode( ' ', $settings[ 'wrapper_style' ] ) . '"';
+	}
 
 	// Get the inner wrapper class
-	if( !empty( $inner_wrapper_style ) )
-		$inner_wrapper_style = ' style="' . implode( ' ', $inner_wrapper_style ) . '"';
+	if( !empty( $settings[ 'inner_wrapper_style' ] ) ) {
+		$settings[ 'inner_wrapper_style' ] = ' style="' . implode( ' ', $settings[ 'inner_wrapper_style' ] ) . '"';
+	}
 
 	// Get the wrapper ID
 	$wrapper_id = ' id="wpsp-' . $id . '"';
 	
 	$wrapper_atts = apply_filters( 'wpsp_wrapper_atts', '' );
 
-	do_action( 'wpsp_before_wrapper' );
+	do_action( 'wpsp_before_wrapper', $settings );
 	
 	// Start the wrapper
-	echo '<' . $wrapper . $wrapper_id . $wrapper_class . $wrapper_style . $wrapper_atts . '>';
+	echo '<' . $settings[ 'wrapper' ] . $wrapper_id . $settings[ 'wrapper_class' ] . $settings[ 'wrapper_style' ] . $wrapper_atts . '>';
 
-	if ( $masonry )
-		echo '<div class="grid-sizer wpsp-' . $columns . '"></div>';
+	if ( $masonry ) {
+		echo '<div class="grid-sizer wpsp-' . $settings[ 'columns' ] . '"></div>';
+	}
 
 	// Start the query
 	$query = new WP_Query( apply_filters( 'wp_show_posts_shortcode_args', $args ) );
@@ -356,15 +409,15 @@ function wpsp_display( $id )
 			$featured = '';
 			$column_class = '';
 			// Featured post
-			if ( $columns !== 'col-12' && $featured_post ) :
+			if ( $settings[ 'columns' ] !== 'col-12' && $featured_post ) {
 				if ( $query->current_post == 0 && $paged == 1 ) {
 					$featured = ' featured-column ' . $current_post;
 				} else {
-					$featured = ' wpsp-' . $columns;
+					$featured = ' wpsp-' . $settings[ 'columns' ];
 				}
-			elseif ( $columns !== 'col-12' ) :
-				$column_class .= ' wpsp-' . $columns;
-			endif;
+			} elseif ( $settings[ 'columns' ] !== 'col-12' ) {
+				$column_class .= ' wpsp-' . $settings[ 'columns' ];
+			}
 			
 			// Get our title element
 			if ( ! empty( wpsp_get_setting( $id, 'wpsp_title_element' ) ) ) {
@@ -374,64 +427,64 @@ function wpsp_display( $id )
 			}
 			
 			// Start inner container
-			echo '<' . $inner_wrapper . ' class="' . implode( ' ', $inner_wrapper_class ) . $column_class . $featured . '" itemtype="http://schema.org/' . $itemtype . '" itemscope>';
-				echo '<div class="wp-show-posts-inner"' . $inner_wrapper_style . '>';
+			echo '<' . $settings[ 'inner_wrapper' ] . ' class="' . implode( ' ', $settings[ 'inner_wrapper_class' ] ) . $column_class . $featured . '" itemtype="http://schema.org/' . $settings[ 'itemtype' ] . '" itemscope>';
+				echo '<div class="wp-show-posts-inner"' . $settings[ 'inner_wrapper_style' ] . '>';
 					
-					do_action( 'wpsp_before_header' );
+					do_action( 'wpsp_before_header', $settings );
 						
 					// The title
-					if ( $include_title || ( $include_author && 'below-title' == $author_location ) || ( $include_date && 'below-title' == $date_location ) || ( $include_terms && 'below-title' == $terms_location ) ) : ?>
+					if ( $settings[ 'include_title' ] || ( $settings[ 'include_author' ] && 'below-title' == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && 'below-title' == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && 'below-title' == $settings[ 'terms_location' ] ) ) : ?>
 						<header class="wp-show-posts-entry-header">
 							<?php 
 							
-							do_action( 'wpsp_before_title' );
+							do_action( 'wpsp_before_title', $settings );
 							
-							if ( $include_title ) {
+							if ( $settings[ 'include_title' ] ) {
 								the_title( sprintf( '<' . $title_element . ' class="wp-show-posts-entry-title" itemprop="headline"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></' . $title_element . '>' ); 
 							}
 							
-							do_action( 'wpsp_after_title' );
+							do_action( 'wpsp_after_title', $settings );
 							?>
 						</header><!-- .entry-header -->
 					<?php endif;
 					
-					do_action( 'wpsp_before_content' );
+					do_action( 'wpsp_before_content', $settings );
 					
 					// Check to see if we have the more tag
 					global $post;
 					$more_tag = apply_filters( 'wpsp_more_tag', @strpos( $post->post_content, '<!--more-->' ) );
 					
 					// The excerpt or full content
-					if ( 'excerpt' == $content_type && $excerpt_length && ! $more_tag && 'none' !== $content_type ) : ?>
+					if ( 'excerpt' == $settings[ 'content_type' ] && $settings[ 'excerpt_length' ] && ! $more_tag && 'none' !== $settings[ 'content_type' ] ) : ?>
 						<div class="wp-show-posts-entry-summary" itemprop="text">
-							<?php wpsp_excerpt( $excerpt_length ); ?>
+							<?php wpsp_excerpt( $settings[ 'excerpt_length' ] ); ?>
 						</div><!-- .entry-summary -->
-					<?php elseif ( ( 'full' == $content_type || $more_tag ) && 'none' !== $content_type ) : ?>
+					<?php elseif ( ( 'full' == $settings[ 'content_type' ] || $more_tag ) && 'none' !== $settings[ 'content_type' ] ) : ?>
 						<div class="wp-show-posts-entry-content" itemprop="text">
 							<?php the_content( false, false ); ?>
 						</div><!-- .entry-content -->
 					<?php endif;
 					
-					do_action( 'wpsp_after_content' );
+					do_action( 'wpsp_after_content', $settings );
 					
 				echo '</div><!-- wp-show-posts-inner -->';
-				if ( 'col-12' == $columns ) echo '<div class="wpsp-clear"></div>';
+				if ( 'col-12' == $settings[ 'columns' ] ) echo '<div class="wpsp-clear"></div>';
 			// End inner container
-			echo '</' . $inner_wrapper . '>';
+			echo '</' . $settings[ 'inner_wrapper' ] . '>';
 		}
 	} else {
 		// no posts found
-		echo ( $columns !== 'col-12' ) ? '<div class="wpsp-no-results" style="margin-left: ' . $columns_gutter . ';">' : '';
-			echo wpautop( $no_results );
-		echo ( $columns !== 'col-12' ) ? '</div>' : '';
+		echo ( $settings[ 'columns' ] !== 'col-12' ) ? '<div class="wpsp-no-results" style="margin-left: ' . $settings[ 'columns_gutter' ] . ';">' : '';
+			echo wpautop( $settings[ 'no_results' ] );
+		echo ( $settings[ 'columns' ] !== 'col-12' ) ? '</div>' : '';
 	}
-		if ( $columns !== 'col-12' ) echo '<div class="wpsp-clear"></div>';
-	echo '</' . $wrapper . '><!-- .wp-show-posts -->';
+		if ( $settings[ 'columns' ] !== 'col-12' ) echo '<div class="wpsp-clear"></div>';
+	echo '</' . $settings[ 'wrapper' ] . '><!-- .wp-show-posts -->';
 
-	do_action( 'wpsp_after_wrapper' );
+	do_action( 'wpsp_after_wrapper', $settings );
 	
 	// Pagination
-	if ( $pagination && $query->have_posts() && ! is_single() ) :
+	if ( $settings[ 'pagination' ] && $query->have_posts() && ! is_single() ) {
 		$ajax_pagination = wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_ajax_pagination' ) );
 		
 		if ( $ajax_pagination && function_exists( 'wpsp_ajax_pagination' ) ) :
@@ -475,17 +528,18 @@ if ( ! function_exists( 'wpsp_shortcode_function' ) ) :
  * @since 0.1
  */
 add_shortcode( 'wp_show_posts', 'wpsp_shortcode_function' );
-function wpsp_shortcode_function( $atts , $content = null ) {
-	// Attributes
+function wpsp_shortcode_function( $atts ) {
 	$atts = shortcode_atts(
 		array(
 			'id' => '',
+			'settings' => ''
 		), $atts, 'wp_show_posts'
 	);
 	ob_start();
 	
-	if ( $atts[ 'id' ] )
-		wpsp_display( $atts[ 'id' ] );
+	if ( $atts[ 'id' ] ) {
+		wpsp_display( $atts[ 'id' ], $atts[ 'settings' ] );
+	}
 	
 	return ob_get_clean();
 }
