@@ -133,6 +133,7 @@ function wpsp_display( $id, $custom_settings = false )
 		'author_location'     	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_author_location' ) ),
 		'date_location'       	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_date_location' ) ),
 		'terms_location'		 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_terms_location' ) ),
+		'title_element'			 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_title_element' ) ),
 		'image'					 => sanitize_text_field( get_post_meta( $id, 'wpsp_image', true ), FILTER_VALIDATE_BOOLEAN ),
 		'image_location'		 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_image_location' ) ),
 		'image_alignment'		 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_image_alignment' ) ),
@@ -425,13 +426,6 @@ function wpsp_display( $id, $custom_settings = false )
 				$column_class .= ' wpsp-' . $settings[ 'columns' ];
 			}
 			
-			// Get our title element
-			if ( ! empty( wpsp_get_setting( $id, 'wpsp_title_element' ) ) ) {
-				$title_element = wpsp_get_setting( $id, 'wpsp_title_element' );
-			} else {
-				$title_element = 'h2';
-			}
-			
 			// Start inner container
 			echo '<' . $settings[ 'inner_wrapper' ] . ' class="' . implode( ' ', $settings[ 'inner_wrapper_class' ] ) . $column_class . $featured . '" itemtype="http://schema.org/' . $settings[ 'itemtype' ] . '" itemscope>';
 				echo '<div class="wp-show-posts-inner"' . $settings[ 'inner_wrapper_style' ] . '>';
@@ -446,7 +440,7 @@ function wpsp_display( $id, $custom_settings = false )
 							do_action( 'wpsp_before_title', $settings );
 							
 							if ( $settings[ 'include_title' ] ) {
-								the_title( sprintf( '<' . $title_element . ' class="wp-show-posts-entry-title" itemprop="headline"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></' . $title_element . '>' ); 
+								the_title( sprintf( '<' . $settings[ 'title_element' ] . ' class="wp-show-posts-entry-title" itemprop="headline"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></' . $settings[ 'title_element' ] . '>' ); 
 							}
 							
 							do_action( 'wpsp_after_title', $settings );

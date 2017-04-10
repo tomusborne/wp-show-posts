@@ -160,6 +160,19 @@ jQuery( document ).ready( function( $ ) {
 		}
 	});
 	
+	// Title
+	if ( ! $( '#wpsp-include-title' ).is( ':checked' ) ) {
+		$( '#butterbean-control-wpsp_title_element' ).hide();
+	}
+	
+	$( '#wpsp-include-title' ).change(function() {
+		if ( ! this.checked ) {
+			$( '#butterbean-control-wpsp_title_element' ).hide();
+		} else {
+			$( '#butterbean-control-wpsp_title_element' ).show();
+		}
+	});
+	
 	// Author location
 	if ( ! $( '#wpsp-include-author' ).is( ':checked' ) ) {
 		$( '#butterbean-control-wpsp_author_location' ).hide();

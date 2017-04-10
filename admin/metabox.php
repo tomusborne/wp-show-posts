@@ -425,6 +425,35 @@ function wpsp_register( $butterbean, $post_type ) {
 		)
 	);
 	
+	// Title element
+	$manager->register_control(
+        'wpsp_title_element', // Same as setting name.
+        array(
+            'type'    => 'select',
+            'section' => 'wpsp_content',
+            'label'   => esc_html__( 'Title element', 'wp-show-posts-pro' ),
+			'choices' => array(
+				'' => '',
+				'p' => 'p',
+				'span' => 'span',
+				'h1' => 'h1',
+				'h2' => 'h2',
+				'h3' => 'h3',
+				'h4' => 'h4',
+				'h5' => 'h5'
+			),
+			'attr' => array( 'id' => 'wpsp-title-element' )
+        )
+    );
+	
+	$manager->register_setting(
+        'wpsp_title_element', // Same as control name.
+        array(
+            'sanitize_callback' => 'sanitize_text_field',
+			'default' => $defaults[ 'wpsp_title_element' ] ? $defaults[ 'wpsp_title_element' ] : ''
+        )
+    );
+	
 	$manager->register_control(
         'wpsp_read_more_text', // Same as setting name.
         array(
