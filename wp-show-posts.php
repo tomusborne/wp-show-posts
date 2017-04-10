@@ -379,6 +379,8 @@ function wpsp_display( $id, $custom_settings = false )
 	
 	// Start the wrapper
 	echo '<' . $settings[ 'wrapper' ] . $wrapper_id . $settings[ 'wrapper_class' ] . $settings[ 'wrapper_style' ] . $wrapper_atts . '>';
+	
+	do_action( 'wpsp_inside_wrapper', $settings );
 
 	if ( $masonry ) {
 		echo '<div class="grid-sizer wpsp-' . $settings[ 'columns' ] . '"></div>';
