@@ -45,7 +45,7 @@ function wpsp_meta( $location, $settings )
 		$post_meta_style = $settings[ 'post_meta_top_style' ];
 	}
 	
-	if ( ( $settings[ 'include_author' ] && $location == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && $location == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && $location == $settings[ 'terms_location' ] ) ) {
+	if ( ( $settings[ 'include_author' ] && $location == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && $location == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && $location == $settings[ 'terms_location' ] ) || ( $settings[ 'include_comments' ] && $location == $settings[ 'comments_location' ] ) ) {
 		echo '<div class="wp-show-posts-entry-meta wp-show-posts-entry-meta-' . $location . ' post-meta-' . $post_meta_style . '">';
 	}
 	
@@ -98,13 +98,22 @@ function wpsp_meta( $location, $settings )
 		) );
 	}
 	
+	if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) && ( $settings[ 'include_comments' ] && $location == $settings[ 'comments_location' ] ) ) {
+			ob_start();
+			echo '<span class="wp-show-posts-comments-link wp-show-posts-meta">';
+				comments_popup_link( __( 'Leave a comment', 'wp-show-posts' ), __( '1 Comment', 'wp-show-posts' ), __( '% Comments', 'wp-show-posts' ) );
+			echo '</span>';
+			$comments_link = ob_get_clean();
+			$output[] = $comments_link;
+	}
+	
 	// Set up our separator
 	$separator = ( 'inline' == $post_meta_style ) ? ' <span class="wp-show-posts-separator">|</span> ' : '<br />';
 	
 	// Echo our output
 	echo implode( $separator, $output);
 	
-	if ( ( $settings[ 'include_author' ] && $location == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && $location == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && $location == $settings[ 'terms_location' ] ) ) {
+	if ( ( $settings[ 'include_author' ] && $location == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && $location == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && $location == $settings[ 'terms_location' ] ) || ( $settings[ 'include_comments' ] && $location == $settings[ 'comments_location' ] ) ) {
 		echo '</div>';
 	}
 }
@@ -114,7 +123,7 @@ if ( ! function_exists( 'wpsp_add_post_meta_after_title' ) ) :
 add_action( 'wpsp_after_title','wpsp_add_post_meta_after_title' );
 function wpsp_add_post_meta_after_title( $settings)
 {
-	if ( ( $settings[ 'include_author' ] && 'below-title' == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && 'below-title' == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && 'below-title' == $settings[ 'terms_location' ] ) ) {
+	if ( ( $settings[ 'include_author' ] && 'below-title' == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && 'below-title' == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && 'below-title' == $settings[ 'terms_location' ] ) || ( $settings[ 'include_comments' ] && 'below-title' == $settings[ 'comments_location' ] ) ) {
 		wpsp_meta( 'below-title', $settings );
 	}
 	
@@ -125,7 +134,7 @@ if ( ! function_exists( 'wpsp_add_post_meta_after_content' ) ) :
 add_action( 'wpsp_after_content','wpsp_add_post_meta_after_content', 10 );
 function wpsp_add_post_meta_after_content( $settings)
 {
-	if ( ( $settings[ 'include_author' ] && 'below-post' == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && 'below-post' == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && 'below-post' == $settings[ 'terms_location' ] ) ) {
+	if ( ( $settings[ 'include_author' ] && 'below-post' == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && 'below-post' == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && 'below-post' == $settings[ 'terms_location' ] ) || ( $settings[ 'include_comments' ] && 'below-post' == $settings[ 'comments_location' ] ) ) {
 		wpsp_meta( 'below-post', $settings );
 	}
 }

@@ -599,6 +599,46 @@ function wpsp_register( $butterbean, $post_type ) {
         )
     );
 	
+	$manager->register_control(
+		'wpsp_include_comments',
+		array(
+			'type'        => 'checkbox',
+			'section'     => 'wpsp_post_meta',
+			'label'       => __( 'Include comments link','wp-show-posts' ),
+			'attr' => array( 'id' => 'wpsp-include-comments-link' )
+		)
+	);
+	
+	$manager->register_setting(
+		'wpsp_include_comments',
+		array( 
+			'sanitize_callback' => 'butterbean_validate_boolean',
+			'default' => $defaults[ 'wpsp_include_comments' ] ? $defaults[ 'wpsp_include_comments' ] : false
+		)
+	);
+	
+	$manager->register_control(
+        'wpsp_comments_location', // Same as setting name.
+        array(
+            'type'    => 'select',
+            'section' => 'wpsp_post_meta',
+            'label'   => esc_html__( 'Comments link location', 'wp-show-posts' ),
+            'choices' => array(
+				'below-title' => __( 'Below title','wp-show-posts' ),
+				'below-post' => __( 'Below post','wp-show-posts' )
+			),
+			'attr' => array( 'id' => 'wpsp-comments-link-location' )
+        )
+    );
+	
+	$manager->register_setting(
+        'wpsp_comments_location', // Same as control name.
+        array(
+            'sanitize_callback' => 'sanitize_text_field',
+			'default' => $defaults[ 'wpsp_comments_location' ] ? $defaults[ 'wpsp_comments_location' ] : ''
+        )
+    );
+	
 	$manager->register_section(
         'wpsp_query_args',
         array(
