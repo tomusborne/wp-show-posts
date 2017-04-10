@@ -159,17 +159,20 @@ function wpsp_post_image( $settings )
 	$image_url = wp_get_attachment_image_src( $image_id, 'full', true );
 	$image_atts = wpsp_image_attributes( $image_url[1], $image_url[2], $settings[ 'image_width' ], $settings[ 'image_height' ] );
 	$hover = ( '' !== $settings[ 'image_hover_effect' ] ) ? $settings[ 'image_hover_effect' ] : '';
+	$disable_link = apply_filters( 'wpsp_disable_image_link', false );
 	?>
 	<div class="wp-show-posts-image <?php echo $hover . ' wpsp-image-' . $settings[ 'image_alignment' ]; ?> ">
 		<?php 
 		do_action( 'wpsp_inside_image_container', $settings );
 		
-		printf( 
-			'<a href="%1$s" %2$s title="%3$s">',
-			esc_url( apply_filters( 'wpsp_image_href', get_the_permalink() ) ),
-			apply_filters( 'wpsp_image_data', '' ),
-			esc_attr( apply_filters( 'wpsp_image_title', get_the_title() ) )
-		);
+		if ( ! $disable_link ) {
+			printf( 
+				'<a href="%1$s" %2$s title="%3$s">',
+				esc_url( apply_filters( 'wpsp_image_href', get_the_permalink(), $settings ) ),
+				apply_filters( 'wpsp_image_data', '', $settings ),
+				esc_attr( apply_filters( 'wpsp_image_title', get_the_title(), $settings ) )
+			);
+		}
 		
 			if ( ! empty( $image_atts ) ) : ?>
 				<img src="<?php echo WPSP_Resize( $image_url[0], $image_atts[ 'width' ], $image_atts[ 'height' ], $image_atts[ 'crop' ], true, $image_atts[ 'upscale' ] ); ?>" alt="<?php esc_attr( the_title() ); ?>" itemprop="image" class="<?php echo $settings[ 'image_alignment' ]; ?>" />
@@ -182,8 +185,11 @@ function wpsp_post_image( $settings )
 				$icon = ( $settings[ 'image_overlay_icon' ] ) ? $settings[ 'image_overlay_icon' ] : 'no-icon';
 				echo '<span class="wp-show-posts-image-overlay ' . $icon . '" ' . $color . '></span>';
 			}
-			?>
-		</a>
+			
+		if ( ! $disable_link ) {
+			echo '</a>';
+		}
+		?>
 	</div>
 	<?php
 }
