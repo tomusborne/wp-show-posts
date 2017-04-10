@@ -460,7 +460,11 @@ function wpsp_display( $id, $custom_settings = false )
 			echo wpautop( $settings[ 'no_results' ] );
 		echo ( $settings[ 'columns' ] !== 'col-12' ) ? '</div>' : '';
 	}
-		if ( $settings[ 'columns' ] !== 'col-12' ) echo '<div class="wpsp-clear"></div>';
+	
+	if ( $settings[ 'columns' ] !== 'col-12' ) {
+		echo '<div class="wpsp-clear"></div>';
+	}
+		
 	echo '</' . $settings[ 'wrapper' ] . '><!-- .wp-show-posts -->';
 
 	do_action( 'wpsp_after_wrapper', $settings );
