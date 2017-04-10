@@ -48,6 +48,9 @@ require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/widget.php'
 // Add compatibility with pro
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/compat.php';
 
+// Add styling
+require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/styling.php';
+
 if ( ! function_exists( 'wpsp_load_textdomain' ) ) :
 /**
  * Load plugin textdomain.
@@ -303,30 +306,10 @@ function wpsp_display( $id, $custom_settings = false )
 		$args['post__not_in'] = array( get_the_ID() );
 	}
 	
-	// Border
-	$border = wpsp_sanitize_hex_color( wpsp_get_setting( $id, 'wpsp_border' ) );
-	if ( '' !== $border ) {
-		$settings[ 'wrapper_class' ][] = 'include-border';
-		if ( ! function_exists( 'wpsp_styling' ) ) {
-			$border = 'border-color: ' . $border . ';';
-		}
-	}
-	
-	// Padding
-	$padding = sanitize_text_field( wpsp_get_setting( $id, 'wpsp_padding' ) );
-	if ( '' !== $padding ) {
-		$settings[ 'wrapper_class' ][] = 'include-padding';
-		$padding = 'padding:' . $padding . ';';
-	}
-	
 	// Columns
 	if ( $settings[ 'columns' ] !== 'col-12' ) {
 		wp_enqueue_script( 'wpsp-matchHeight', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/jquery.matchHeight.js', array( 'jquery' ), WPSP_VERSION, true );
 		$settings[ 'wrapper_class' ][] = 'wp-show-posts-columns';
-		if ( ! function_exists( 'wpsp_styling' ) ) {
-			$settings[ 'wrapper_style' ][] = 'margin-left:-' . $settings[ 'columns_gutter' ] . ';';
-			$settings[ 'inner_wrapper_style' ][] = 'margin: 0 0 ' . $settings[ 'columns_gutter' ] . ' ' . $settings[ 'columns_gutter' ] . ';' . $padding;
-		}
 	}
 
 	// Featured post class
