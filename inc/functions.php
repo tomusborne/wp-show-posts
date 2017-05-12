@@ -170,7 +170,7 @@ function wpsp_post_image( $settings )
 				'<a href="%1$s" %2$s title="%3$s">',
 				esc_url( apply_filters( 'wpsp_image_href', get_the_permalink(), $settings ) ),
 				apply_filters( 'wpsp_image_data', '', $settings ),
-				esc_attr( apply_filters( 'wpsp_image_title', get_the_title(), $settings ) )
+				esc_attr( apply_filters( 'wpsp_image_title', the_title_attribute( 'echo=0' ), $settings ) )
 			);
 		}
 		
