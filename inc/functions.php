@@ -219,12 +219,13 @@ if ( ! function_exists( 'wpsp_read_more' ) ) :
 add_action( 'wpsp_after_content','wpsp_read_more', 5 );
 function wpsp_read_more( $settings)
 {
-	// The read more button
-	if ( $settings[ 'read_more_text' ] ) : ?>
-		<div class="wpsp-read-more">
-			<a title="<?php echo esc_attr( get_the_title() ); ?>" class="wp-show-posts-read-more" href="<?php esc_url( the_permalink() ); ?>"><?php echo $settings[ 'read_more_text' ]; ?></a>
-		</div>
-	<?php endif;
+	if ( $settings[ 'read_more_text' ] ) {
+		echo apply_filters( 'wpsp_read_more_output', sprintf('<div class="wpsp-read-more"><a title="%1$s" class="wp-show-posts-read-more" href="%2$s">%3$s</a></div>',
+			the_title_attribute( 'echo=0' ),
+			esc_url( get_permalink() ),
+			$settings[ 'read_more_text' ]
+		));
+	}
 }
 endif;
 
