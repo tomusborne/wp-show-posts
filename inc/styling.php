@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'wpsp_before_wrapper','wpsp_basic_styling' );
+add_action( 'wpsp_before_wrapper', 'wpsp_basic_styling' );
 function wpsp_basic_styling( $settings ) {
 	// Start the magic
 	$visual_css = array (
