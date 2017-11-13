@@ -25,14 +25,15 @@ if ( ! class_exists( 'WPSP_Resize' ) ) {
 }
 
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/defaults.php';
+require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/functions.php';
+require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/compat.php';
+require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/styling.php';
+require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/deprecated.php';
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/post-type.php';
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/metabox.php';
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/ajax.php';
-require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/functions.php';
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/admin.php';
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/widget.php';
-require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/compat.php';
-require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'inc/styling.php';
 
 add_action( 'plugins_loaded', 'wpsp_load_textdomain' );
 /**
