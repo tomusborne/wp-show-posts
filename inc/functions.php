@@ -39,7 +39,8 @@ if ( ! function_exists( 'wpsp_excerpt' ) ) {
 
 if ( ! function_exists( 'wpsp_meta' ) ) {
 	/**
-	 * Build our post meta
+	 * Build our post meta.
+	 *
 	 * @since 0.1
 	 */
 	function wpsp_meta( $location, $settings ) {
