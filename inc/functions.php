@@ -1,6 +1,8 @@
 <?php
 // No direct access, please
-if ( ! defined( 'ABSPATH' ) ) exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 if ( ! function_exists( 'wpsp_excerpt' ) ) {
 	/**
@@ -153,7 +155,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 		$image_id = get_post_thumbnail_id( get_the_ID(), 'full' );
 		$image_url = wp_get_attachment_image_src( $image_id, 'full', true );
 		$image_atts = wpsp_image_attributes( $image_url[1], $image_url[2], $settings[ 'image_width' ], $settings[ 'image_height' ] );
-		$hover = ( '' !== $settings[ 'image_hover_effect' ] ) ? $settings[ 'image_hover_effect' ] : '';
+		$hover = ( isset( $settings[ 'image_hover_effect' ] ) && '' !== $settings[ 'image_hover_effect' ] ) ? $settings[ 'image_hover_effect' ] : '';
 		$disable_link = apply_filters( 'wpsp_disable_image_link', false );
 		?>
 		<div class="wp-show-posts-image <?php echo $hover . ' wpsp-image-' . $settings[ 'image_alignment' ]; ?> ">
@@ -175,7 +177,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 					the_post_thumbnail( apply_filters( 'wpsp_default_image_size', 'full' ), array( 'itemprop' => 'image' ) );
 				endif;
 
-				if ( '' !== $settings[ 'image_overlay_color' ] || '' !== $settings[ 'image_overlay_icon' ] ) {
+				if ( isset( $settings[ 'image_overlay_color' ] ) && ( '' !== $settings[ 'image_overlay_color' ] || '' !== $settings[ 'image_overlay_icon' ] ) ) {
 					$color = ( $settings[ 'image_overlay_color' ] ) ? 'style="background-color:' . wpsp_hex2rgba( $settings[ 'image_overlay_color' ], apply_filters( 'wpsp_overlay_opacity', 0.7 ) ) . '"' : '';
 					$icon = ( $settings[ 'image_overlay_icon' ] ) ? $settings[ 'image_overlay_icon' ] : 'no-icon';
 					echo '<span class="wp-show-posts-image-overlay ' . $icon . '" ' . $color . '></span>';
