@@ -275,6 +275,26 @@ function wpsp_display( $id, $custom_settings = false ) {
 		$args['post__not_in'] = array( get_the_ID() );
 	}
 
+	// Border
+	if ( defined( 'WPSP_PRO_VERSION' ) && version_compare( WPSP_PRO_VERSION, '0.6', '<' ) ) {
+		$border = wpsp_sanitize_hex_color( wpsp_get_setting( $settings['list_id'], 'wpsp_border' ) );
+		if ( '' !== $border ) {
+			$wrapper_class[] = 'include-border';
+			if ( ! function_exists( 'wpsp_styling' ) ) {
+				$border = 'border-color: ' . $border . ';';
+			}
+		}
+	}
+
+	// Padding
+	if ( defined( 'WPSP_PRO_VERSION' ) && version_compare( WPSP_PRO_VERSION, '0.6', '<' ) ) {
+		$padding = sanitize_text_field( wpsp_get_setting( $settings['list_id'], 'wpsp_padding' ) );
+		if ( '' !== $padding ) {
+			$wrapper_class[] = 'include-padding';
+			$padding = 'padding:' . $padding . ';';
+		}
+	}
+
 	// Columns
 	if ( 'col-12' !== $settings[ 'columns' ]  ) {
 		wp_enqueue_script( 'wpsp-matchHeight', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/jquery.matchHeight.js', array( 'jquery' ), WPSP_VERSION, true );
@@ -455,7 +475,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	// Pagination
 	if ( $settings[ 'pagination' ] && $query->have_posts() && ! is_single() ) {
-		$ajax_pagination = wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_ajax_pagination' ) );
+		$ajax_pagination = wp_validate_boolean( wpsp_get_setting( $settings['list_id'], 'wpsp_ajax_pagination' ) );
 
 		if ( $ajax_pagination && function_exists( 'wpsp_ajax_pagination' ) ) {
 
@@ -471,6 +491,21 @@ function wpsp_display( $id, $custom_settings = false ) {
 			wp_enqueue_script( 'wpsp-ajax-pagination' );
 		} else {
 			wpsp_pagination( $query->max_num_pages );
+		}
+	}
+
+	if ( defined( 'WPSP_PRO_VERSION' ) && version_compare( WPSP_PRO_VERSION, '0.6', '<' ) ) {
+		// Lightbox and gallery
+		$image_lightbox = sanitize_text_field( wpsp_get_setting( $settings['list_id'], 'wpsp_image_lightbox' ) );
+		if ( $image_lightbox ) {
+			wp_enqueue_script( 'wpsp-featherlight' );
+			wp_enqueue_style( 'wpsp-featherlight' );
+
+			$image_gallery = sanitize_text_field( wpsp_get_setting( $settings['list_id'], 'wpsp_image_gallery' ) );
+			if ( $image_gallery ) {
+				wp_enqueue_script( 'wpsp-featherlight-gallery' );
+				wp_enqueue_style( 'wpsp-featherlight-gallery' );
+			}
 		}
 	}
 
