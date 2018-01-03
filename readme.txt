@@ -2,8 +2,8 @@
 Contributors: edge22
 Donate link: https://wpshowposts.com
 Tags: show posts, display posts shortcode, portfolio, gallery, post columns
-Requires at least: 4.0
-Tested up to: 4.7
+Requires at least: 4.5
+Tested up to: 4.9
 Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -102,7 +102,7 @@ https://vimeo.com/175660953
 * Image lightbox
 * Image lightbox gallery
 
-= Content = 
+= Content =
 
 * Read more style
 * Read more color
@@ -112,7 +112,7 @@ https://vimeo.com/175660953
 * Title color
 * Title color hover
 
-= Meta = 
+= Meta =
 
 * Meta color
 * Meta color hover
@@ -161,6 +161,12 @@ In most cases, #1 will work fine and is way easier.
 7. The "More query ars" settings tab.
 
 == Changelog ==
+
+= 1.1 =
+* Clean up code considerably
+* Pass list settings through hooks instead of using global
+* Use the_excerpt() instead of custom function
+* Allow multiple taxonomy terms to be selected
 
 = 1.0 =
 * Add new hook inside image container: wpsp_inside_image_container
