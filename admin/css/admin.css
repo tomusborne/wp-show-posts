@@ -35,3 +35,11 @@
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
+
+#butterbean-control-wpsp_tax_term .butterbean-checkbox-list {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-flow: wrap column;
+    flex-flow: wrap column;
+    max-height: 250px;
+}
