@@ -67,6 +67,7 @@ jQuery( document ).ready( function( $ ) {
 
 	// Show any selected terms
 	var terms = wpsp_get_terms( $( '#wpsp-taxonomy' ).val() );
+
 	$.each(terms, function(key, value) {
 		if ( null !== value ) {
 			if ( $.isArray( wpsp_get_option( 'wpsp_tax_term' ) ) ) {
