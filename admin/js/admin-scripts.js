@@ -49,20 +49,8 @@ function wpsp_get_option( key ) {
 		jQuery( '#butterbean-control-wpsp_taxonomy' ).css( 'display', 'block' );
 		jQuery( '#butterbean-control-wpsp_tax_term' ).css( 'display', 'block' );
 	});
-				
-	return response.responseJSON;
-}
 
-function wpsp_inArray(needle, haystack) {
-	if ( null == haystack ) {
-		return false;
-	}
-    var length = haystack.length;
-    for(var i = 0; i < length; i++) {
-		console.log(haystack);
-        if(haystack[i] == needle) return true;
-    }
-    return false;
+	return response.responseJSON;
 }
 
 jQuery( document ).ready( function( $ ) {
@@ -81,7 +69,12 @@ jQuery( document ).ready( function( $ ) {
 	var terms = wpsp_get_terms( $( '#wpsp-taxonomy' ).val() );
 	$.each(terms, function(key, value) {
 		if ( null !== value ) {
-			var checked = ( wpsp_inArray( value, wpsp_get_option( 'wpsp_tax_term' ) ) ) ? 'checked="checked"' : '';
+			if ( $.isArray( wpsp_get_option( 'wpsp_tax_term' ) ) ) {
+				var checked = ( $.inArray( value, wpsp_get_option( 'wpsp_tax_term' ) ) > -1 ) ? 'checked="checked"' : '';
+			} else {
+				var checked = ( value === wpsp_get_option( 'wpsp_tax_term' ) ) ? 'checked="checked"' : '';
+			}
+
 			$('#butterbean-control-wpsp_tax_term .butterbean-checkbox-list').append( $( '<li><label><input ' + checked + ' type="checkbox" value="' + value + '" name="butterbean_wp_show_posts_setting_wpsp_tax_term[]" />' + value + '</label></li>' ) );
 		}
 	});
