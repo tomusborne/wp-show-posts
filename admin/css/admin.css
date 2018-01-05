@@ -25,7 +25,7 @@
 }
 
 #butterbean-ui-wp_show_posts input[type="checkbox"] {
-    width: initial;
+    width: auto;
     height: 16px;
 }
 
@@ -42,4 +42,5 @@
     -webkit-flex-flow: wrap column;
     flex-flow: wrap column;
     max-height: 250px;
+	overflow-y: scroll;
 }

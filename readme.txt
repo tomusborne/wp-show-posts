@@ -173,6 +173,7 @@ In most cases, #1 will work fine and is way easier.
 * New: wpsp_term_separator filter
 * New: Option to add comments number/link in post meta
 * New: Allow override of settings within shortcode parameter
+* New: Add standard post classes to each post
 * Tweak: Pass list settings through hooks instead of using global
 * Tweak: Clean up code considerably
 * Tweak: Use the_excerpt() instead of custom function
