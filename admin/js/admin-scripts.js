@@ -132,6 +132,11 @@ jQuery( document ).ready( function( $ ) {
 		}
 	});
 
+	// Fix color label bug introduced in WP 4.9.
+	$( '.butterbean-control-color' ).each( function() {
+		$( this ).find( '.wp-picker-input-wrap.hidden .butterbean-label' ).prependTo( _this );
+	} );
+
 	// Dealing with the image options
 	if ( ! $( '#wpsp-image' ).is( ':checked' ) ) {
 		$( this ).parent().parent().siblings().hide();
