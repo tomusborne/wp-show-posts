@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.1
  */
-function wpsp_excerpt_length( $settings ) {
+function wpsp_excerpt_length() {
 	global $wpsp_id;
 	return absint( wpsp_get_setting( $wpsp_id, 'wpsp_excerpt_length' ) );
 }
