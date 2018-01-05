@@ -403,6 +403,9 @@ function wpsp_display( $id, $custom_settings = false ) {
 				$column_class .= ' wpsp-' . $settings[ 'columns' ];
 			}
 
+			// Merge our classes with the post classes.
+			$settings['inner_wrapper_class'] = array_merge( $settings['inner_wrapper_class'], get_post_class() );
+
 			// Start inner container
 			printf( '<%1$s class="%2$s" itemtype="http://schema.org/%3$s" itemscope>',
 				$settings[ 'inner_wrapper' ],
