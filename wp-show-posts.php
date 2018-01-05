@@ -421,8 +421,21 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 							do_action( 'wpsp_before_title', $settings );
 
+							$before_title = sprintf(
+								'<%1$s class="wp-show-posts-entry-title" itemprop="headline"><a href="%2$s" rel="bookmark">',
+								$settings[ 'title_element' ],
+								esc_url( get_permalink() )
+							);
+
+							$after_title = '</a></' . $settings[ 'title_element' ] . '>';
+
+							if ( apply_filters( 'wpsp_disable_title_link', false, $settings ) ) {
+								$before_title = '<' . $settings[ 'title_element' ] . ' class="wp-show-posts-entry-title" itemprop="headline">';
+								$after_title = '</' . $settings[ 'title_element' ] . '>';
+							}
+
 							if ( $settings[ 'include_title' ] ) {
-								the_title( sprintf( '<' . $settings[ 'title_element' ] . ' class="wp-show-posts-entry-title" itemprop="headline"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></' . $settings[ 'title_element' ] . '>' );
+								the_title( $before_title, $after_title );
 							}
 
 							do_action( 'wpsp_after_title', $settings );

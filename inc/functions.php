@@ -163,7 +163,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 		$image_url = wp_get_attachment_image_src( $image_id, 'full', true );
 		$image_atts = wpsp_image_attributes( $image_url[1], $image_url[2], $settings[ 'image_width' ], $settings[ 'image_height' ] );
 		$hover = ( isset( $settings[ 'image_hover_effect' ] ) && '' !== $settings[ 'image_hover_effect' ] ) ? $settings[ 'image_hover_effect' ] : '';
-		$disable_link = apply_filters( 'wpsp_disable_image_link', false );
+		$disable_link = apply_filters( 'wpsp_disable_image_link', false, $settings );
 		?>
 		<div class="wp-show-posts-image <?php echo $hover . ' wpsp-image-' . $settings[ 'image_alignment' ]; ?> ">
 			<?php
