@@ -163,10 +163,23 @@ In most cases, #1 will work fine and is way easier.
 == Changelog ==
 
 = 1.1 =
-* Clean up code considerably
-* Pass list settings through hooks instead of using global
-* Use the_excerpt() instead of custom function
-* Allow multiple taxonomy terms to be selected
+* New: Allow multiple taxonomy terms to be selected
+* New: Choose the title HTML element
+* New: wpsp_disable_title_link filter
+* New: wpsp_disable_image_link filter
+* New: wpsp_read_more_output filter
+* New: wpsp_inside_wrapper hook
+* New: wpsp_image_attributes filter
+* New: wpsp_term_separator filter
+* New: Option to add comments number/link in post meta
+* New: Allow override of settings within shortcode parameter
+* Tweak: Pass list settings through hooks instead of using global
+* Tweak: Clean up code considerably
+* Tweak: Use the_excerpt() instead of custom function
+* Tweak: Remove border radius from read more buttons
+* Fix: Broken author setting
+* Fix: Remove image float on mobile
+* Fix: Missing color labels in WP 4.9
 
 = 1.0 =
 * Add new hook inside image container: wpsp_inside_image_container
@@ -229,6 +242,25 @@ In most cases, #1 will work fine and is way easier.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.1 =
+* New: Allow multiple taxonomy terms to be selected
+* New: Choose the title HTML element
+* New: wpsp_disable_title_link filter
+* New: wpsp_disable_image_link filter
+* New: wpsp_read_more_output filter
+* New: wpsp_inside_wrapper hook
+* New: wpsp_image_attributes filter
+* New: wpsp_term_separator filter
+* New: Option to add comments number/link in post meta
+* New: Allow override of settings within shortcode parameter
+* Tweak: Pass list settings through hooks instead of using global
+* Tweak: Clean up code considerably
+* Tweak: Use the_excerpt() instead of custom function
+* Tweak: Remove border radius from read more buttons
+* Fix: Broken author setting
+* Fix: Remove image float on mobile
+* Fix: Missing color labels in WP 4.9
 
 = 1.0 =
 * Add new hook inside image container: wpsp_inside_image_container
