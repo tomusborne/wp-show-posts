@@ -279,7 +279,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 	if ( defined( 'WPSP_PRO_VERSION' ) && version_compare( WPSP_PRO_VERSION, '0.6', '<' ) ) {
 		$border = wpsp_sanitize_hex_color( wpsp_get_setting( $settings['list_id'], 'wpsp_border' ) );
 		if ( '' !== $border ) {
-			$wrapper_class[] = 'include-border';
+			$settings['wrapper_class'][] = 'include-border';
 			if ( ! function_exists( 'wpsp_styling' ) ) {
 				$border = 'border-color: ' . $border . ';';
 			}
@@ -290,7 +290,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 	if ( defined( 'WPSP_PRO_VERSION' ) && version_compare( WPSP_PRO_VERSION, '0.6', '<' ) ) {
 		$padding = sanitize_text_field( wpsp_get_setting( $settings['list_id'], 'wpsp_padding' ) );
 		if ( '' !== $padding ) {
-			$wrapper_class[] = 'include-padding';
+			$settings['wrapper_class'][] = 'include-padding';
 			$padding = 'padding:' . $padding . ';';
 		}
 	}
