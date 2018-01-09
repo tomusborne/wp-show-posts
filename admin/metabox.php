@@ -113,7 +113,7 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 	        array(
 	            'type'    => 'select',
 	            'section' => 'wpsp_posts',
-	            'label'   => esc_html__( 'Post Type', 'wp-show-posts' ),
+	            'label'   => esc_html__( 'Post type', 'wp-show-posts' ),
 	            'choices' => wpsp_get_post_types(),
 				'attr' => array( 'id' => 'wpsp-post-type' )
 	        )
