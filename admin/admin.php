@@ -12,14 +12,14 @@ if ( ! function_exists( 'wpsp_admin_scripts' ) ) {
 	function wpsp_admin_scripts() {
 		global $post_type, $post;
 	    if ( 'wp_show_posts' == $post_type ) {
-			wp_enqueue_script( 'wpsp-admin-scripts', plugin_dir_url( __FILE__ ) . "js/admin-scripts.js", array( 'jquery' ), '', true );
+			wp_enqueue_script( 'wpsp-admin-scripts', plugin_dir_url( __FILE__ ) . "js/admin-scripts.js", array( 'jquery' ), WPSP_VERSION, true );
 			wp_localize_script( 'wpsp-admin-scripts', 'wpsp_object', array (
 				'post_id' => ( isset( $post ) ) ? $post->ID : false,
 				'nonce' => wp_create_nonce( 'wpsp_nonce' )
 			));
 		}
 
-		wp_enqueue_style( 'wpsp-admin', plugin_dir_url( __FILE__ ) . "css/admin.css" );
+		wp_enqueue_style( 'wpsp-admin', plugin_dir_url( __FILE__ ) . "css/admin.css", array(), WPSP_VERSION );
 	}
 }
 
