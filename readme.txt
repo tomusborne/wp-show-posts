@@ -4,7 +4,7 @@ Donate link: https://wpshowposts.com
 Tags: show posts, display posts shortcode, portfolio, gallery, post columns
 Requires at least: 4.5
 Tested up to: 4.9
-Stable tag: 1.0
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -174,6 +174,7 @@ In most cases, #1 will work fine and is way easier.
 * New: Option to add comments number/link in post meta
 * New: Allow override of settings within shortcode parameter
 * New: Add standard post classes to each post
+* Tweak: Remove many function_exists() wrappers - check your custom functions!
 * Tweak: Pass list settings through hooks instead of using global
 * Tweak: Clean up code considerably
 * Tweak: Use the_excerpt() instead of custom function
@@ -256,6 +257,7 @@ In most cases, #1 will work fine and is way easier.
 * New: Option to add comments number/link in post meta
 * New: Allow override of settings within shortcode parameter
 * New: Add standard post classes to each post
+* Tweak: Remove many function_exists() wrappers - check your custom functions!
 * Tweak: Pass list settings through hooks instead of using global
 * Tweak: Clean up code considerably
 * Tweak: Use the_excerpt() instead of custom function
