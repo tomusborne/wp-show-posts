@@ -144,15 +144,15 @@ function wpsp_display( $id, $custom_settings = false ) {
 		'post_meta_top_style' 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_top_style' ) ),
 	) );
 
-	// Replace args with any custom args
+	// Replace args with any custom args.
 	if ( ! empty( $custom_settings ) ) {
 		if ( is_array( $custom_settings ) ) {
-			$settings = array_replace( $settings, $custom_settings );
+			$settings = array_merge( $settings, $custom_settings );
 		}
 
 		if ( ! is_array( $custom_settings ) ) {
 			$settings_string = parse_str( $custom_settings, $custom_settings );
-			$settings = array_replace( $settings, $custom_settings );
+			$settings = array_merge( $settings, $custom_settings );
 		}
 	}
 
