@@ -162,6 +162,9 @@ In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
 
+= 1.1.1 =
+* Fix: Fix image hover effects in WPSP Pro
+
 = 1.1 =
 * New: Allow multiple taxonomy terms to be selected
 * New: Choose the title HTML element
@@ -244,6 +247,9 @@ In most cases, #1 will work fine and is way easier.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+* Fix: Fix image hover effects in WPSP Pro
 
 = 1.1 =
 * New: Allow multiple taxonomy terms to be selected
