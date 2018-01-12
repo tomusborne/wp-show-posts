@@ -162,7 +162,16 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 		$image_id = get_post_thumbnail_id( get_the_ID(), 'full' );
 		$image_url = wp_get_attachment_image_src( $image_id, 'full', true );
 		$image_atts = wpsp_image_attributes( $image_url[1], $image_url[2], $settings[ 'image_width' ], $settings[ 'image_height' ] );
-		$hover = ( isset( $settings[ 'image_hover_effect' ] ) && '' !== $settings[ 'image_hover_effect' ] ) ? $settings[ 'image_hover_effect' ] : '';
+
+		// Set pro settings for old versions of WPSP Pro.
+		if ( defined( 'WPSP_PRO_VERSION' ) && version_compare( WPSP_PRO_VERSION, '0.6', '<' ) ) {
+			$settings[ 'image_overlay_color' ] = wpsp_sanitize_hex_color( wpsp_get_setting( $settings['list_id'], 'wpsp_image_overlay_color' ) );
+			$settings[ 'image_overlay_icon' ] = sanitize_text_field( wpsp_get_setting( $settings['list_id'], 'wpsp_image_overlay_icon' ) );
+			$hover = sanitize_text_field( wpsp_get_setting( $settings['list_id'], 'wpsp_image_hover_effect' ) );
+		} else {
+			$hover = ( isset( $settings[ 'image_hover_effect' ] ) && '' !== $settings[ 'image_hover_effect' ] ) ? $settings[ 'image_hover_effect' ] : '';
+		}
+
 		$disable_link = apply_filters( 'wpsp_disable_image_link', false, $settings );
 		?>
 		<div class="wp-show-posts-image <?php echo $hover . ' wpsp-image-' . $settings[ 'image_alignment' ]; ?> ">
