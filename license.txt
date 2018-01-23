@@ -1,0 +1,29 @@
+WP Show Posts is licensed under the GNU General Public License v2 or later
+More details here: http://www.gnu.org/licenses/gpl-2.0.html
+
+== Bundled resources ==
+
+= Butterbean =
+
+Licensed under the GNU GPL, version 2 or later.
+2015-2016 © Justin Tadlock.
+
+= MatchHeight.js =
+
+jquery.matchHeight.js is licensed under The MIT License (MIT) 
+Copyright (c) 2014 Liam Brummitt
+
+= FontAwesome =
+
+Icons generated with IcoMoon with the following licenses:
+
+Font License: SIL OFL 1.1 - http://scripts.sil.org/OFL
+Code License: MIT License - http://opensource.org/licenses/mit-license.html
+
+All brand icons are trademarks of their respective owners.
+
+= Display Posts Shortcode =
+
+Some of the base code of this plugin was borrowed from the awesome Display Posts Shortcode plugin by Bill Erickson.
+https://wordpress.org/plugins/display-posts-shortcode/
+http://www.billerickson.net/
