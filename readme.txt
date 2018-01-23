@@ -46,6 +46,10 @@ Here are the features in the free version:
 = Content =
 
 * Content type (excerpt or full post)
+<<<<<<< HEAD
+=======
+* List type (ordered, unordered or none)
+>>>>>>> Add ability to display posts as a list
 * Excerpt length
 * Include title
 * Read more text

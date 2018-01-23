@@ -390,6 +390,32 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 	    );
 
 		$manager->register_control(
+<<<<<<< HEAD
+=======
+	        'wpsp_list_type', // Same as setting name.
+	        array(
+	            'type'    => 'select',
+	            'section' => 'wpsp_content',
+	            'label'   => esc_html__( 'List type', 'wp-show-posts' ),
+	            'choices' => array(
+					'ordered' => __( 'Ordered','wp-show-posts' ),
+					'unordered' => __( 'Unordered','wp-show-posts' ),
+					'none' => __( 'None','wp-show-posts' )
+				),
+				'attr' => array( 'id' => 'wpsp-list-type' )
+	        )
+	    );
+
+		$manager->register_setting(
+	        'wpsp_list_type', // Same as control name.
+	        array(
+	            'sanitize_callback' => 'sanitize_text_field',
+				'default' => $defaults[ 'wpsp_list_type' ] ? $defaults[ 'wpsp_list_type' ] : ''
+	        )
+	    );
+
+		$manager->register_control(
+>>>>>>> Add ability to display posts as a list
 	        'wpsp_excerpt_length', // Same as setting name.
 	        array(
 	            'type'    => 'number',

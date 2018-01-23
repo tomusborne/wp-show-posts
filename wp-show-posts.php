@@ -99,6 +99,10 @@ function wpsp_display( $id, $custom_settings = false ) {
 		'columns'     			 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns' ) ),
 		'columns_gutter'      	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns_gutter' ) ),
 		'content_type'        	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_content_type' ) ),
+<<<<<<< HEAD
+=======
+		'list_type'        	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_list_type' ) ),
+>>>>>>> Add ability to display posts as a list
 		'exclude_current'     	 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_exclude_current' ) ),
 		'excerpt_length'      	 => absint( wpsp_get_setting( $id, 'wpsp_excerpt_length' ) ),
 		'post_id'      		 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_id' ) ),
@@ -380,9 +384,24 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	// Start the query
 	$query = new WP_Query( apply_filters( 'wp_show_posts_shortcode_args', $args ) );
+<<<<<<< HEAD
 	// Start the loop
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) {
+=======
+
+	if ( $settings['list_type'] == 'ordered' ):
+		echo "<ol>";
+	elseif ( $settings['list_type'] == 'unordered' ):
+		echo "<ul>";
+	endif;
+
+	// Start the loop
+	if ( $query->have_posts() ) {
+		while ( $query->have_posts() ) {
+			echo $settings['list_type'] != 'none' ? "<li>" : "";
+
+>>>>>>> Add ability to display posts as a list
 			$query->the_post();
 
 			// Get page
@@ -412,7 +431,10 @@ function wpsp_display( $id, $custom_settings = false ) {
 				implode( ' ', $settings[ 'inner_wrapper_class' ] ) . $column_class . $featured,
 				$settings[ 'itemtype' ]
 			);
+<<<<<<< HEAD
 
+=======
+>>>>>>> Add ability to display posts as a list
 				echo '<div class="wp-show-posts-inner"' . $settings[ 'inner_wrapper_style' ] . '>';
 
 					do_action( 'wpsp_before_header', $settings );
@@ -473,6 +495,10 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 			// End inner container
 			echo '</' . $settings[ 'inner_wrapper' ] . '>';
+<<<<<<< HEAD
+=======
+			echo $settings['list_type'] != 'none' ? "</li>" : "";
+>>>>>>> Add ability to display posts as a list
 		}
 	} else {
 		// no posts found
@@ -481,6 +507,15 @@ function wpsp_display( $id, $custom_settings = false ) {
 		echo $settings[ 'columns' ] !== 'col-12' ? '</div>' : '';
 	}
 
+<<<<<<< HEAD
+=======
+	if ( $settings['list_type'] == 'ordered' ):
+		echo "</ol>";
+	elseif ( $settings['list_type'] == 'unordered' ):
+		echo "</ul>";
+	endif;
+
+>>>>>>> Add ability to display posts as a list
 	if ( $settings[ 'columns' ] !== 'col-12' ) {
 		echo '<div class="wpsp-clear"></div>';
 	}

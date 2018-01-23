@@ -14,6 +14,10 @@ if ( ! function_exists( 'wpsp_get_defaults' ) ) {
 			'wpsp_columns'			  		=> 'col-6',
 			'wpsp_columns_gutter'	  		=> '2em',
 			'wpsp_content_type' 	  		=> 'excerpt',
+<<<<<<< HEAD
+=======
+			'wpsp_list_type' 	  				=> 'none',
+>>>>>>> Add ability to display posts as a list
 			'wpsp_date_location'	  		=> 'below-title',
 			'wpsp_exclude_current'	  		=> false,
 			'wpsp_excerpt_length'	  		=> 30,
