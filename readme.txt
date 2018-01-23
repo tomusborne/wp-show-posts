@@ -46,6 +46,7 @@ Here are the features in the free version:
 = Content =
 
 * Content type (excerpt or full post)
+* List type (ordered, unordered or none)
 * Excerpt length
 * Include title
 * Read more text

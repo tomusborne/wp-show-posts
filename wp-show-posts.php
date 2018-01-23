@@ -99,6 +99,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 		'columns'     			 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns' ) ),
 		'columns_gutter'      	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns_gutter' ) ),
 		'content_type'        	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_content_type' ) ),
+		'list_type'        	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_list_type' ) ),
 		'exclude_current'     	 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_exclude_current' ) ),
 		'excerpt_length'      	 => absint( wpsp_get_setting( $id, 'wpsp_excerpt_length' ) ),
 		'post_id'      		 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_id' ) ),
@@ -380,9 +381,18 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	// Start the query
 	$query = new WP_Query( apply_filters( 'wp_show_posts_shortcode_args', $args ) );
+
+	if ( $settings['list_type'] == 'ordered' ):
+		echo "<ol>";
+	elseif ( $settings['list_type'] == 'unordered' ):
+		echo "<ul>";
+	endif;
+
 	// Start the loop
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) {
+			echo $settings['list_type'] != 'none' ? "<li>" : "";
+
 			$query->the_post();
 
 			// Get page
@@ -473,6 +483,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 			// End inner container
 			echo '</' . $settings[ 'inner_wrapper' ] . '>';
+			echo $settings['list_type'] != 'none' ? "</li>" : "";
 		}
 	} else {
 		// no posts found
@@ -480,6 +491,12 @@ function wpsp_display( $id, $custom_settings = false ) {
 			echo wpautop( $settings[ 'no_results' ] );
 		echo $settings[ 'columns' ] !== 'col-12' ? '</div>' : '';
 	}
+
+	if ( $settings['list_type'] == 'ordered' ):
+		echo "</ol>";
+	elseif ( $settings['list_type'] == 'unordered' ):
+		echo "</ul>";
+	endif;
 
 	if ( $settings[ 'columns' ] !== 'col-12' ) {
 		echo '<div class="wpsp-clear"></div>';
