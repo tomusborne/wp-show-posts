@@ -37,6 +37,21 @@ if ( ! function_exists( 'wpsp_excerpt' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wpsp_get_the_excerpt' ) ) {
+	/**
+	 * Build our excerpt
+	 * @since 0.9
+	 */
+	function wpsp_get_the_excerpt() {
+		add_filter( 'excerpt_length', 'wpsp_excerpt_length', 999 );
+		add_filter( 'excerpt_more', 'wpsp_excerpt_more', 999 );
+		$excerpt = get_the_excerpt();
+		remove_filter( 'excerpt_length', 'wpsp_excerpt_length', 999 );
+		remove_filter( 'excerpt_more', 'wpsp_excerpt_more', 999 );
+		return $excerpt;
+	}
+}
+
 if ( ! function_exists( 'wpsp_meta' ) ) {
 	/**
 	 * Build our post meta.

@@ -494,6 +494,23 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 	        )
 	    );
 
+			$manager->register_control(
+		        'wpsp_in_text_link', // Same as setting name.
+		        array(
+		            'type'    => 'text',
+		            'section' => 'wpsp_content',
+		            'label'   => esc_html__( 'In text link', 'wp-show-posts' )
+		        )
+		    );
+
+			$manager->register_setting(
+		        'wpsp_in_text_link', // Same as control name.
+		        array(
+		            'sanitize_callback' => 'wp_kses_post',
+					'default' => $defaults[ 'wpsp_in_text_link' ] ? $defaults[ 'wpsp_in_text_link' ] : ''
+		        )
+		    );
+
 		$manager->register_section(
 	        'wpsp_post_meta',
 	        array(
