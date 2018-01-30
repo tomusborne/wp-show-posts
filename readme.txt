@@ -60,6 +60,10 @@ Here are the features in the free version:
 * Date location
 * Include terms
 * Terms location
+* Include edit link (if logged user has permission)
+* Edit link location
+* Include comments link
+* Comments link location
 
 = More settings =
 
