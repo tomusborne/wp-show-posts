@@ -50,6 +50,7 @@ Here are the features in the free version:
 * Excerpt length
 * Include title
 * Read more text
+* In-text link to post
 
 = Meta =
 
