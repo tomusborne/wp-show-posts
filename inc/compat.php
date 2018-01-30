@@ -1,7 +1,6 @@
 <?php
 // No direct access, please
 if ( ! defined( 'ABSPATH' ) ) exit;
-
 if ( ! function_exists( 'wpsp_pro_defaults' ) ) {
 	add_filter( 'wpsp_defaults', 'wpsp_pro_compat_defaults' );
 	/**
@@ -40,7 +39,6 @@ if ( ! function_exists( 'wpsp_pro_defaults' ) ) {
 		$defaults[ 'wpsp_link' ] = '';
 		$defaults[ 'wpsp_link_hover' ] = '';
 		$defaults[ 'wpsp_padding' ] = '';
-
 		return $defaults;
 	}
 }

@@ -389,8 +389,31 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 	        )
 	    );
 
+			$manager->register_control(
+	        'wpsp_list_type', // Same as setting name.
+	        array(
+	            'type'    => 'select',
+	            'section' => 'wpsp_content',
+	            'label'   => esc_html__( 'List type', 'wp-show-posts' ),
+	            'choices' => array(
+	                'ordered' => __( 'Ordered','wp-show-posts' ),
+	                'unordered' => __( 'Unordered','wp-show-posts' ),
+	                'none' => __( 'None','wp-show-posts' )
+              ),
+	            'attr' => array( 'id' => 'wpsp-list-type' )
+	        )
+	    );
+
+      $manager->register_setting(
+          'wpsp_list_type', // Same as control name.
+          array(
+              'sanitize_callback' => 'sanitize_text_field',
+              'default' => $defaults[ 'wpsp_list_type' ] ? $defaults[ 'wpsp_list_type' ] : 'none'
+          )
+      );
+
 		$manager->register_control(
-	        'wpsp_excerpt_length', // Same as setting name.
+					'wpsp_excerpt_length', // Same as setting name.
 	        array(
 	            'type'    => 'number',
 	            'section' => 'wpsp_content',
@@ -470,6 +493,23 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 				'default' => $defaults[ 'wpsp_read_more_text' ] ? $defaults[ 'wpsp_read_more_text' ] : ''
 	        )
 	    );
+
+			$manager->register_control(
+		        'wpsp_in_text_link', // Same as setting name.
+		        array(
+		            'type'    => 'text',
+		            'section' => 'wpsp_content',
+		            'label'   => esc_html__( 'In text link', 'wp-show-posts' )
+		        )
+		    );
+
+			$manager->register_setting(
+		        'wpsp_in_text_link', // Same as control name.
+		        array(
+		            'sanitize_callback' => 'wp_kses_post',
+					'default' => $defaults[ 'wpsp_in_text_link' ] ? $defaults[ 'wpsp_in_text_link' ] : ''
+		        )
+		    );
 
 		$manager->register_section(
 	        'wpsp_post_meta',
