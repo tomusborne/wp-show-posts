@@ -164,7 +164,9 @@ In most cases, #1 will work fine and is way easier.
 
 = 1.1.2 =
 * Fix: Performance issue dealing with lots of terms in list admin
+* Fix: Post class clashes with GP Premium
 * Tweak: Allow name in shortcode instead of ID
+* Tweak: Use theme defined font size for title elements (removes the default 30px)
 
 = 1.1.1 =
 * Fix: Fix image hover effects in WPSP Pro
@@ -254,7 +256,9 @@ In most cases, #1 will work fine and is way easier.
 
 = 1.1.2 =
 * Fix: Performance issue dealing with lots of terms in list admin
+* Fix: Post class clashes with GP Premium
 * Tweak: Allow name in shortcode instead of ID
+* Tweak: Use theme defined font size for title elements (removes the default 30px)
 
 = 1.1.1 =
 * Fix: Fix image hover effects in WPSP Pro
