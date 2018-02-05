@@ -577,14 +577,21 @@ function wpsp_shortcode_function( $atts ) {
 	$atts = shortcode_atts(
 		array(
 			'id' => '',
+			'name' => '',
 			'settings' => ''
 		), $atts, 'wp_show_posts'
 	);
 
 	ob_start();
 
-	if ( $atts[ 'id' ] ) {
-		wpsp_display( $atts[ 'id' ], $atts[ 'settings' ] );
+	// Get the ID from the list name if it's provided.
+	if ( ! empty( $atts['name'] ) ) {
+		$list = get_page_by_title( $atts['name'], 'OBJECT', 'wp_show_posts' );
+		$atts['id'] = $list->ID;
+	}
+
+	if ( $atts['id'] ) {
+		wpsp_display( $atts['id'], $atts['settings'] );
 	}
 
 	return ob_get_clean();
