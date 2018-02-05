@@ -79,7 +79,6 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 		// If edit link is enabled and user is admin, show it
 		if ( $settings[ 'include_edit_link' ] && $location == $settings[ 'edit_link_location' ] && current_user_can( 'edit_post' , get_the_ID() ) ) {
 			$edit_url = get_edit_post_link();
-			error_log("edit link inside");
 			$output[] = "<a class='wp-show-post-meta wpsp-edit-post' href='$edit_url'>Edit</a>";
 		}
 
