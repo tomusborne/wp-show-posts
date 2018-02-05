@@ -404,7 +404,9 @@ function wpsp_display( $id, $custom_settings = false ) {
 			}
 
 			// Merge our classes with the post classes.
+			remove_filter( 'post_class', 'generate_blog_post_classes' ); // Remove GPP classes.
 			$settings['inner_wrapper_class'] = array_merge( $settings['inner_wrapper_class'], get_post_class() );
+			add_filter( 'post_class', 'generate_blog_post_classes' ); // Re-add them.
 
 			// Start inner container
 			printf( '<%1$s class="%2$s" itemtype="http://schema.org/%3$s" itemscope>',
