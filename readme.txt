@@ -4,7 +4,7 @@ Donate link: https://wpshowposts.com
 Tags: show posts, display posts shortcode, portfolio, gallery, post columns
 Requires at least: 4.5
 Tested up to: 4.9
-Stable tag: 1.1.1
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -168,6 +168,12 @@ In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
 
+= 1.1.2 =
+* Fix: Performance issue dealing with lots of terms in list admin
+* Fix: Post class clashes with GP Premium
+* Tweak: Allow name in shortcode instead of ID
+* Tweak: Use theme defined font size for title elements (removes the default 30px)
+
 = 1.1.1 =
 * Fix: Fix image hover effects in WPSP Pro
 
@@ -253,6 +259,12 @@ In most cases, #1 will work fine and is way easier.
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+* Fix: Performance issue dealing with lots of terms in list admin
+* Fix: Post class clashes with GP Premium
+* Tweak: Allow name in shortcode instead of ID
+* Tweak: Use theme defined font size for title elements (removes the default 30px)
 
 = 1.1.1 =
 * Fix: Fix image hover effects in WPSP Pro
