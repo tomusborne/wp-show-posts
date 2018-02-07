@@ -46,9 +46,11 @@ Here are the features in the free version:
 = Content =
 
 * Content type (excerpt or full post)
+* List type (ordered, unordered or none)
 * Excerpt length
 * Include title
 * Read more text
+* In-text link to post
 
 = Meta =
 
@@ -58,6 +60,10 @@ Here are the features in the free version:
 * Date location
 * Include terms
 * Terms location
+* Include edit link (if logged user has permission)
+* Edit link location
+* Include comments link
+* Comments link location
 
 = More settings =
 

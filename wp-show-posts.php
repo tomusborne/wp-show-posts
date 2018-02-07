@@ -99,6 +99,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 		'columns'     			 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns' ) ),
 		'columns_gutter'      	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns_gutter' ) ),
 		'content_type'        	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_content_type' ) ),
+		'list_type'        	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_list_type' ) ),
 		'exclude_current'     	 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_exclude_current' ) ),
 		'excerpt_length'      	 => absint( wpsp_get_setting( $id, 'wpsp_excerpt_length' ) ),
 		'post_id'      		 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_id' ) ),
@@ -117,6 +118,8 @@ function wpsp_display( $id, $custom_settings = false ) {
 		'terms_location'		 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_terms_location' ) ),
 		'include_date' 	     	 => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_date', true ) ),
 		'date_location'       	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_date_location' ) ),
+		'include_edit_link'      => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_edit_link', true ) ),
+		'edit_link_location'     => sanitize_text_field( get_post_meta( $id, 'wpsp_edit_link_location', true ) ),
 		'include_comments' 	     => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_comments', true ) ),
 		'comments_location'      => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_comments_location' ) ),
 		'inner_wrapper'       	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_inner_wrapper' ) ),
@@ -136,6 +139,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 		'tax_term'		 	 	 => wpsp_get_setting( $id, 'wpsp_tax_term' ),
 		'taxonomy'		 	 	 => sanitize_key( wpsp_get_setting( $id, 'wpsp_taxonomy' ) ),
 		'read_more_text'		 => wp_kses_post( wpsp_get_setting( $id, 'wpsp_read_more_text' ) ),
+		'in_text_link'		 => wp_kses_post( wpsp_get_setting( $id, 'wpsp_in_text_link' ) ),
 		'wrapper'			 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_wrapper' ) ),
 		'wrapper_class' 	 	 => array_map( 'sanitize_html_class', ( explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_class' ) ) ) ),
 		'wrapper_style' 		 => explode( ' ', esc_attr( wpsp_get_setting( $id, 'wpsp_wrapper_style' ) ) ),
@@ -380,9 +384,18 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	// Start the query
 	$query = new WP_Query( apply_filters( 'wp_show_posts_shortcode_args', $args ) );
+
+	if ( $settings['list_type'] == 'ordered' ):
+		echo "<ol>";
+	elseif ( $settings['list_type'] == 'unordered' ):
+		echo "<ul>";
+	endif;
+
 	// Start the loop
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) {
+			echo $settings['list_type'] != 'none' ? "<li>" : "";
+
 			$query->the_post();
 
 			// Get page
@@ -454,14 +467,30 @@ function wpsp_display( $id, $custom_settings = false ) {
 					global $post;
 					$more_tag = apply_filters( 'wpsp_more_tag', strpos( $post->post_content, '<!--more-->' ) );
 
+					// Compose text output
+					if (!empty($settings[ 'in_text_link' ])) {
+						$permalink = get_permalink();
+						if ('excerpt' == $settings['content_type']) {
+							$output = wpsp_get_the_excerpt() . "&nbsp;<a href='$permalink'>" . $settings['in_text_link'] . "</a>";
+						} elseif ('full' == $settings['content_type']) {
+							$output = get_the_content() . "&nbsp;<a href='$permalink'>" . $settings['in_text_link'] . "</a>";
+						}
+					} else {
+						if ('excerpt' == $settings['content_type']) {
+							$output = wpsp_get_the_excerpt();
+						} elseif ('full' == $settings['content_type']) {
+							$output = get_the_content();
+						}
+					}
+
 					// The excerpt or full content
 					if ( 'excerpt' == $settings[ 'content_type' ] && $settings[ 'excerpt_length' ] && ! $more_tag && 'none' !== $settings[ 'content_type' ] ) : ?>
 						<div class="wp-show-posts-entry-summary" itemprop="text">
-							<?php wpsp_excerpt( $settings[ 'excerpt_length' ] ); ?>
+							<?= $output ?>
 						</div><!-- .entry-summary -->
 					<?php elseif ( ( 'full' == $settings[ 'content_type' ] || $more_tag ) && 'none' !== $settings[ 'content_type' ] ) : ?>
 						<div class="wp-show-posts-entry-content" itemprop="text">
-							<?php the_content( false, false ); ?>
+							<?= $output ?>
 						</div><!-- .entry-content -->
 					<?php endif;
 
@@ -475,6 +504,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 			// End inner container
 			echo '</' . $settings[ 'inner_wrapper' ] . '>';
+			echo $settings['list_type'] != 'none' ? "</li>" : "";
 		}
 	} else {
 		// no posts found
@@ -482,6 +512,12 @@ function wpsp_display( $id, $custom_settings = false ) {
 			echo wpautop( $settings[ 'no_results' ] );
 		echo $settings[ 'columns' ] !== 'col-12' ? '</div>' : '';
 	}
+
+	if ( $settings['list_type'] == 'ordered' ):
+		echo "</ol>";
+	elseif ( $settings['list_type'] == 'unordered' ):
+		echo "</ul>";
+	endif;
 
 	if ( $settings[ 'columns' ] !== 'col-12' ) {
 		echo '<div class="wpsp-clear"></div>';
