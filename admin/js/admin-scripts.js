@@ -67,13 +67,14 @@ jQuery( document ).ready( function( $ ) {
 
 	// Show any selected terms
 	var terms = wpsp_get_terms( $( '#wpsp-taxonomy' ).val() );
+	var term_values = wpsp_get_option( 'wpsp_tax_term' );
 
 	$.each(terms, function(key, value) {
 		if ( null !== value ) {
-			if ( $.isArray( wpsp_get_option( 'wpsp_tax_term' ) ) ) {
-				var checked = ( $.inArray( value, wpsp_get_option( 'wpsp_tax_term' ) ) > -1 ) ? 'checked="checked"' : '';
+			if ( $.isArray( term_values ) ) {
+				var checked = ( $.inArray( value, term_values ) > -1 ) ? 'checked="checked"' : '';
 			} else {
-				var checked = ( value === wpsp_get_option( 'wpsp_tax_term' ) ) ? 'checked="checked"' : '';
+				var checked = ( value === term_values ) ? 'checked="checked"' : '';
 			}
 
 			$('#butterbean-control-wpsp_tax_term .butterbean-checkbox-list').append( $( '<li><label><input ' + checked + ' type="checkbox" value="' + value + '" name="butterbean_wp_show_posts_setting_wpsp_tax_term[]" />' + value + '</label></li>' ) );

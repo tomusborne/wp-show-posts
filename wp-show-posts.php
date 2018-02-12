@@ -3,7 +3,7 @@
 Plugin Name: WP Show Posts
 Plugin URI: https://wpshowposts.com
 Description: WP Show Posts allows you to list posts (from any post type) anywhere on your site. This includes WooCommerce products or any other post type you might have! Check out the pro version for even more features at https://wpshowposts.com.
-Version: 1.1.1
+Version: 1.1.2
 Author: Tom Usborne
 Author URI: https://tomusborne.com
 License: GNU General Public License v2 or later
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define the current version
-define( 'WPSP_VERSION', '1.1.1' );
+define( 'WPSP_VERSION', '1.1.2' );
 
 // Add resizer script
 if ( ! class_exists( 'WPSP_Resize' ) ) {
@@ -414,7 +414,9 @@ function wpsp_display( $id, $custom_settings = false ) {
 			}
 
 			// Merge our classes with the post classes.
+			remove_filter( 'post_class', 'generate_blog_post_classes' ); // Remove GPP classes.
 			$settings['inner_wrapper_class'] = array_merge( $settings['inner_wrapper_class'], get_post_class() );
+			add_filter( 'post_class', 'generate_blog_post_classes' ); // Re-add them.
 
 			// Start inner container
 			printf( '<%1$s class="%2$s" itemtype="http://schema.org/%3$s" itemscope>',
@@ -558,14 +560,21 @@ function wpsp_shortcode_function( $atts ) {
 	$atts = shortcode_atts(
 		array(
 			'id' => '',
+			'name' => '',
 			'settings' => ''
 		), $atts, 'wp_show_posts'
 	);
 
 	ob_start();
 
-	if ( $atts[ 'id' ] ) {
-		wpsp_display( $atts[ 'id' ], $atts[ 'settings' ] );
+	// Get the ID from the list name if it's provided.
+	if ( ! empty( $atts['name'] ) ) {
+		$list = get_page_by_title( $atts['name'], 'OBJECT', 'wp_show_posts' );
+		$atts['id'] = $list->ID;
+	}
+
+	if ( $atts['id'] ) {
+		wpsp_display( $atts['id'], $atts['settings'] );
 	}
 
 	return ob_get_clean();
