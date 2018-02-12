@@ -226,6 +226,19 @@ jQuery( document ).ready( function( $ ) {
 		}
 	});
 
+	// Edit link location
+	if ( ! $( '#wpsp-include-edit-link' ).is( ':checked' ) ) {
+		$( '#butterbean-control-wpsp_edit_link_location' ).hide();
+	}
+
+	$( '#wpsp-include-edit-link' ).change(function() {
+		if ( ! this.checked ) {
+			$( '#butterbean-control-wpsp_edit_link_location' ).hide();
+		} else {
+			$( '#butterbean-control-wpsp_edit_link_location' ).show();
+		}
+	});
+
 	// Dealing with the social options
 	$( '#wpsp-social-sharing' ).parent().parent().siblings().hide();
 	if ( $( '#wpsp-social-sharing' ).is( ':checked' ) ) {

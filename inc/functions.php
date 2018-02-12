@@ -37,6 +37,21 @@ if ( ! function_exists( 'wpsp_excerpt' ) ) {
 	}
 }
 
+if ( ! function_exists( 'wpsp_get_the_excerpt' ) ) {
+	/**
+	 * Build our excerpt
+	 * @since 0.9
+	 */
+	function wpsp_get_the_excerpt() {
+		add_filter( 'excerpt_length', 'wpsp_excerpt_length', 999 );
+		add_filter( 'excerpt_more', 'wpsp_excerpt_more', 999 );
+		$excerpt = get_the_excerpt();
+		remove_filter( 'excerpt_length', 'wpsp_excerpt_length', 999 );
+		remove_filter( 'excerpt_more', 'wpsp_excerpt_more', 999 );
+		return $excerpt;
+	}
+}
+
 if ( ! function_exists( 'wpsp_meta' ) ) {
 	/**
 	 * Build our post meta.
@@ -52,8 +67,19 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 			$post_meta_style = $settings[ 'post_meta_top_style' ];
 		}
 
-		if ( ( $settings[ 'include_author' ] && $location == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && $location == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && $location == $settings[ 'terms_location' ] ) || ( $settings[ 'include_comments' ] && $location == $settings[ 'comments_location' ] ) ) {
+		if ( ( $settings[ 'include_author' ] && $location == $settings[ 'author_location' ] )
+				|| ( $settings[ 'include_date' ] && $location == $settings[ 'date_location' ] )
+				|| ( $settings[ 'include_terms' ] && $location == $settings[ 'terms_location' ] )
+				|| ( $settings[ 'include_comments' ] && $location == $settings[ 'comments_location' ] )
+				|| ( $settings[ 'include_edit_link'] && $location == $settings[ 'edit_link_location' ] )
+			) {
 			echo '<div class="wp-show-posts-entry-meta wp-show-posts-entry-meta-' . $location . ' post-meta-' . $post_meta_style . '">';
+		}
+
+		// If edit link is enabled and user is admin, show it
+		if ( $settings[ 'include_edit_link' ] && $location == $settings[ 'edit_link_location' ] && current_user_can( 'edit_post' , get_the_ID() ) ) {
+			$edit_url = get_edit_post_link();
+			$output[] = "<a class='wp-show-post-meta wpsp-edit-post' href='$edit_url'>Edit</a>";
 		}
 
 		// If our author is enabled, show it
@@ -129,7 +155,12 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 if ( ! function_exists( 'wpsp_add_post_meta_after_title' ) ) {
 	add_action( 'wpsp_after_title','wpsp_add_post_meta_after_title' );
 	function wpsp_add_post_meta_after_title( $settings ) {
-		if ( ( $settings[ 'include_author' ] && 'below-title' == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && 'below-title' == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && 'below-title' == $settings[ 'terms_location' ] ) || ( $settings[ 'include_comments' ] && 'below-title' == $settings[ 'comments_location' ] ) ) {
+		if ( ( $settings[ 'include_author' ] && 'below-title' == $settings[ 'author_location' ] )
+					|| ( $settings[ 'include_date' ] && 'below-title' == $settings[ 'date_location' ] )
+					|| ( $settings[ 'include_terms' ] && 'below-title' == $settings[ 'terms_location' ] )
+					|| ( $settings[ 'include_comments' ] && 'below-title' == $settings[ 'comments_location' ] )
+					|| ( $settings[ 'include_edit_link' ] && 'below-title' == $settings[ 'edit_link_location' ] )
+				) {
 			wpsp_meta( 'below-title', $settings );
 		}
 
@@ -139,7 +170,12 @@ if ( ! function_exists( 'wpsp_add_post_meta_after_title' ) ) {
 if ( ! function_exists( 'wpsp_add_post_meta_after_content' ) ) {
 	add_action( 'wpsp_after_content','wpsp_add_post_meta_after_content', 10 );
 	function wpsp_add_post_meta_after_content( $settings ) {
-		if ( ( $settings[ 'include_author' ] && 'below-post' == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && 'below-post' == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && 'below-post' == $settings[ 'terms_location' ] ) || ( $settings[ 'include_comments' ] && 'below-post' == $settings[ 'comments_location' ] ) ) {
+		if ( ( $settings[ 'include_author' ] && 'below-post' == $settings[ 'author_location' ] )
+					|| ( $settings[ 'include_date' ] && 'below-post' == $settings[ 'date_location' ] )
+					|| ( $settings[ 'include_terms' ] && 'below-post' == $settings[ 'terms_location' ] )
+					|| ( $settings[ 'include_comments' ] && 'below-post' == $settings[ 'comments_location' ] )
+					|| ( $settings[ 'include_edit_link' ] && 'below-post' == $settings[ 'edit_link_location' ] )
+				) {
 			wpsp_meta( 'below-post', $settings );
 		}
 	}

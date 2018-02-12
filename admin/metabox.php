@@ -494,6 +494,23 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 	        )
 	    );
 
+			$manager->register_control(
+		        'wpsp_in_text_link', // Same as setting name.
+		        array(
+		            'type'    => 'text',
+		            'section' => 'wpsp_content',
+		            'label'   => esc_html__( 'In text link', 'wp-show-posts' )
+		        )
+		    );
+
+			$manager->register_setting(
+		        'wpsp_in_text_link', // Same as control name.
+		        array(
+		            'sanitize_callback' => 'wp_kses_post',
+					'default' => $defaults[ 'wpsp_in_text_link' ] ? $defaults[ 'wpsp_in_text_link' ] : ''
+		        )
+		    );
+
 		$manager->register_section(
 	        'wpsp_post_meta',
 	        array(
@@ -619,6 +636,46 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 	        array(
 	            'sanitize_callback' => 'sanitize_text_field',
 				'default' => $defaults[ 'wpsp_terms_location' ] ? $defaults[ 'wpsp_terms_location' ] : ''
+	        )
+	    );
+
+		$manager->register_control(
+			'wpsp_include_edit_link',
+			array(
+				'type'        => 'checkbox',
+				'section'     => 'wpsp_post_meta',
+				'label'       => __( 'Include edit link (only admins will see it)','wp-show-posts' ),
+				'attr' => array( 'id' => 'wpsp-include-edit-link' )
+			)
+		);
+
+		$manager->register_setting(
+			'wpsp_include_edit_link',
+			array(
+				'sanitize_callback' => 'butterbean_validate_boolean',
+				'default' => $defaults[ 'wpsp_include_edit_link' ] ? $defaults[ 'wpsp_include_edit_link' ] : false
+			)
+		);
+
+		$manager->register_control(
+	        'wpsp_edit_link_location', // Same as setting name.
+	        array(
+	            'type'    => 'select',
+	            'section' => 'wpsp_post_meta',
+	            'label'   => esc_html__( 'Edit link location', 'wp-show-posts' ),
+	            'choices' => array(
+					'below-title' => __( 'Below title','wp-show-posts' ),
+					'below-post' => __( 'Below post','wp-show-posts' )
+				),
+				'attr' => array( 'id' => 'wpsp-edit-link-location' )
+	        )
+	    );
+
+		$manager->register_setting(
+	        'wpsp_edit_link_location', // Same as control name.
+	        array(
+	            'sanitize_callback' => 'sanitize_text_field',
+				'default' => $defaults[ 'wpsp_edit_link_location' ] ? $defaults[ 'wpsp_edit_link_location' ] : ''
 	        )
 	    );
 
