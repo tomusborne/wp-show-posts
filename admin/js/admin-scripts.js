@@ -239,6 +239,19 @@ jQuery( document ).ready( function( $ ) {
 		}
 	});
 
+	// Add item location
+	if ( ! $( '#wpsp-include-add-item' ).is( ':checked' ) ) {
+		$( '#butterbean-control-wpsp_add_item_location' ).hide();
+	}
+
+	$( '#wpsp-include-add-item' ).change(function() {
+		if ( ! this.checked ) {
+			$( '#butterbean-control-wpsp_add_item_location' ).hide();
+		} else {
+			$( '#butterbean-control-wpsp_add_item_location' ).show();
+		}
+	});
+
 	// Dealing with the social options
 	$( '#wpsp-social-sharing' ).parent().parent().siblings().hide();
 	if ( $( '#wpsp-social-sharing' ).is( ':checked' ) ) {

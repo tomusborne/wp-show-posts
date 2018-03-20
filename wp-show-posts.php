@@ -120,6 +120,8 @@ function wpsp_display( $id, $custom_settings = false ) {
 		'date_location'       	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_date_location' ) ),
 		'include_edit_link'      => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_edit_link', true ) ),
 		'edit_link_location'     => sanitize_text_field( get_post_meta( $id, 'wpsp_edit_link_location', true ) ),
+		'include_add_item'      => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_add_item', true ) ),
+		'add_item_location'     => sanitize_text_field( get_post_meta( $id, 'wpsp_add_item_location', true ) ),
 		'include_comments' 	     => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_comments', true ) ),
 		'comments_location'      => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_comments_location' ) ),
 		'inner_wrapper'       	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_inner_wrapper' ) ),
@@ -380,6 +382,17 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	if ( $masonry ) {
 		echo '<div class="grid-sizer wpsp-' . $settings[ 'columns' ] . '"></div>';
+	}
+
+	$add_capability = 'edit_' . $settings[ 'post_type' ] . 's';
+
+	if ($settings[ 'include_add_item' ] && current_user_can($add_capability)) {
+		$add_item_text = get_post_type_object( $settings[ 'post_type' ] )->labels->add_new_item;
+		$add_item_link = '/wp-admin/post-new.php?post_type=' . $settings[ 'post_type' ];
+		$text_align    = 'text-align:' . $settings['add_item_location'] . ';';
+		echo "<div style='width:100%; height:30px;$text_align'>";
+		echo "<a class='wpsp_add_item' href='$add_item_link'>$add_item_text</a>"; // Style it as you want
+		echo '</div>';
 	}
 
 	// Start the query

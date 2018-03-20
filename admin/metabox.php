@@ -658,24 +658,64 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 		);
 
 		$manager->register_control(
-	        'wpsp_edit_link_location', // Same as setting name.
-	        array(
-	            'type'    => 'select',
-	            'section' => 'wpsp_post_meta',
-	            'label'   => esc_html__( 'Edit link location', 'wp-show-posts' ),
-	            'choices' => array(
+      'wpsp_edit_link_location', // Same as setting name.
+      array(
+        'type'    => 'select',
+        'section' => 'wpsp_post_meta',
+        'label'   => esc_html__( 'Edit link location', 'wp-show-posts' ),
+        'choices' => array(
 					'below-title' => __( 'Below title','wp-show-posts' ),
 					'below-post' => __( 'Below post','wp-show-posts' )
 				),
 				'attr' => array( 'id' => 'wpsp-edit-link-location' )
-	        )
-	    );
+	    )
+	  );
 
 		$manager->register_setting(
 	        'wpsp_edit_link_location', // Same as control name.
 	        array(
 	            'sanitize_callback' => 'sanitize_text_field',
-				'default' => $defaults[ 'wpsp_edit_link_location' ] ? $defaults[ 'wpsp_edit_link_location' ] : ''
+							'default' => $defaults[ 'wpsp_edit_link_location' ] ? $defaults[ 'wpsp_edit_link_location' ] : ''
+	        )
+	    );
+
+		$manager->register_control(
+			'wpsp_include_add_item',
+			array(
+				'type'        => 'checkbox',
+				'section'     => 'wpsp_post_meta',
+				'label'       => __( 'Include add item link (only admins will see it)','wp-show-posts' ),
+				'attr' => array( 'id' => 'wpsp-include-add-item' )
+			)
+		);
+
+		$manager->register_setting(
+			'wpsp_include_add_item',
+			array(
+				'sanitize_callback' => 'butterbean_validate_boolean',
+				'default' => $defaults[ 'wpsp_include_add_item' ] ? $defaults[ 'wpsp_include_add_item' ] : false
+			)
+		);
+
+		$manager->register_control(
+      'wpsp_add_item_location', // Same as setting name.
+      array(
+        'type'    => 'select',
+        'section' => 'wpsp_post_meta',
+        'label'   => esc_html__( 'Add item location', 'wp-show-posts' ),
+        'choices' => array(
+					'right' => __( 'Upper right','wp-show-posts' ),
+					'left' => __( 'Upper left','wp-show-posts' )
+				),
+				'attr' => array( 'id' => 'wpsp-edit-link-location' )
+	    )
+	  );
+
+		$manager->register_setting(
+	        'wpsp_add_item_location', // Same as control name.
+	        array(
+	            'sanitize_callback' => 'sanitize_text_field',
+							'default' => $defaults[ 'wpsp_add_item_location' ] ? $defaults[ 'wpsp_add_item_location' ] : ''
 	        )
 	    );
 
