@@ -486,13 +486,13 @@ function wpsp_display( $id, $custom_settings = false ) {
 						if ('excerpt' == $settings['content_type']) {
 							$output = wpsp_get_the_excerpt() . "&nbsp;<a href='$permalink'>" . $settings['in_text_link'] . "</a>";
 						} elseif ('full' == $settings['content_type']) {
-							$output = get_the_content() . "&nbsp;<a href='$permalink'>" . $settings['in_text_link'] . "</a>";
+							$output = apply_filters( 'the_content', get_the_content() ) . "&nbsp;<a href='$permalink'>" . $settings['in_text_link'] . "</a>";
 						}
 					} else {
 						if ('excerpt' == $settings['content_type']) {
 							$output = wpsp_get_the_excerpt();
 						} elseif ('full' == $settings['content_type']) {
-							$output = get_the_content();
+							$output = apply_filters( 'the_content', get_the_content() );
 						}
 					}
 
