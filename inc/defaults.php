@@ -31,6 +31,8 @@ if ( ! function_exists( 'wpsp_get_defaults' ) ) {
       'wpsp_include_terms'          => false,
       'wpsp_include_author'         => false,
       'wpsp_include_date'           => true,
+      'wpsp_include_add_item'       => false,
+      'wpsp_add_item_location'      => 'below-post',
       'wpsp_include_edit_link'      => false,
       'wpsp_edit_link_location'     => 'below-post',
       'wpsp_include_comments'       => false,
