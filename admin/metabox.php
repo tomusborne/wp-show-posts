@@ -467,7 +467,25 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 	        'wpsp_read_more_text', // Same as control name.
 	        array(
 	            'sanitize_callback' => 'wp_kses_post',
-				'default' => $defaults[ 'wpsp_read_more_text' ] ? $defaults[ 'wpsp_read_more_text' ] : ''
+				'default' => $defaults[ 'wpsp_read_more_text' ]
+	        )
+	    );
+
+		$manager->register_control(
+	        'wpsp_read_more_class', // Same as setting name.
+	        array(
+	            'type'    => 'text',
+	            'section' => 'wpsp_content',
+	            'label'   => esc_html__( 'Read more button class', 'wp-show-posts' ),
+				'priority' => 75
+	        )
+	    );
+
+		$manager->register_setting(
+	        'wpsp_read_more_class', // Same as control name.
+	        array(
+	            'sanitize_callback' => 'esc_attr',
+				'default' => $defaults[ 'wpsp_read_more_class' ] ? $defaults[ 'wpsp_read_more_class' ] : ''
 	        )
 	    );
 

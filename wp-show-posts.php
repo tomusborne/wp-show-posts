@@ -142,6 +142,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 		'no_results' 		 	 => wp_kses_post( wpsp_get_setting( $id, 'wpsp_no_results' ) ),
 		'post_meta_bottom_style' => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_bottom_style' ) ),
 		'post_meta_top_style' 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_top_style' ) ),
+		'read_more_class'	 	 => esc_attr( wpsp_get_setting( $id, 'wpsp_read_more_class' ) ),
 	) );
 
 	// Replace args with any custom args.

@@ -233,10 +233,11 @@ if ( ! function_exists( 'wpsp_read_more' ) ) {
 
 	function wpsp_read_more( $settings ) {
 		if ( $settings[ 'read_more_text' ] ) {
-			echo apply_filters( 'wpsp_read_more_output', sprintf('<div class="wpsp-read-more"><a title="%1$s" class="wp-show-posts-read-more" href="%2$s">%3$s</a></div>',
+			echo apply_filters( 'wpsp_read_more_output', sprintf('<div class="wpsp-read-more"><a title="%1$s" class="%4$s" href="%2$s">%3$s</a></div>',
 				the_title_attribute( 'echo=0' ),
 				esc_url( get_permalink() ),
-				$settings[ 'read_more_text' ]
+				$settings[ 'read_more_text' ],
+				esc_attr( $settings['read_more_class'] )
 			));
 		}
 	}
