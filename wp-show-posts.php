@@ -366,7 +366,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 	// Get the wrapper ID
 	$wrapper_id = ' id="wpsp-' . $id . '"';
 
-	$wrapper_atts = apply_filters( 'wpsp_wrapper_atts', '' );
+	$wrapper_atts = apply_filters( 'wpsp_wrapper_atts', '', $settings );
 
 	do_action( 'wpsp_before_wrapper', $settings );
 
