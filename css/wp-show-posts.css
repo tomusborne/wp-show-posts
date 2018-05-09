@@ -60,7 +60,6 @@ a.wp-show-posts-read-more:focus {
 }
 
 .wp-show-posts .wp-show-posts-entry-title {
-	line-height: 1.5em;
 	margin: 0;
 }
 
@@ -124,16 +123,6 @@ a.wp-show-posts-read-more:focus {
 
 .wpsp-load-more {
 	margin-top: 2em;
-}
-
-.wp-show-posts-columns .wp-show-posts-entry-title {
-	font-size: 25px;
-}
-
-.wp-show-posts-columns .wp-show-posts-single.col-md-4 .wp-show-posts-entry-title,
-.wp-show-posts-columns .wp-show-posts-single.col-md-3 .wp-show-posts-entry-title,
-.wp-show-posts-columns .wp-show-posts-single.col-md-20 .wp-show-posts-entry-title {
-	font-size: 20px;
 }
 
 .wp-show-posts-columns .wp-show-posts-inner {
