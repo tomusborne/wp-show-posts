@@ -407,9 +407,15 @@ function wpsp_display( $id, $custom_settings = false ) {
 			$post_classes = implode( ' ', $settings[ 'inner_wrapper_class' ] );
 
 			// Merge our classes with the post classes.
-			remove_filter( 'post_class', 'generate_blog_post_classes' ); // Remove GPP classes.
+			if ( has_filter( 'post_class', 'generate_blog_post_classes' ) ) {
+				remove_filter( 'post_class', 'generate_blog_post_classes' ); // Remove GPP classes.
+			}
+
 			$post_classes .= ' ' . implode( ' ', get_post_class() );
-			add_filter( 'post_class', 'generate_blog_post_classes' ); // Re-add them.
+
+			if ( function_exists( 'generate_blog_post_classes' ) ) {
+				add_filter( 'post_class', 'generate_blog_post_classes' ); // Re-add them.
+			}
 
 			// Start inner container
 			printf( '<%1$s class="%2$s" itemtype="http://schema.org/%3$s" itemscope>',
