@@ -4,7 +4,7 @@ Donate link: https://wpshowposts.com
 Tags: show posts, display posts shortcode, portfolio, gallery, post columns
 Requires at least: 4.5
 Tested up to: 4.9
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -49,6 +49,7 @@ Here are the features in the free version:
 * Excerpt length
 * Include title
 * Read more text
+* Read more button class
 
 = Meta =
 
@@ -162,6 +163,14 @@ In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
 
+= 1.1.3 =
+* New: Button class option
+* Fix: Duplicate post classes
+* Fix: Post classes PHP notice in some themes
+* Fix: PHP 7.2 PHP warning while editing lists
+* Tweak: Pass $settings to wpsp_wrapper_atts filter
+* Tweak: Remove font-size and line-height CSS (allow themes to handle it)
+
 = 1.1.2 =
 * Fix: Performance issue dealing with lots of terms in list admin
 * Fix: Post class clashes with GP Premium
@@ -198,62 +207,17 @@ In most cases, #1 will work fine and is way easier.
 * Clean up defaults to only include free options
 * Add margin to the top of pagination
 * Use manual excerpt if it's set
-
-= 0.9 =
-* Fix bug where terms weren't saving
-* Strip oembed URLs from excerpt
-
-= 0.8 =
-* Strip shortcodes from excerpts
-* Add ellipses after excerpts
-* Fix some broken text domains for translations
-
-= 0.7 =
-* Prevent direct access to files
-* Add prefix to all column classes to avoid conflicts
-* Use wp_trim_words() function for excerpts
-* Fix conflict with Maintenance plugin
-* Make columns full width on mobile
-* Allow more tag usage when excerpt is set
-* Add blank option in widget to fix bug in Customizer/Elementor
-
-= 0.6 =
-* Add height: auto to images to prevent image stretching in Beaver Builder
-* Prevent horizontal scrolling when posts are in columns
-* Change "More query args" section name to "More settings"
-* Allow multiple IDs in "Post ID" option
-* Add "Exclude IDs" option
-* Add "No results message" option
-* Add "WP Show Posts" widget to add posts in widget areas
-
-= 0.5 =
-* Fix conflict with Yoast SEO causing taxonomy and terms fields to be blank
-* Add support for translations
-
-= 0.4 =
-* Fix column width issue when content is disabled
-* Fix pagination issue when post list is on the front page
-* Disable pagination in single posts
-* Fix saving of taxonomy and terms fields
-* Force no underline on read more buttons
-
-= 0.3 =
-* Remove attachment post type from list for now
-* Don't show pagination if there's no posts
-* Move wpsp_before_title hook into the <header> element
-* New hook: wpsp_before_wrapper
-* New hook: wpsp_before_header
-
-= 0.2 =
-* Fix issue with posts showing up in wrong area on page
-* Remove read more link if the <!-- more --> tag is used
-* Wrap read more button in div: .wpsp-read-more
-
-= 0.1 =
-* Initial release
 
 == Upgrade Notice ==
 
+= 1.1.3 =
+* New: Button class option
+* Fix: Duplicate post classes
+* Fix: Post classes PHP notice in some themes
+* Fix: PHP 7.2 PHP warning while editing lists
+* Tweak: Pass $settings to wpsp_wrapper_atts filter
+* Tweak: Remove font-size and line-height CSS (allow themes to handle it)
+
 = 1.1.2 =
 * Fix: Performance issue dealing with lots of terms in list admin
 * Fix: Post class clashes with GP Premium
@@ -290,56 +254,3 @@ In most cases, #1 will work fine and is way easier.
 * Clean up defaults to only include free options
 * Add margin to the top of pagination
 * Use manual excerpt if it's set
-
-= 0.9 =
-* Fix bug where terms weren't saving
-* Strip oembed URLs from excerpt
-
-= 0.8 =
-* Strip shortcodes from excerpts
-* Add ellipses after excerpts
-* Fix some broken text domains for translations
-
-= 0.7 =
-* Prevent direct access to files
-* Add prefix to all column classes to avoid conflicts
-* Use wp_trim_words() function for excerpts
-* Fix conflict with Maintenance plugin
-* Make columns full width on mobile
-* Allow more tag usage when excerpt is set
-* Add blank option in widget to fix bug in Customizer/Elementor
-
-= 0.6 =
-* Add height: auto to images to prevent image stretching in Beaver Builder
-* Prevent horizontal scrolling when posts are in columns
-* Change "More query args" section name to "More settings"
-* Allow multiple IDs in "Post ID" option
-* Add "Exclude IDs" option
-* Add "No results message" option
-* Add "WP Show Posts" widget to add posts in widget areas
-
-= 0.5 =
-* Fix conflict with Yoast SEO causing taxonomy and terms fields to be blank
-* Add support for translations
-
-= 0.4 =
-* Fix column width issue when content is disabled
-* Fix pagination issue when post list is on the front page
-* Disable pagination in single posts
-* Fix saving of taxonomy and terms fields
-* Force no underline on read more buttons
-
-= 0.3 =
-* Remove attachment post type from list for now
-* Don't show pagination if there's no posts
-* Move wpsp_before_title hook into the <header> element
-* New hook: wpsp_before_wrapper
-* New hook: wpsp_before_header
-
-= 0.2 =
-* Fix issue with posts showing up in wrong area on page
-* Remove read more link if the <!-- more --> tag is used
-* Wrap read more button in div: .wpsp-read-more
-
-= 0.1 =
-* Initial release
