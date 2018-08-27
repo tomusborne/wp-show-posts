@@ -380,7 +380,8 @@ function wpsp_display( $id, $custom_settings = false ) {
 	}
 
 	// Start the query
-	$query = new WP_Query( apply_filters( 'wp_show_posts_shortcode_args', $args ) );
+	$query = new WP_Query( apply_filters( 'wp_show_posts_shortcode_args', $args, $settings ) );
+
 	// Start the loop
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) {
