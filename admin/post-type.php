@@ -15,8 +15,8 @@ if ( ! function_exists( 'wp_show_posts_type' ) ) {
 		$labels = array(
 			'name'                  => _x( 'Post Lists', 'Post Type General Name', 'wp-show-posts' ),
 			'singular_name'         => _x( 'Post List', 'Post Type Singular Name', 'wp-show-posts' ),
-			'menu_name'             => __( 'WP Show Posts', 'wp-show-posts' ),
-			'name_admin_bar'        => __( 'WP Show Posts', 'wp-show-posts' ),
+			'menu_name'             => __( 'Show Posts', 'wp-show-posts' ),
+			'name_admin_bar'        => __( 'Show Posts', 'wp-show-posts' ),
 			'archives'              => __( 'List Archives', 'wp-show-posts' ),
 			'parent_item_colon'     => __( 'Parent List:', 'wp-show-posts' ),
 			'all_items'             => __( 'All Lists', 'wp-show-posts' ),
