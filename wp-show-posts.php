@@ -94,55 +94,55 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	// Build our setting variables
 	$settings = apply_filters( 'wpsp_settings', array(
-		'list_id'				 => absint( $id ),
-		'author' 				 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_author' ) ),
-		'columns'     			 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns' ) ),
-		'columns_gutter'      	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_columns_gutter' ) ),
-		'content_type'        	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_content_type' ) ),
-		'exclude_current'     	 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_exclude_current' ) ),
-		'excerpt_length'      	 => absint( wpsp_get_setting( $id, 'wpsp_excerpt_length' ) ),
-		'post_id'      		 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_id' ) ),
-		'exclude_post_id'      	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_exclude_post_id' ) ),
-		'ignore_sticky_posts' 	 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_ignore_sticky_posts' ) ),
-		'include_title' 		 => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_title', true ) ),
-		'title_element'			 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_title_element' ) ),
-		'image'					 => sanitize_text_field( get_post_meta( $id, 'wpsp_image', true ), FILTER_VALIDATE_BOOLEAN ),
-		'image_location'		 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_image_location' ) ),
-		'image_alignment'		 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_image_alignment' ) ),
-		'image_height'			 => absint( wpsp_get_setting( $id, 'wpsp_image_height' ) ),
-		'image_width'			 => absint( wpsp_get_setting( $id, 'wpsp_image_width' ) ),
-		'include_author' 	 	 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_include_author' ) ),
-		'author_location'     	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_author_location' ) ),
-		'include_terms' 	     => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_include_terms' ) ),
-		'terms_location'		 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_terms_location' ) ),
-		'include_date' 	     	 => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_date', true ) ),
-		'date_location'       	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_date_location' ) ),
-		'include_comments' 	     => wp_validate_boolean( get_post_meta( $id, 'wpsp_include_comments', true ) ),
-		'comments_location'      => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_comments_location' ) ),
-		'inner_wrapper'       	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_inner_wrapper' ) ),
-		'inner_wrapper_class' 	 => array_map( 'sanitize_html_class', ( explode( ' ', wpsp_get_setting( $id, 'wpsp_inner_wrapper_class' ) ) ) ),
-		'inner_wrapper_style' 	 => explode( ' ', esc_attr( wpsp_get_setting( $id, 'wpsp_inner_wrapper_style' ) ) ),
-		'itemtype'				 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_itemtype' ) ),
-		'meta_key'   	     	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_meta_key' ) ),
-		'meta_value'   	     	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_meta_value' ) ),
-		'offset'   			 	 => absint( wpsp_get_setting( $id, 'wpsp_offset' ) ),
-		'order'   			 	 => sanitize_key( wpsp_get_setting( $id, 'wpsp_order' ) ),
-		'orderby'  			 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_orderby' ) ),
-		'pagination'			 => wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_pagination' ) ),
-		'post_type'			 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_type' ) ),
-		'post_status'		 	 => wpsp_get_setting( $id, 'wpsp_post_status' ), // Validated later
-		'posts_per_page'		 => intval( wpsp_get_setting( $id, 'wpsp_posts_per_page' ) ),
-		'tax_operator'		 	 => wpsp_get_setting( $id, 'wpsp_tax_operator' ), // Validated later
+		'list_id'				 => $id,
+		'author' 				 => wpsp_get_setting( $id, 'wpsp_author' ),
+		'columns'     			 => wpsp_get_setting( $id, 'wpsp_columns' ),
+		'columns_gutter'      	 => wpsp_get_setting( $id, 'wpsp_columns_gutter' ),
+		'content_type'        	 => wpsp_get_setting( $id, 'wpsp_content_type' ),
+		'exclude_current'     	 => wpsp_get_setting( $id, 'wpsp_exclude_current' ),
+		'excerpt_length'      	 => wpsp_get_setting( $id, 'wpsp_excerpt_length' ),
+		'post_id'      		 	 => wpsp_get_setting( $id, 'wpsp_post_id' ),
+		'exclude_post_id'      	 => wpsp_get_setting( $id, 'wpsp_exclude_post_id' ),
+		'ignore_sticky_posts' 	 => wpsp_get_setting( $id, 'wpsp_ignore_sticky_posts' ),
+		'include_title' 		 => get_post_meta( $id, 'wpsp_include_title', true ),
+		'title_element'			 => wpsp_get_setting( $id, 'wpsp_title_element' ),
+		'image'					 => get_post_meta( $id, 'wpsp_image', true ),
+		'image_location'		 => wpsp_get_setting( $id, 'wpsp_image_location' ),
+		'image_alignment'		 => wpsp_get_setting( $id, 'wpsp_image_alignment' ),
+		'image_height'			 => wpsp_get_setting( $id, 'wpsp_image_height' ),
+		'image_width'			 => wpsp_get_setting( $id, 'wpsp_image_width' ),
+		'include_author' 	 	 => wpsp_get_setting( $id, 'wpsp_include_author' ),
+		'author_location'     	 => wpsp_get_setting( $id, 'wpsp_author_location' ),
+		'include_terms' 	     => wpsp_get_setting( $id, 'wpsp_include_terms' ),
+		'terms_location'		 => wpsp_get_setting( $id, 'wpsp_terms_location' ),
+		'include_date' 	     	 => get_post_meta( $id, 'wpsp_include_date', true ),
+		'date_location'       	 => wpsp_get_setting( $id, 'wpsp_date_location' ),
+		'include_comments' 	     => get_post_meta( $id, 'wpsp_include_comments', true ),
+		'comments_location'      => wpsp_get_setting( $id, 'wpsp_comments_location' ),
+		'inner_wrapper'       	 => wpsp_get_setting( $id, 'wpsp_inner_wrapper' ),
+		'inner_wrapper_class' 	 => explode( ' ', wpsp_get_setting( $id, 'wpsp_inner_wrapper_class' ) ),
+		'inner_wrapper_style' 	 => explode( ' ', wpsp_get_setting( $id, 'wpsp_inner_wrapper_style' ) ),
+		'itemtype'				 => wpsp_get_setting( $id, 'wpsp_itemtype' ),
+		'meta_key'   	     	 => wpsp_get_setting( $id, 'wpsp_meta_key' ),
+		'meta_value'   	     	 => wpsp_get_setting( $id, 'wpsp_meta_value' ),
+		'offset'   			 	 => wpsp_get_setting( $id, 'wpsp_offset' ),
+		'order'   			 	 => wpsp_get_setting( $id, 'wpsp_order' ),
+		'orderby'  			 	 => wpsp_get_setting( $id, 'wpsp_orderby' ),
+		'pagination'			 => wpsp_get_setting( $id, 'wpsp_pagination' ),
+		'post_type'			 	 => wpsp_get_setting( $id, 'wpsp_post_type' ),
+		'post_status'		 	 => wpsp_get_setting( $id, 'wpsp_post_status' ),
+		'posts_per_page'		 => wpsp_get_setting( $id, 'wpsp_posts_per_page' ),
+		'tax_operator'		 	 => wpsp_get_setting( $id, 'wpsp_tax_operator' ),
 		'tax_term'		 	 	 => wpsp_get_setting( $id, 'wpsp_tax_term' ),
-		'taxonomy'		 	 	 => sanitize_key( wpsp_get_setting( $id, 'wpsp_taxonomy' ) ),
-		'read_more_text'		 => wp_kses_post( wpsp_get_setting( $id, 'wpsp_read_more_text' ) ),
-		'wrapper'			 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_wrapper' ) ),
-		'wrapper_class' 	 	 => array_map( 'sanitize_html_class', ( explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_class' ) ) ) ),
-		'wrapper_style' 		 => explode( ' ', esc_attr( wpsp_get_setting( $id, 'wpsp_wrapper_style' ) ) ),
-		'no_results' 		 	 => wp_kses_post( wpsp_get_setting( $id, 'wpsp_no_results' ) ),
-		'post_meta_bottom_style' => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_bottom_style' ) ),
-		'post_meta_top_style' 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_top_style' ) ),
-		'read_more_class'	 	 => esc_attr( wpsp_get_setting( $id, 'wpsp_read_more_class' ) ),
+		'taxonomy'		 	 	 => wpsp_get_setting( $id, 'wpsp_taxonomy' ),
+		'read_more_text'		 => wpsp_get_setting( $id, 'wpsp_read_more_text' ),
+		'wrapper'			 	 => wpsp_get_setting( $id, 'wpsp_wrapper' ),
+		'wrapper_class' 	 	 => explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_class' ) ),
+		'wrapper_style' 		 => explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_style' ) ),
+		'no_results' 		 	 => wpsp_get_setting( $id, 'wpsp_no_results' ),
+		'post_meta_bottom_style' => wpsp_get_setting( $id, 'wpsp_post_meta_bottom_style' ),
+		'post_meta_top_style' 	 => wpsp_get_setting( $id, 'wpsp_post_meta_top_style' ),
+		'read_more_class'	 	 => wpsp_get_setting( $id, 'wpsp_read_more_class' ),
 	) );
 
 	// Replace args with any custom args.
@@ -161,43 +161,43 @@ function wpsp_display( $id, $custom_settings = false ) {
 	$args = array();
 
 	if ( '' !== $settings[ 'order' ] ) {
-		$args[ 'order' ] = $settings[ 'order' ];
+		$args[ 'order' ] = esc_attr( $settings[ 'order' ] );
 	}
 
 	if ( '' !== $settings[ 'orderby' ] ) {
-		$args[ 'orderby' ] = $settings[ 'orderby' ];
+		$args[ 'orderby' ] = esc_attr( $settings[ 'orderby' ] );
 	}
 
 	if ( 'rand' == $settings[ 'orderby' ] && $settings[ 'pagination' ] ) {
-		$args[ 'orderby' ] = 'rand(' . $id . ')';
+		$args[ 'orderby' ] = 'rand(' . absint( $id ) . ')';
 	}
 
 	if ( '' !== $settings[ 'post_type' ] ) {
-		$args[ 'post_type' ] = $settings[ 'post_type' ];
+		$args[ 'post_type' ] = esc_attr( $settings[ 'post_type' ] );
 	}
 
 	if ( '' !== $settings[ 'posts_per_page' ] ) {
-		$args[ 'posts_per_page' ] = $settings[ 'posts_per_page' ];
+		$args[ 'posts_per_page' ] = intval( $settings[ 'posts_per_page' ] );
 	}
 
 	if ( $settings[ 'ignore_sticky_posts' ] ) {
-		$args[ 'ignore_sticky_posts' ] = $settings[ 'ignore_sticky_posts' ];
+		$args[ 'ignore_sticky_posts' ] = wp_validate_boolean( $settings[ 'ignore_sticky_posts' ] );
 	}
 
 	if ( '' !== $settings[ 'meta_key' ] ) {
-		$args[ 'meta_key' ] = $settings[ 'meta_key' ];
+		$args[ 'meta_key' ] = esc_html( $settings[ 'meta_key' ] );
 	}
 
 	if ( '' !== $settings[ 'meta_value' ] ) {
-		$args[ 'meta_value' ] = $settings[ 'meta_value' ];
+		$args[ 'meta_value' ] = esc_html( $settings[ 'meta_value' ] );
 	}
 
 	if ( $settings[ 'offset' ] > 0 ) {
-		$args[ 'offset' ] = $settings[ 'offset' ];
+		$args[ 'offset' ] = intval( $settings[ 'offset' ] );
 	}
 
 	if ( '' !== $settings[ 'author' ] ) {
-		$args[ 'author' ] = $settings[ 'author' ];
+		$args[ 'author' ] = esc_html( $settings[ 'author' ] );
 	}
 
 	if ( $settings[ 'pagination' ] && ! is_single() ) {
@@ -303,7 +303,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 	}
 
 	// Featured post class
-	$featured_post = wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_featured_post' ) );
+	$featured_post = wpsp_get_setting( $id, 'wpsp_featured_post' );
 
 	$current_post = '';
 	if ( 'col-12' !== $settings[ 'columns' ] && $featured_post ) {
@@ -325,11 +325,11 @@ function wpsp_display( $id, $custom_settings = false ) {
 	}
 
 	// Masonry
-	$masonry = wp_validate_boolean( wpsp_get_setting( $id, 'wpsp_masonry' ) );
+	$masonry = wpsp_get_setting( $id, 'wpsp_masonry' );
 
 	if ( $masonry ) {
 		$settings[ 'wrapper_class' ][] = 'wp-show-posts-masonry';
-		$settings[ 'inner_wrapper_class' ][] = ' wp-show-posts-masonry-' . $settings[ 'columns' ];
+		$settings[ 'inner_wrapper_class' ][] = ' wp-show-posts-masonry-' . esc_attr( $settings[ 'columns' ] );
 		$settings[ 'inner_wrapper_class' ][] = ' wp-show-posts-masonry-block';
 
 		wp_enqueue_script( 'wpsp-imagesloaded' );
@@ -364,7 +364,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 	}
 
 	// Get the wrapper ID
-	$wrapper_id = ' id="wpsp-' . $id . '"';
+	$wrapper_id = ' id="wpsp-' . absint( $id ) . '"';
 
 	$wrapper_atts = apply_filters( 'wpsp_wrapper_atts', '', $settings );
 
@@ -376,7 +376,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 	do_action( 'wpsp_inside_wrapper', $settings );
 
 	if ( $masonry ) {
-		echo '<div class="grid-sizer wpsp-' . $settings[ 'columns' ] . '"></div>';
+		echo '<div class="grid-sizer wpsp-' . esc_attr( $settings[ 'columns' ] ) . '"></div>';
 	}
 
 	// Start the query
@@ -399,10 +399,10 @@ function wpsp_display( $id, $custom_settings = false ) {
 				if ( $query->current_post == 0 && $paged == 1 ) {
 					$featured = ' featured-column ' . $current_post;
 				} else {
-					$featured = ' wpsp-' . $settings[ 'columns' ];
+					$featured = ' wpsp-' . esc_attr( $settings[ 'columns' ] );
 				}
 			} elseif ( $settings[ 'columns' ] !== 'col-12' ) {
-				$column_class .= ' wpsp-' . $settings[ 'columns' ];
+				$column_class .= ' wpsp-' . esc_attr( $settings[ 'columns' ] );
 			}
 
 			$post_classes = implode( ' ', $settings[ 'inner_wrapper_class' ] );
@@ -430,7 +430,12 @@ function wpsp_display( $id, $custom_settings = false ) {
 					do_action( 'wpsp_before_header', $settings );
 
 					// The title
-					if ( $settings[ 'include_title' ] || ( $settings[ 'include_author' ] && 'below-title' == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && 'below-title' == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && 'below-title' == $settings[ 'terms_location' ] ) ) : ?>
+					if (
+						$settings[ 'include_title' ] ||
+						( $settings[ 'include_author' ] && 'below-title' == $settings[ 'author_location' ] ) ||
+						( $settings[ 'include_date' ] && 'below-title' == $settings[ 'date_location' ] ) ||
+						( $settings[ 'include_terms' ] && 'below-title' == $settings[ 'terms_location' ] )
+					) : ?>
 						<header class="wp-show-posts-entry-header">
 							<?php
 
@@ -503,7 +508,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	// Pagination
 	if ( $settings[ 'pagination' ] && $query->have_posts() && ! is_single() ) {
-		$ajax_pagination = wp_validate_boolean( wpsp_get_setting( $settings['list_id'], 'wpsp_ajax_pagination' ) );
+		$ajax_pagination = wpsp_get_setting( $settings['list_id'], 'wpsp_ajax_pagination' );
 
 		if ( $ajax_pagination && function_exists( 'wpsp_ajax_pagination' ) ) {
 
@@ -524,12 +529,14 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	if ( defined( 'WPSP_PRO_VERSION' ) && version_compare( WPSP_PRO_VERSION, '0.6', '<' ) ) {
 		// Lightbox and gallery
-		$image_lightbox = sanitize_text_field( wpsp_get_setting( $settings['list_id'], 'wpsp_image_lightbox' ) );
+		$image_lightbox = wpsp_get_setting( $settings['list_id'], 'wpsp_image_lightbox' );
+
 		if ( $image_lightbox ) {
 			wp_enqueue_script( 'wpsp-featherlight' );
 			wp_enqueue_style( 'wpsp-featherlight' );
 
-			$image_gallery = sanitize_text_field( wpsp_get_setting( $settings['list_id'], 'wpsp_image_gallery' ) );
+			$image_gallery = wpsp_get_setting( $settings['list_id'], 'wpsp_image_gallery' );
+
 			if ( $image_gallery ) {
 				wp_enqueue_script( 'wpsp-featherlight-gallery' );
 				wp_enqueue_style( 'wpsp-featherlight-gallery' );
