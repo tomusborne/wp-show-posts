@@ -519,7 +519,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 				$next_page_url = next_posts( $max_page, false );
 			}
 
-			wpsp_ajax_pagination( $next_page_url, $paged, $max_page );
+			wpsp_ajax_pagination( $next_page_url, $paged, $max_page, $settings );
 			wp_enqueue_script( 'wpsp-imagesloaded' );
 			wp_enqueue_script( 'wpsp-ajax-pagination' );
 		} else {
