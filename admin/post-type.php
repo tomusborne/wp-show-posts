@@ -60,3 +60,32 @@ if ( ! function_exists( 'wp_show_posts_type' ) ) {
 
 	}
 }
+
+add_filter( 'manage_wp_show_posts_posts_columns', 'wpsp_set_post_type_columns' );
+/**
+ * Set our custom columns in our post type.
+ *
+ * @since 1.2
+ */
+function wpsp_set_post_type_columns( $columns ) {
+    $columns['shortcode'] = __( 'Shortcode', 'wp-show-posts' );
+
+    return $columns;
+}
+
+add_action( 'manage_wp_show_posts_posts_custom_column', 'wpsp_post_type_shortcode_column', 10, 2 );
+/**
+ * Add our shortcode next to each list item.
+ *
+ * @since 1.2
+ */
+function wpsp_post_type_shortcode_column( $column, $post_id ) {
+	switch ( $column ) {
+		case 'shortcode' :
+			printf(
+				'<input type="text" readonly value=\'[wp_show_posts id="%s"]\' style="width: 200px" />',
+				$post_id
+			);
+		break;
+	}
+}
