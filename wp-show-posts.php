@@ -470,7 +470,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 						</div><!-- .entry-summary -->
 					<?php elseif ( ( 'full' == $settings[ 'content_type' ] || $more_tag ) && 'none' !== $settings[ 'content_type' ] ) : ?>
 						<div class="wp-show-posts-entry-content" itemprop="text">
-							<?php the_content( false, false ); ?>
+							<?php the_content( ); ?>
 						</div><!-- .entry-content -->
 					<?php endif;
 
