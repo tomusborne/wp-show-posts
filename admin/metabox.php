@@ -239,6 +239,7 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 	            'type'    => 'text',
 	            'section' => 'wpsp_columns',
 	            'label'   => esc_html__( 'Columns gutter', 'wp-show-posts' ),
+				'description' => esc_html__( 'Add the unit: px, em etc..', 'wp-show-posts' ),
 				'attr'    => array( 'class' => 'widefat' ),
 	        )
 	    );
