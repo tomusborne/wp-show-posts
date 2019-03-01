@@ -476,7 +476,11 @@ function wpsp_display( $id, $custom_settings = false ) {
 						</div><!-- .entry-summary -->
 					<?php elseif ( ( 'full' == $settings[ 'content_type' ] || $more_tag ) && 'none' !== $settings[ 'content_type' ] ) : ?>
 						<div class="wp-show-posts-entry-content" itemprop="text">
-							<?php the_content( false, false ); ?>
+							<?php
+							$content_more_link = apply_filters( 'wpsp_content_more_link', false, $settings );
+
+							the_content( $content_more_link );
+							?>
 						</div><!-- .entry-content -->
 					<?php endif;
 
