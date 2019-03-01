@@ -38,7 +38,7 @@ if ( ! function_exists( 'wpsp_get_terms' ) ) {
 			die();
 		}
 
-		$terms = get_terms( sanitize_key( $_POST[ 'taxonomy' ] ), 'orderby=count' );
+		$terms = get_terms( sanitize_key( $_POST[ 'taxonomy' ] ), 'orderby=count&hide_empty=0' );
 		$count = count( $terms );
 		$types = array();
 		if ( $count > 0 ) {
