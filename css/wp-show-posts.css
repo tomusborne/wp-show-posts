@@ -10,7 +10,7 @@ a.wp-show-posts-read-more,
 a.wp-show-posts-read-more:visited {
 	display: inline-block;
 	padding: 8px 15px;
-	border: 2px solid #222;
+	border: 1px solid #222;
 	color: #222;
 	font-size: 0.8em;
 	text-decoration: none;
@@ -23,7 +23,7 @@ a.wp-show-posts-read-more:visited {
 
 a.wp-show-posts-read-more:hover,
 a.wp-show-posts-read-more:focus {
-	border: 2px solid transparent;
+	border: 1px solid transparent;
 	color: #fff;
 	background: #222;
 	text-decoration: none;
