@@ -34,6 +34,7 @@ require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/metabox.php
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/ajax.php';
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/admin.php';
 require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'admin/widget.php';
+require_once trailingslashit( plugin_dir_path( __FILE__ ) ) . 'blocks/block.php';
 
 add_action( 'plugins_loaded', 'wpsp_load_textdomain' );
 /**
