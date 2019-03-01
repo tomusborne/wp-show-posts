@@ -227,18 +227,7 @@ jQuery( document ).ready( function( $ ) {
 	});
 
 	// Dealing with the social options
-	$( '#wpsp-social-sharing' ).parent().parent().siblings().hide();
-	if ( $( '#wpsp-social-sharing' ).is( ':checked' ) ) {
-		$( '#wpsp-social-sharing' ).parent().parent().siblings().show();
-	}
 
-	$( '#wpsp-social-sharing' ).change(function() {
-		if ( ! this.checked ) {
-			$( this ).parent().parent().siblings().hide();
-		} else {
-			$( this ).parent().parent().siblings().show();
-		}
-	});
 
 	// Pagination
 	if ( ! $( '#wpsp-pagination' ).is( ':checked' ) ) {
