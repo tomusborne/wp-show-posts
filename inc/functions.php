@@ -190,7 +190,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 				if ( ! empty( $image_atts ) ) : ?>
 					<img src="<?php echo WPSP_Resize( $image_url[0], $image_atts[ 'width' ], $image_atts[ 'height' ], $image_atts[ 'crop' ], true, $image_atts[ 'upscale' ] ); ?>" alt="<?php esc_attr( the_title() ); ?>" itemprop="image" class="<?php echo $settings[ 'image_alignment' ]; ?>" />
 				<?php else :
-					the_post_thumbnail( apply_filters( 'wpsp_default_image_size', 'full' ), array( 'itemprop' => 'image' ) );
+					the_post_thumbnail( apply_filters( 'wpsp_default_image_size', 'full', $settings ), array( 'itemprop' => 'image' ) );
 				endif;
 
 				if ( isset( $settings[ 'image_overlay_color' ] ) && ( '' !== $settings[ 'image_overlay_color' ] || '' !== $settings[ 'image_overlay_icon' ] ) ) {
