@@ -521,11 +521,11 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 			if ( $nextpage <= $max_page ) {
 				$next_page_url = next_posts( $max_page, false );
-			}
 
-			wpsp_ajax_pagination( $next_page_url, $paged, $max_page, $settings );
-			wp_enqueue_script( 'wpsp-imagesloaded' );
-			wp_enqueue_script( 'wpsp-ajax-pagination' );
+				wpsp_ajax_pagination( $next_page_url, $paged, $max_page, $settings );
+				wp_enqueue_script( 'wpsp-imagesloaded' );
+				wp_enqueue_script( 'wpsp-ajax-pagination' );
+			}
 		} else {
 			wpsp_pagination( $query->max_num_pages );
 		}
