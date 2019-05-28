@@ -274,6 +274,14 @@ function wpsp_display( $id, $custom_settings = false ) {
 	// If Exclude Current
 	if ( ( is_singular() && $settings[ 'exclude_current' ] ) || is_single() ) {
 		$args['post__not_in'] = array( get_the_ID() );
+
+		if ( $settings[ 'post_id' ] ) {
+			foreach ( (array) $args['post__in'] as $exclude_key => $exclude_id ) {
+				if ( $exclude_id === get_the_ID() ) {
+					unset( $args['post__in'][$exclude_key] );
+				}
+			}
+		}
 	}
 
 	// Border
