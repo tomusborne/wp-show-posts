@@ -19,21 +19,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Define the current version
 define( 'WPSP_VERSION', '1.1.3' );
 
+// Define the path of the plugin
+define( 'WPSP_PATH', dirname( __FILE__ ) . '/' );
+
 // Add resizer script
 if ( ! class_exists( 'WPSP_Resize' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . 'inc/image-resizer.php';
+	require_once WPSP_PATH . 'inc/image-resizer.php';
 }
 
-require_once dirname( __FILE__ ) . '/inc/defaults.php';
-require_once dirname( __FILE__ ) . '/inc/functions.php';
-require_once dirname( __FILE__ ) . '/inc/compat.php';
-require_once dirname( __FILE__ ) . '/inc/styling.php';
-require_once dirname( __FILE__ ) . '/inc/deprecated.php';
-require_once dirname( __FILE__ ) . '/admin/post-type.php';
-require_once dirname( __FILE__ ) . '/admin/metabox.php';
-require_once dirname( __FILE__ ) . '/admin/ajax.php';
-require_once dirname( __FILE__ ) . '/admin/admin.php';
-require_once dirname( __FILE__ ) . '/admin/widget.php';
+require_once WPSP_PATH . 'inc/defaults.php';
+require_once WPSP_PATH . 'inc/functions.php';
+require_once WPSP_PATH . 'inc/compat.php';
+require_once WPSP_PATH . 'inc/styling.php';
+require_once WPSP_PATH . 'inc/deprecated.php';
+require_once WPSP_PATH . 'admin/post-type.php';
+require_once WPSP_PATH . 'admin/metabox.php';
+require_once WPSP_PATH . 'admin/ajax.php';
+require_once WPSP_PATH . 'admin/admin.php';
+require_once WPSP_PATH . 'admin/widget.php';
 
 add_action( 'plugins_loaded', 'wpsp_load_textdomain' );
 /**
