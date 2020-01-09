@@ -452,7 +452,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 							$before_title = sprintf(
 								'<%1$s class="wp-show-posts-entry-title" itemprop="headline"><a href="%2$s" rel="bookmark">',
 								$settings[ 'title_element' ],
-								esc_url( get_permalink() )
+								esc_url( apply_filters( 'wpsp_title_href', get_permalink(), $settings ) )
 							);
 
 							$after_title = '</a></' . $settings[ 'title_element' ] . '>';
