@@ -51,7 +51,7 @@ add_action( 'wp_enqueue_scripts', 'wpsp_enqueue_scripts' );
  * @since 0.1
  */
 function wpsp_enqueue_scripts() {
-	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '-min';
+	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	wp_enqueue_style( 'wp-show-posts', plugins_url( "css/wp-show-posts{$suffix}.css", __FILE__ ), array(), WPSP_VERSION );
 }
 
