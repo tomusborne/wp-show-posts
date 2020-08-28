@@ -306,7 +306,6 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	// Columns
 	if ( 'col-12' !== $settings[ 'columns' ]  ) {
-		wp_enqueue_script( 'wpsp-matchHeight', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'js/jquery.matchHeight.js', array( 'jquery' ), WPSP_VERSION, true );
 		$settings[ 'wrapper_class' ][] = 'wp-show-posts-columns';
 	}
 
