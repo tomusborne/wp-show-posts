@@ -1,0 +1,8 @@
+node_modules
+.sass-cache
+wp-show-posts
+*.zip
+vendor
+cghooks.lock
+composer.lock
+package-lock.json
