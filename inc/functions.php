@@ -76,8 +76,10 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 		if ( $settings[ 'include_date' ] && $location == $settings[ 'date_location' ] ) {
 			$time_string = '<time class="wp-show-posts-entry-date published" datetime="%1$s" itemprop="datePublished">%2$s</time>';
 
-			if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
-				$time_string .= '<time class="wp-show-posts-updated" datetime="%3$s" itemprop="dateModified">%4$s</time>';
+			$updated_time = get_the_modified_time( 'U' );
+			$published_time = get_the_time( 'U' ) + 1800;
+
+			if ( $updated_time > $published_time ) {
 			}
 
 			$time_string = sprintf( $time_string,
