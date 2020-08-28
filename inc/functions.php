@@ -56,20 +56,24 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 			echo '<div class="wp-show-posts-entry-meta wp-show-posts-entry-meta-' . $location . ' post-meta-' . $post_meta_style . '">';
 		}
 
-		// If our author is enabled, show it
-		if ( $settings[ 'include_author' ] && $location == $settings[ 'author_location' ] ) {
-			$output[] = apply_filters( 'wpsp_author_output', sprintf(
-				'<span class="wp-show-posts-byline wp-show-posts-meta">
-					<span class="wp-show-posts-author vcard" itemtype="http://schema.org/Person" itemscope="itemscope" itemprop="author">
-						<a class="url fn n" href="%1$s" title="%2$s" rel="author" itemprop="url">
-							<span class="author-name" itemprop="name">%3$s</span>
-						</a>
-					</span>
-				</span>',
-				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-				esc_attr( sprintf( __( 'View all posts by %s', 'wp-show-posts' ), get_the_author() ) ),
-				esc_html( get_the_author() )
-			) );
+		// If our author is enabled, show it.
+		if ( $settings['include_author'] && $location === $settings['author_location'] ) {
+			$output[] = apply_filters(
+				'wpsp_author_output',
+				sprintf(
+					'<span class="wp-show-posts-byline wp-show-posts-meta">
+						<span class="wp-show-posts-author vcard" itemtype="http://schema.org/Person" itemscope="itemscope" itemprop="author">
+							<a class="url fn n" href="%1$s" title="%2$s" rel="author" itemprop="url">
+								<span class="author-name" itemprop="name">%3$s</span>
+							</a>
+						</span>
+					</span>',
+					esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+					esc_attr( sprintf( __( 'View all posts by %s', 'wp-show-posts' ), get_the_author() ) ),
+					esc_html( get_the_author() )
+				),
+				$settings
+			);
 		}
 
 		// Show the date
@@ -80,7 +84,7 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 			$published_time = get_the_time( 'U' ) + 1800;
 
 			if ( $updated_time > $published_time ) {
-				if ( apply_filters( 'wpsp_post_date_show_updated_only', false ) ) {
+				if ( apply_filters( 'wpsp_post_date_show_updated_only', false, $settings ) ) {
 					$time_string = '<time class="wp-show-posts-updated" datetime="%3$s" itemprop="dateModified">%4$s</time>';
 				} else {
 					$time_string = '<time class="wp-show-posts-updated" datetime="%3$s" itemprop="dateModified">%4$s</time>' . $time_string;
@@ -94,22 +98,31 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 				esc_html( get_the_modified_date() )
 			);
 
-			// If our date is enabled, show it
-			$output[] = apply_filters( 'wpsp_date_output', sprintf(
-				'<span class="wp-show-posts-posted-on wp-show-posts-meta">
-					<a href="%1$s" title="%2$s" rel="bookmark">%3$s</a>
-				</span>',
-				esc_url( get_permalink() ),
-				esc_attr( get_the_time() ),
-				$time_string
-			) );
+			// If our date is enabled, show it.
+			$output[] = apply_filters(
+				'wpsp_date_output',
+				sprintf(
+					'<span class="wp-show-posts-posted-on wp-show-posts-meta">
+						<a href="%1$s" title="%2$s" rel="bookmark">%3$s</a>
+					</span>',
+					esc_url( get_permalink() ),
+					esc_attr( get_the_time() ),
+					$time_string
+				),
+				$settings
+			);
 		}
 
-		// Show the terms
-		if ( $settings[ 'include_terms' ] && $location == $settings[ 'terms_location' ] ) {
-			$output[] = apply_filters( 'wpsp_terms_output', sprintf( '<span class="wp-show-posts-terms wp-show-posts-meta">%1$s</span>',
-				get_the_term_list( get_the_ID(), $settings[ 'taxonomy' ], '', apply_filters( 'wpsp_term_separator', ', ' ) )
-			) );
+		// Show the terms.
+		if ( $settings['include_terms'] && $location === $settings['terms_location'] ) {
+			$output[] = apply_filters(
+				'wpsp_terms_output',
+				sprintf(
+					'<span class="wp-show-posts-terms wp-show-posts-meta">%1$s</span>',
+					get_the_term_list( get_the_ID(), $settings[ 'taxonomy' ], '', apply_filters( 'wpsp_term_separator', ', ', $settings ) )
+				),
+				$settings
+			);
 		}
 
 		if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) && ( $settings[ 'include_comments' ] && $location == $settings[ 'comments_location' ] ) ) {
@@ -201,7 +214,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 				endif;
 
 				if ( isset( $settings[ 'image_overlay_color' ] ) && ( '' !== $settings[ 'image_overlay_color' ] || '' !== $settings[ 'image_overlay_icon' ] ) ) {
-					$color = ( $settings[ 'image_overlay_color' ] ) ? 'style="background-color:' . wpsp_hex2rgba( $settings[ 'image_overlay_color' ], apply_filters( 'wpsp_overlay_opacity', 0.7 ) ) . '"' : '';
+					$color = ( $settings[ 'image_overlay_color' ] ) ? 'style="background-color:' . wpsp_hex2rgba( $settings[ 'image_overlay_color' ], apply_filters( 'wpsp_overlay_opacity', 0.7, $settings ) ) . '"' : '';
 					$icon = ( $settings[ 'image_overlay_icon' ] ) ? $settings[ 'image_overlay_icon' ] : 'no-icon';
 					echo '<span class="wp-show-posts-image-overlay ' . $icon . '" ' . $color . '></span>';
 				}
@@ -239,13 +252,18 @@ if ( ! function_exists( 'wpsp_read_more' ) ) {
 	add_action( 'wpsp_after_content','wpsp_read_more', 5 );
 
 	function wpsp_read_more( $settings ) {
-		if ( $settings[ 'read_more_text' ] ) {
-			echo apply_filters( 'wpsp_read_more_output', sprintf('<div class="wpsp-read-more"><a title="%1$s" class="%4$s" href="%2$s">%3$s</a></div>',
-				the_title_attribute( 'echo=0' ),
-				esc_url( get_permalink() ),
-				$settings[ 'read_more_text' ],
-				esc_attr( $settings['read_more_class'] )
-			));
+		if ( $settings['read_more_text'] ) {
+			echo apply_filters(
+				'wpsp_read_more_output',
+				sprintf(
+					'<div class="wpsp-read-more"><a title="%1$s" class="%4$s" href="%2$s">%3$s</a></div>',
+					the_title_attribute( 'echo=0' ),
+					esc_url( get_permalink() ),
+					$settings['read_more_text'],
+					esc_attr( $settings['read_more_class'] )
+				),
+				$settings
+			);
 		}
 	}
 }

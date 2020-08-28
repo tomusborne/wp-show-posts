@@ -480,7 +480,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 					// Check to see if we have the more tag
 					global $post;
-					$more_tag = apply_filters( 'wpsp_more_tag', strpos( $post->post_content, '<!--more-->' ) );
+					$more_tag = apply_filters( 'wpsp_more_tag', strpos( $post->post_content, '<!--more-->' ), $settings );
 
 					// The excerpt or full content
 					if ( 'excerpt' == $settings[ 'content_type' ] && $settings[ 'excerpt_length' ] && ! $more_tag && 'none' !== $settings[ 'content_type' ] ) : ?>
