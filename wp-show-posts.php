@@ -1,25 +1,24 @@
 <?php
 /*
-Plugin Name: WP Show Posts
-Plugin URI: https://wpshowposts.com
-Description: WP Show Posts allows you to list posts (from any post type) anywhere on your site. This includes WooCommerce products or any other post type you might have! Check out the pro version for even more features at https://wpshowposts.com.
-Version: 1.1.3
-Author: Tom Usborne
-Author URI: https://tomusborne.com
-License: GNU General Public License v2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: wp-show-posts
+ * Plugin Name: WP Show Posts
+ * Plugin URI: https://wpshowposts.com
+ * Description: WP Show Posts allows you to list posts (from any post type) anywhere on your site. This includes WooCommerce products or any other post type you might have! Check out the pro version for even more features at https://wpshowposts.com.
+ * Version: 1.1.3
+ * Author: Tom Usborne
+ * Author URI: https://tomusborne.com
+ * License: GNU General Public License v2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: wp-show-posts
 */
 
-// No direct access, please
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // No direct access, please.
 }
 
-// Define the current version
+// Define the current version.
 define( 'WPSP_VERSION', '1.1.3' );
 
-// Add resizer script
+// Add resizer script.
 if ( ! class_exists( 'WPSP_Resize' ) ) {
 	require_once plugin_dir_path( __FILE__ ) . 'inc/image-resizer.php';
 }
@@ -46,7 +45,7 @@ function wpsp_load_textdomain() {
 }
 
 add_action( 'wp_enqueue_scripts', 'wpsp_enqueue_scripts' );
-/*
+/**
  * Enqueue our CSS to the front end
  *
  * @since 0.1
@@ -56,7 +55,7 @@ function wpsp_enqueue_scripts() {
 	wp_enqueue_style( 'wp-show-posts', plugins_url( "css/wp-show-posts{$suffix}.css", __FILE__ ), array(), WPSP_VERSION );
 }
 
-/*
+/**
  * Create a helpful wrapper to get our settings and defaults
  *
  * @since 0.1
@@ -78,72 +77,75 @@ function wpsp_get_setting( $id, $key ) {
 	return get_post_meta( $id, $key ) ? get_post_meta( $id, $key, true ) : $defaults[ $key ];
 }
 
-/*
+/**
  * Build the front end of the plugin
  * $id parameter needs to match ID of custom post type entry
  *
  * @since 0.1
  *
- * @param int $id The ID of the post.
+ * @param int          $id The ID of the post.
  * @param string|array $custom_settings Custom settings we can pass to our list.
  */
 function wpsp_display( $id, $custom_settings = false ) {
-	// Set the global ID of our object
+	// Set the global ID of our object.
 	global $wpsp_id;
 	$wpsp_id = $id;
 
-	// Build our setting variables
-	$settings = apply_filters( 'wpsp_settings', array(
-		'list_id'				 => $id,
-		'author' 				 => wpsp_get_setting( $id, 'wpsp_author' ),
-		'columns'     			 => wpsp_get_setting( $id, 'wpsp_columns' ),
-		'columns_gutter'      	 => wpsp_get_setting( $id, 'wpsp_columns_gutter' ),
-		'content_type'        	 => wpsp_get_setting( $id, 'wpsp_content_type' ),
-		'exclude_current'     	 => wpsp_get_setting( $id, 'wpsp_exclude_current' ),
-		'excerpt_length'      	 => wpsp_get_setting( $id, 'wpsp_excerpt_length' ),
-		'post_id'      		 	 => wpsp_get_setting( $id, 'wpsp_post_id' ),
-		'exclude_post_id'      	 => wpsp_get_setting( $id, 'wpsp_exclude_post_id' ),
-		'ignore_sticky_posts' 	 => wpsp_get_setting( $id, 'wpsp_ignore_sticky_posts' ),
-		'include_title' 		 => get_post_meta( $id, 'wpsp_include_title', true ),
-		'title_element'			 => wpsp_get_setting( $id, 'wpsp_title_element' ),
-		'image'					 => get_post_meta( $id, 'wpsp_image', true ),
-		'image_location'		 => wpsp_get_setting( $id, 'wpsp_image_location' ),
-		'image_alignment'		 => wpsp_get_setting( $id, 'wpsp_image_alignment' ),
-		'image_height'			 => wpsp_get_setting( $id, 'wpsp_image_height' ),
-		'image_width'			 => wpsp_get_setting( $id, 'wpsp_image_width' ),
-		'include_author' 	 	 => wpsp_get_setting( $id, 'wpsp_include_author' ),
-		'author_location'     	 => wpsp_get_setting( $id, 'wpsp_author_location' ),
-		'include_terms' 	     => wpsp_get_setting( $id, 'wpsp_include_terms' ),
-		'terms_location'		 => wpsp_get_setting( $id, 'wpsp_terms_location' ),
-		'include_date' 	     	 => get_post_meta( $id, 'wpsp_include_date', true ),
-		'date_location'       	 => wpsp_get_setting( $id, 'wpsp_date_location' ),
-		'include_comments' 	     => get_post_meta( $id, 'wpsp_include_comments', true ),
-		'comments_location'      => wpsp_get_setting( $id, 'wpsp_comments_location' ),
-		'inner_wrapper'       	 => wpsp_get_setting( $id, 'wpsp_inner_wrapper' ),
-		'inner_wrapper_class' 	 => explode( ' ', wpsp_get_setting( $id, 'wpsp_inner_wrapper_class' ) ),
-		'inner_wrapper_style' 	 => explode( ' ', wpsp_get_setting( $id, 'wpsp_inner_wrapper_style' ) ),
-		'itemtype'				 => wpsp_get_setting( $id, 'wpsp_itemtype' ),
-		'meta_key'   	     	 => wpsp_get_setting( $id, 'wpsp_meta_key' ),
-		'meta_value'   	     	 => wpsp_get_setting( $id, 'wpsp_meta_value' ),
-		'offset'   			 	 => wpsp_get_setting( $id, 'wpsp_offset' ),
-		'order'   			 	 => wpsp_get_setting( $id, 'wpsp_order' ),
-		'orderby'  			 	 => wpsp_get_setting( $id, 'wpsp_orderby' ),
-		'pagination'			 => wpsp_get_setting( $id, 'wpsp_pagination' ),
-		'post_type'			 	 => wpsp_get_setting( $id, 'wpsp_post_type' ),
-		'post_status'		 	 => wpsp_get_setting( $id, 'wpsp_post_status' ),
-		'posts_per_page'		 => wpsp_get_setting( $id, 'wpsp_posts_per_page' ),
-		'tax_operator'		 	 => wpsp_get_setting( $id, 'wpsp_tax_operator' ),
-		'tax_term'		 	 	 => wpsp_get_setting( $id, 'wpsp_tax_term' ),
-		'taxonomy'		 	 	 => wpsp_get_setting( $id, 'wpsp_taxonomy' ),
-		'read_more_text'		 => wpsp_get_setting( $id, 'wpsp_read_more_text' ),
-		'wrapper'			 	 => wpsp_get_setting( $id, 'wpsp_wrapper' ),
-		'wrapper_class' 	 	 => explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_class' ) ),
-		'wrapper_style' 		 => explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_style' ) ),
-		'no_results' 		 	 => wpsp_get_setting( $id, 'wpsp_no_results' ),
-		'post_meta_bottom_style' => wpsp_get_setting( $id, 'wpsp_post_meta_bottom_style' ),
-		'post_meta_top_style' 	 => wpsp_get_setting( $id, 'wpsp_post_meta_top_style' ),
-		'read_more_class'	 	 => wpsp_get_setting( $id, 'wpsp_read_more_class' ),
-	) );
+	// Build our setting variables.
+	$settings = apply_filters(
+		'wpsp_settings',
+		array(
+			'list_id'				 => $id,
+			'author' 				 => wpsp_get_setting( $id, 'wpsp_author' ),
+			'columns'     			 => wpsp_get_setting( $id, 'wpsp_columns' ),
+			'columns_gutter'      	 => wpsp_get_setting( $id, 'wpsp_columns_gutter' ),
+			'content_type'        	 => wpsp_get_setting( $id, 'wpsp_content_type' ),
+			'exclude_current'     	 => wpsp_get_setting( $id, 'wpsp_exclude_current' ),
+			'excerpt_length'      	 => wpsp_get_setting( $id, 'wpsp_excerpt_length' ),
+			'post_id'      		 	 => wpsp_get_setting( $id, 'wpsp_post_id' ),
+			'exclude_post_id'      	 => wpsp_get_setting( $id, 'wpsp_exclude_post_id' ),
+			'ignore_sticky_posts' 	 => wpsp_get_setting( $id, 'wpsp_ignore_sticky_posts' ),
+			'include_title' 		 => get_post_meta( $id, 'wpsp_include_title', true ),
+			'title_element'			 => wpsp_get_setting( $id, 'wpsp_title_element' ),
+			'image'					 => get_post_meta( $id, 'wpsp_image', true ),
+			'image_location'		 => wpsp_get_setting( $id, 'wpsp_image_location' ),
+			'image_alignment'		 => wpsp_get_setting( $id, 'wpsp_image_alignment' ),
+			'image_height'			 => wpsp_get_setting( $id, 'wpsp_image_height' ),
+			'image_width'			 => wpsp_get_setting( $id, 'wpsp_image_width' ),
+			'include_author' 	 	 => wpsp_get_setting( $id, 'wpsp_include_author' ),
+			'author_location'     	 => wpsp_get_setting( $id, 'wpsp_author_location' ),
+			'include_terms' 	     => wpsp_get_setting( $id, 'wpsp_include_terms' ),
+			'terms_location'		 => wpsp_get_setting( $id, 'wpsp_terms_location' ),
+			'include_date' 	     	 => get_post_meta( $id, 'wpsp_include_date', true ),
+			'date_location'       	 => wpsp_get_setting( $id, 'wpsp_date_location' ),
+			'include_comments' 	     => get_post_meta( $id, 'wpsp_include_comments', true ),
+			'comments_location'      => wpsp_get_setting( $id, 'wpsp_comments_location' ),
+			'inner_wrapper'       	 => wpsp_get_setting( $id, 'wpsp_inner_wrapper' ),
+			'inner_wrapper_class' 	 => explode( ' ', wpsp_get_setting( $id, 'wpsp_inner_wrapper_class' ) ),
+			'inner_wrapper_style' 	 => explode( ' ', wpsp_get_setting( $id, 'wpsp_inner_wrapper_style' ) ),
+			'itemtype'				 => wpsp_get_setting( $id, 'wpsp_itemtype' ),
+			'meta_key'   	     	 => wpsp_get_setting( $id, 'wpsp_meta_key' ),
+			'meta_value'   	     	 => wpsp_get_setting( $id, 'wpsp_meta_value' ),
+			'offset'   			 	 => wpsp_get_setting( $id, 'wpsp_offset' ),
+			'order'   			 	 => wpsp_get_setting( $id, 'wpsp_order' ),
+			'orderby'  			 	 => wpsp_get_setting( $id, 'wpsp_orderby' ),
+			'pagination'			 => wpsp_get_setting( $id, 'wpsp_pagination' ),
+			'post_type'			 	 => wpsp_get_setting( $id, 'wpsp_post_type' ),
+			'post_status'		 	 => wpsp_get_setting( $id, 'wpsp_post_status' ),
+			'posts_per_page'		 => wpsp_get_setting( $id, 'wpsp_posts_per_page' ),
+			'tax_operator'		 	 => wpsp_get_setting( $id, 'wpsp_tax_operator' ),
+			'tax_term'               => wpsp_get_setting( $id, 'wpsp_tax_term' ),
+			'taxonomy'               => wpsp_get_setting( $id, 'wpsp_taxonomy' ),
+			'read_more_text'         => wpsp_get_setting( $id, 'wpsp_read_more_text' ),
+			'wrapper'                => wpsp_get_setting( $id, 'wpsp_wrapper' ),
+			'wrapper_class'          => explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_class' ) ),
+			'wrapper_style'          => explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_style' ) ),
+			'no_results'             => wpsp_get_setting( $id, 'wpsp_no_results' ),
+			'post_meta_bottom_style' => wpsp_get_setting( $id, 'wpsp_post_meta_bottom_style' ),
+			'post_meta_top_style'    => wpsp_get_setting( $id, 'wpsp_post_meta_top_style' ),
+			'read_more_class'        => wpsp_get_setting( $id, 'wpsp_read_more_class' ),
+		)
+	);
 
 	// Replace args with any custom args.
 	if ( ! empty( $custom_settings ) ) {
