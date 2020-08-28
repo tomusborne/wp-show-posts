@@ -497,10 +497,6 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 				echo '</div><!-- wp-show-posts-inner -->';
 
-				if ( 'col-12' == $settings[ 'columns' ] ) {
-					echo '<div class="wpsp-clear"></div>';
-				}
-
 			// End inner container
 			echo '</' . $settings[ 'inner_wrapper' ] . '>';
 		}
