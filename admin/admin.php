@@ -46,7 +46,7 @@ if ( ! function_exists( 'wpsp_translatable_strings' ) ) {
 
 if ( ! function_exists( 'wpsp_add_shortcode_button' ) ) {
 	add_action( 'admin_init', 'wpsp_add_shortcode_button' );
-	/*
+	/**
 	 * Set it up so we can register our TinyMCE button
 	 * @since 0.1
 	 */
@@ -65,7 +65,7 @@ if ( ! function_exists( 'wpsp_add_shortcode_button' ) ) {
 }
 
 if ( ! function_exists( 'wpsp_shortcodes_add_tinymce_plugin' ) ) {
-	/*
+	/**
 	 * Register our tinyMCE button javascript
 	 * @since 0.1
 	 */
@@ -76,7 +76,7 @@ if ( ! function_exists( 'wpsp_shortcodes_add_tinymce_plugin' ) ) {
 }
 
 if ( ! function_exists( 'wpsp_shortcodes_register_button' ) ) {
-	/*
+	/**
 	 * Register our TinyMCE button
 	 * @since 0.1
 	 */
@@ -103,7 +103,6 @@ function wpsp_set_admin_body_classes( $classes ) {
 		if ( $image_width || $image_height ) {
 			$classes .= ' wpsp-has-legacy-image-values';
 		}
-
 	}
 
 	return $classes;
