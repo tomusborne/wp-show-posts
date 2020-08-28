@@ -91,7 +91,8 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 				}
 			}
 
-			$time_string = sprintf( $time_string,
+			$time_string = sprintf(
+				$time_string,
 				esc_attr( get_the_date( 'c' ) ),
 				esc_html( get_the_date() ),
 				esc_attr( get_the_modified_date( 'c' ) ),
@@ -125,7 +126,7 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 			);
 		}
 
-		if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) && ( $settings[ 'include_comments' ] && $location == $settings[ 'comments_location' ] ) ) {
+		if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) && ( $settings['include_comments'] && $location === $settings['comments_location'] ) ) {
 				ob_start();
 				echo '<span class="wp-show-posts-comments-link wp-show-posts-meta">';
 					comments_popup_link( __( 'Leave a comment', 'wp-show-posts' ), __( '1 Comment', 'wp-show-posts' ), __( '% Comments', 'wp-show-posts' ) );
@@ -134,13 +135,13 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 				$output[] = $comments_link;
 		}
 
-		// Set up our separator
-		$separator = ( 'inline' == $post_meta_style ) ? ' <span class="wp-show-posts-separator">|</span> ' : '<br />';
+		// Set up our separator.
+		$separator = ( 'inline' === $post_meta_style ) ? ' <span class="wp-show-posts-separator">|</span> ' : '<br />';
 
-		// Echo our output
+		// Echo our output.
 		echo implode( $separator, $output);
 
-		if ( ( $settings[ 'include_author' ] && $location == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && $location == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && $location == $settings[ 'terms_location' ] ) || ( $settings[ 'include_comments' ] && $location == $settings[ 'comments_location' ] ) ) {
+		if ( ( $settings['include_author'] && $location === $settings['author_location'] ) || ( $settings['include_date'] && $location === $settings['date_location'] ) || ( $settings['include_terms'] && $location === $settings['terms_location'] ) || ( $settings['include_comments'] && $location === $settings['comments_location'] ) ) {
 			echo '</div>';
 		}
 	}
