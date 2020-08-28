@@ -278,6 +278,31 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 			)
 		);
 
+		$image_sizes = get_intermediate_image_sizes();
+		$image_sizes[] = 'full';
+		$image_sizes = array_diff( $image_sizes, array( '1536x1536', '2048x2048' ) );
+
+		$manager->register_control(
+			'wpsp_image_attachment_size', // Same as setting name.
+			array(
+				'type'    => 'text',
+				'section' => 'wpsp_images',
+				'label'   => esc_html__( 'Image size', 'wp-show-posts' ),
+				'description' => sprintf(
+					__( 'Available image sizes: %s', 'wp-show-posts' ),
+					implode( ', ', $image_sizes )
+				)
+			)
+		);
+
+		$manager->register_setting(
+	        'wpsp_image_attachment_size', // Same as control name.
+	        array(
+	            'sanitize_callback' => 'sanitize_text_field',
+				'default' => $defaults[ 'wpsp_image_attachment_size' ]
+	        )
+	    );
+
 		$manager->register_control(
 	        'wpsp_image_width', // Same as setting name.
 	        array(

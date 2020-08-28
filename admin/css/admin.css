@@ -44,3 +44,12 @@
     max-height: 250px;
 	overflow-y: scroll;
 }
+
+body:not(.wpsp-has-legacy-image-values) #butterbean-control-wpsp_image_width,
+body:not(.wpsp-has-legacy-image-values) #butterbean-control-wpsp_image_height {
+	display: none;
+}
+
+.wpsp-has-legacy-image-values #butterbean-control-wpsp_image_attachment_size {
+	display: none;
+}

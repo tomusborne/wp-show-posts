@@ -110,6 +110,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 			'image'					 => get_post_meta( $id, 'wpsp_image', true ),
 			'image_location'		 => wpsp_get_setting( $id, 'wpsp_image_location' ),
 			'image_alignment'		 => wpsp_get_setting( $id, 'wpsp_image_alignment' ),
+			'image_attachment_size'  => wpsp_get_setting( $id, 'wpsp_image_attachment_size' ),
 			'image_height'			 => wpsp_get_setting( $id, 'wpsp_image_height' ),
 			'image_width'			 => wpsp_get_setting( $id, 'wpsp_image_width' ),
 			'include_author' 	 	 => wpsp_get_setting( $id, 'wpsp_include_author' ),

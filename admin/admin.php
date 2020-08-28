@@ -85,3 +85,26 @@ if ( ! function_exists( 'wpsp_shortcodes_register_button' ) ) {
 		return $buttons;
 	}
 }
+
+add_filter( 'admin_body_class', 'wpsp_set_admin_body_classes' );
+/**
+ * Add body classes to the admin.
+ *
+ * @since 1.2.0
+ * @param string $classes The existing classes.
+ */
+function wpsp_set_admin_body_classes( $classes ) {
+	global $post_type;
+
+	if ( isset( $post_type ) && 'wp_show_posts' === $post_type ) {
+		$image_width = get_post_meta( get_the_ID(), 'wpsp_image_width', true );
+		$image_height = get_post_meta( get_the_ID(), 'wpsp_image_height', true );
+
+		if ( $image_width || $image_height ) {
+			$classes .= ' wpsp-has-legacy-image-values';
+		}
+
+	}
+
+	return $classes;
+}

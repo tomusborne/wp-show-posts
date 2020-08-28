@@ -21,6 +21,7 @@ if ( ! function_exists( 'wpsp_get_defaults' ) ) {
 			'wpsp_exclude_post_id' 	  		=> '',
 			'wpsp_ignore_sticky_posts' 		=> false,
 			'wpsp_image'			  		=> true,
+			'wpsp_image_attachment_size'    => 'full',
 			'wpsp_image_alignment'	  		=> 'center',
 			'wpsp_image_height'        		=> '',
 			'wpsp_image_location'	  		=> 'below-title',
