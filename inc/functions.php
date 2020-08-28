@@ -80,6 +80,11 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 			$published_time = get_the_time( 'U' ) + 1800;
 
 			if ( $updated_time > $published_time ) {
+				if ( apply_filters( 'wpsp_post_date_show_updated_only', false ) ) {
+					$time_string = '<time class="wp-show-posts-updated" datetime="%3$s" itemprop="dateModified">%4$s</time>';
+				} else {
+					$time_string = '<time class="wp-show-posts-updated" datetime="%3$s" itemprop="dateModified">%4$s</time>' . $time_string;
+				}
 			}
 
 			$time_string = sprintf( $time_string,
