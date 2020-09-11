@@ -431,11 +431,16 @@ function wpsp_display( $id, $custom_settings = false ) {
 				add_filter( 'post_class', 'generate_blog_post_classes' ); // Re-add them.
 			}
 
+			$container_itemtype = sprintf(
+				'itemtype="http://schema.org/%s" itemscope',
+				$settings[ 'itemtype' ]
+			);
+
 			// Start inner container
-			printf( '<%1$s class="%2$s" itemtype="http://schema.org/%3$s" itemscope>',
+			printf( '<%1$s class="%2$s"%3$s>',
 				$settings[ 'inner_wrapper' ],
 				$post_classes . $column_class . $featured,
-				$settings[ 'itemtype' ]
+				wpsp_has_microdata() ? $container_itemtype : ''
 			);
 
 				echo '<div class="wp-show-posts-inner"' . $settings[ 'inner_wrapper_style' ] . '>';
@@ -454,16 +459,23 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 							do_action( 'wpsp_before_title', $settings );
 
+							$itemprop_headline = ' itemprop="headline"';
+
+							if ( ! wpsp_has_microdata() ) {
+								$itemprop_headline = '';
+							}
+
 							$before_title = sprintf(
-								'<%1$s class="wp-show-posts-entry-title" itemprop="headline"><a href="%2$s" rel="bookmark">',
+								'<%1$s class="wp-show-posts-entry-title"%3$s><a href="%2$s" rel="bookmark">',
 								$settings[ 'title_element' ],
-								esc_url( apply_filters( 'wpsp_title_href', get_permalink(), $settings ) )
+								esc_url( apply_filters( 'wpsp_title_href', get_permalink(), $settings ) ),
+								$itemprop_headline
 							);
 
 							$after_title = '</a></' . $settings[ 'title_element' ] . '>';
 
 							if ( apply_filters( 'wpsp_disable_title_link', false, $settings ) ) {
-								$before_title = '<' . $settings[ 'title_element' ] . ' class="wp-show-posts-entry-title" itemprop="headline">';
+								$before_title = '<' . $settings[ 'title_element' ] . ' class="wp-show-posts-entry-title"' . $itemprop_headline . '>';
 								$after_title = '</' . $settings[ 'title_element' ] . '>';
 							}
 
@@ -478,17 +490,24 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 					do_action( 'wpsp_before_content', $settings );
 
+					// Content microdata.
+					$content_microdata = ' itemprop="text"';
+
+					if ( ! wpsp_has_microdata() ) {
+						$content_microdata = '';
+					}
+
 					// Check to see if we have the more tag
 					global $post;
 					$more_tag = apply_filters( 'wpsp_more_tag', strpos( $post->post_content, '<!--more-->' ), $settings );
 
 					// The excerpt or full content
 					if ( 'excerpt' == $settings[ 'content_type' ] && $settings[ 'excerpt_length' ] && ! $more_tag && 'none' !== $settings[ 'content_type' ] ) : ?>
-						<div class="wp-show-posts-entry-summary" itemprop="text">
+						<div class="wp-show-posts-entry-summary"<?php echo $content_microdata; ?>>
 							<?php wpsp_excerpt( $settings[ 'excerpt_length' ] ); ?>
 						</div><!-- .entry-summary -->
 					<?php elseif ( ( 'full' == $settings[ 'content_type' ] || $more_tag ) && 'none' !== $settings[ 'content_type' ] ) : ?>
-						<div class="wp-show-posts-entry-content" itemprop="text">
+						<div class="wp-show-posts-entry-content"<?php echo $content_microdata; ?>>
 							<?php
 							$content_more_link = apply_filters( 'wpsp_content_more_link', false, $settings );
 
