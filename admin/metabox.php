@@ -956,7 +956,25 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 	            'sanitize_callback' => 'wp_kses_post',
 				'default' => $defaults[ 'wpsp_no_results' ] ? $defaults[ 'wpsp_no_results' ] : ''
 	        )
-	    );
+		);
+
+		$manager->register_control(
+			'wpsp_microdata',
+			array(
+				'type'        => 'checkbox',
+				'section'     => 'wpsp_query_args',
+				'label'       => __( 'Add basic microdata', 'wp-show-posts' ),
+				'attr' => array( 'id' => 'wpsp-microdata' )
+			)
+		);
+
+		$manager->register_setting(
+			'wpsp_microdata',
+			array(
+				'sanitize_callback' => 'butterbean_validate_boolean',
+				'default' => $defaults[ 'wpsp_microdata' ] ? $defaults[ 'wpsp_microdata' ] : false
+			)
+		);
 	}
 }
 

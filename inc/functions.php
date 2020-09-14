@@ -62,7 +62,7 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 			$itemprop_url = ' itemprop="url"';
 			$itemprop_name = ' itemprop="name"';
 
-			if ( ! wpsp_has_microdata() ) {
+			if ( ! $settings['microdata'] ) {
 				$author_microdata = '';
 				$itemprop_url = '';
 				$itemprop_name = '';
@@ -94,7 +94,7 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 			$itemprop_published = ' itemprop="datePublished"';
 			$itemprop_modified = ' itemprop="dateModified"';
 
-			if ( ! wpsp_has_microdata() ) {
+			if ( ! $settings['microdata'] ) {
 				$itemprop_published = '';
 				$itemprop_modified = '';
 			}
@@ -236,7 +236,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 				if ( ! empty( $image_atts ) ) :
 					$image_itemprop = 'itemprop="image"';
 
-					if ( ! wpsp_has_microdata() ) {
+					if ( ! $settings['microdata'] ) {
 						$image_itemprop = '';
 					}
 					?>
@@ -244,7 +244,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 				<?php else :
 					$image_itemprop = array( 'itemprop' => 'image' );
 
-					if ( ! wpsp_has_microdata() ) {
+					if ( ! $settings['microdata'] ) {
 						$image_itemprop = array();
 					}
 
@@ -456,13 +456,4 @@ if ( ! function_exists( 'wpsp_pagination' ) ) {
 			echo '<div class="wpsp-load-more">' . $links . '</div>';
 		}
 	}
-}
-
-/**
- * Whether we should output microdata or not.
- *
- * @since 1.2.0
- */
-function wpsp_has_microdata() {
-	return apply_filters( 'wpsp_has_microdata', false );
 }

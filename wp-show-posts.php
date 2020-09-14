@@ -145,6 +145,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 			'post_meta_bottom_style' => wpsp_get_setting( $id, 'wpsp_post_meta_bottom_style' ),
 			'post_meta_top_style'    => wpsp_get_setting( $id, 'wpsp_post_meta_top_style' ),
 			'read_more_class'        => wpsp_get_setting( $id, 'wpsp_read_more_class' ),
+			'microdata'              => wpsp_get_setting( $id, 'wpsp_microdata' ),
 		)
 	);
 
@@ -440,7 +441,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 			printf( '<%1$s class="%2$s"%3$s>',
 				$settings[ 'inner_wrapper' ],
 				$post_classes . $column_class . $featured,
-				wpsp_has_microdata() ? $container_itemtype : ''
+				$settings['microdata'] ? $container_itemtype : ''
 			);
 
 				echo '<div class="wp-show-posts-inner"' . $settings[ 'inner_wrapper_style' ] . '>';
@@ -461,7 +462,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 							$itemprop_headline = ' itemprop="headline"';
 
-							if ( ! wpsp_has_microdata() ) {
+							if ( ! $settings['microdata'] ) {
 								$itemprop_headline = '';
 							}
 
@@ -493,7 +494,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 					// Content microdata.
 					$content_microdata = ' itemprop="text"';
 
-					if ( ! wpsp_has_microdata() ) {
+					if ( ! $settings['microdata'] ) {
 						$content_microdata = '';
 					}
 
