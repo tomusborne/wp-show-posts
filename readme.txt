@@ -163,6 +163,32 @@ In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
 
+= 1.2.0 =
+* New: Image size selection option
+* New: Add shortcode to post list Dashboard view
+* New: wpsp_content_more_link filter
+* New: wpsp_title_href filter
+* New: wpsp_post_date_show_updated_only filter
+* New: wpsp_query_args filter
+* New: Change read more button border size to 1px
+* New: Microdata option
+* Fix: Broken orderby option
+* Fix: AJAX pagination notice if there aren't enough posts
+* Fix: Exclude current bug if the ID is set in the IDs field
+* Fix: Bug where exclude ID option was ignored on single posts
+* Tweak: Show empty categories in taxonomy list
+* Tweak: Add $settings parameter to AJAX pagination function
+* Tweak: Escape values later
+* Tweak: Remove "WP" from admin menu item title
+* Tweak: Add field description to Columns gutter option
+* Tweak: Pass $settings to wpsp_default_image_size
+* Tweak: Remove matchHeight.js
+* Tweak: Remove clear element inside columns
+* Tweak: Better updated time calculation
+* Tweak: Deprecate old image resizer
+* Tweak: Harden AJAX security
+* Tweak: Make sure all filters have settings passed to them
+
 = 1.1.3 =
 * New: Button class option
 * Fix: Duplicate post classes

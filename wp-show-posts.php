@@ -1,22 +1,24 @@
 <?php
-/*
+/**
  * Plugin Name: WP Show Posts
  * Plugin URI: https://wpshowposts.com
  * Description: WP Show Posts allows you to list posts (from any post type) anywhere on your site. This includes WooCommerce products or any other post type you might have! Check out the pro version for even more features at https://wpshowposts.com.
- * Version: 1.1.3
+ * Version: 1.2.0-alpha.1
  * Author: Tom Usborne
  * Author URI: https://tomusborne.com
  * License: GNU General Public License v2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: wp-show-posts
-*/
+ *
+ * @package WP Show Posts
+ */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // No direct access, please.
 }
 
 // Define the current version.
-define( 'WPSP_VERSION', '1.1.3' );
+define( 'WPSP_VERSION', '1.2.0-alpha.1' );
 
 // Add resizer script.
 if ( ! class_exists( 'WPSP_Resize' ) ) {
