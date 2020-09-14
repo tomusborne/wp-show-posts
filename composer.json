@@ -27,7 +27,7 @@
     "scripts": {
         "php": [
             "parallel-lint --exclude .git --exclude vendor .",
-            "phpcs -p . --standard=PHPCompatibilityWP --extensions=php --runtime-set testVersion 5.2- --ignore=*/vendor/,*/node_modules/"
+            "phpcs -p . --standard=PHPCompatibilityWP --extensions=php --runtime-set testVersion 5.2- --ignore=*/vendor/,*/node_modules/,*/admin/butterbean/tmpl"
         ],
         "lint:wpcs": "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs",
         "make-pot": "wp i18n make-pot . langs/wp-show-posts.pot"
