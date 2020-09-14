@@ -291,7 +291,11 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 				'description' => sprintf(
 					__( 'Available image sizes: %s', 'wp-show-posts' ),
 					implode( ', ', $image_sizes )
-				)
+				),
+				'attr' => array(
+					'id' => 'wpsp-image-size',
+					'placeholder' => 'full',
+				),
 			)
 		);
 
