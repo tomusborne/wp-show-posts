@@ -59,7 +59,7 @@ if ( ! function_exists( 'wpsp_get_defaults' ) ) {
 			'wpsp_wrapper_style'       		=> '',
 			'wpsp_no_results'		   		=> __( 'Sorry, no posts were found.','wp-show-posts' ),
 			'wpsp_read_more_class'			=> 'wp-show-posts-read-more',
-			'wpsp_microdata'                => false,
+			'wpsp_microdata'                => true,
 		);
 
 		return apply_filters( 'wpsp_defaults', $defaults );
