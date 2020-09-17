@@ -133,7 +133,8 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 					esc_attr( get_the_time() ),
 					$time_string
 				),
-				$settings
+				$settings,
+				$time_string
 			);
 		}
 
