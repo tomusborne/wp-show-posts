@@ -1,6 +1,6 @@
 {
   "name": "wp-show-posts",
-  "version": "1.2.0-alpha.1",
+  "version": "1.2.0-alpha.2",
   "description": "Display posts anywhere using a shortcode.",
   "main": "Gruntfile.js",
   "scripts": {
