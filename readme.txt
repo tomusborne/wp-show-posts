@@ -172,6 +172,7 @@ In most cases, #1 will work fine and is way easier.
 * New: wpsp_query_args filter
 * New: Change read more button border size to 1px
 * New: Microdata option
+* New: wpsp_before_comments_link hook
 * Fix: Broken orderby option
 * Fix: AJAX pagination notice if there aren't enough posts
 * Fix: Exclude current bug if the ID is set in the IDs field
