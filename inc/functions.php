@@ -153,6 +153,7 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 		if ( ! is_single() && ! post_password_required() && ( comments_open() || get_comments_number() ) && ( $settings['include_comments'] && $location === $settings['comments_location'] ) ) {
 				ob_start();
 				echo '<span class="wp-show-posts-comments-link wp-show-posts-meta">';
+					do_action( 'wpsp_before_comments_link', $settings );
 					comments_popup_link( __( 'Leave a comment', 'wp-show-posts' ), __( '1 Comment', 'wp-show-posts' ), __( '% Comments', 'wp-show-posts' ) );
 				echo '</span>';
 				$comments_link = ob_get_clean();
