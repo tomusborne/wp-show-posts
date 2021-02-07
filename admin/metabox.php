@@ -809,7 +809,8 @@ if ( ! function_exists( 'wpsp_register' ) ) {
 					'modified' => __( 'Modified','wp-show-posts' ),
 					'parent' => __( 'Parent','wp-show-posts' ),
 					'rand' => __( 'Random','wp-show-posts' ),
-					'comment_count' => __( 'Comment count','wp-show-posts' )
+					'comment_count' => __( 'Comment count','wp-show-posts' ),
+			    		'menu_order' => __( 'Menu Order','wp-show-posts' )
 				),
 				'attr' => array( 'id' => 'wpsp-orderby' )
 	        )
