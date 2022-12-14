@@ -78,6 +78,17 @@ function wpsp_get_setting( $id, $key ) {
 	return get_post_meta( $id, $key ) ? get_post_meta( $id, $key, true ) : $defaults[ $key ];
 }
 
+/**
+ * Remove special characters from a string.
+ *
+ * @param string $string The string to remove special characters from.
+ */
+function wpsp_clean_string( $string ) {
+	$string = str_replace( ' ', '-', $string );
+
+	return preg_replace( '/[^A-Za-z0-9\-]/', '', $string );
+}
+
 /*
  * Build the front end of the plugin
  * $id parameter needs to match ID of custom post type entry
@@ -363,6 +374,9 @@ function wpsp_display( $id, $custom_settings = false ) {
 		$settings[ 'inner_wrapper_style' ] = ' style="' . implode( ' ', $settings[ 'inner_wrapper_style' ] ) . '"';
 	}
 
+	$wrapper = wpsp_clean_string( $settings[ 'wrapper' ] );
+	$inner_wrapper = wpsp_clean_string( $settings[ 'inner_wrapper' ] );
+
 	// Get the wrapper ID
 	$wrapper_id = ' id="wpsp-' . $id . '"';
 
@@ -371,7 +385,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 	do_action( 'wpsp_before_wrapper', $settings );
 
 	// Start the wrapper
-	echo '<' . $settings[ 'wrapper' ] . $wrapper_id . $settings[ 'wrapper_class' ] . $settings[ 'wrapper_style' ] . $wrapper_atts . '>';
+	echo '<' . $wrapper . $wrapper_id . $settings[ 'wrapper_class' ] . $settings[ 'wrapper_style' ] . $wrapper_atts . '>';
 
 	do_action( 'wpsp_inside_wrapper', $settings );
 
@@ -419,7 +433,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 			// Start inner container
 			printf( '<%1$s class="%2$s" itemtype="http://schema.org/%3$s" itemscope>',
-				$settings[ 'inner_wrapper' ],
+				$inner_wrapper,
 				$post_classes . $column_class . $featured,
 				$settings[ 'itemtype' ]
 			);
@@ -435,17 +449,19 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 							do_action( 'wpsp_before_title', $settings );
 
+							$title_element = wpsp_clean_string( $settings[ 'title_element' ] );
+
 							$before_title = sprintf(
 								'<%1$s class="wp-show-posts-entry-title" itemprop="headline"><a href="%2$s" rel="bookmark">',
-								$settings[ 'title_element' ],
+								$title_element,
 								esc_url( get_permalink() )
 							);
 
-							$after_title = '</a></' . $settings[ 'title_element' ] . '>';
+							$after_title = '</a></' . $title_element . '>';
 
 							if ( apply_filters( 'wpsp_disable_title_link', false, $settings ) ) {
-								$before_title = '<' . $settings[ 'title_element' ] . ' class="wp-show-posts-entry-title" itemprop="headline">';
-								$after_title = '</' . $settings[ 'title_element' ] . '>';
+								$before_title = '<' . $title_element . ' class="wp-show-posts-entry-title" itemprop="headline">';
+								$after_title = '</' . $title_element . '>';
 							}
 
 							if ( $settings[ 'include_title' ] ) {
@@ -483,7 +499,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 				}
 
 			// End inner container
-			echo '</' . $settings[ 'inner_wrapper' ] . '>';
+			echo '</' . $inner_wrapper . '>';
 		}
 	} else {
 		// no posts found
@@ -496,7 +512,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 		echo '<div class="wpsp-clear"></div>';
 	}
 
-	echo '</' . $settings[ 'wrapper' ] . '><!-- .wp-show-posts -->';
+	echo '</' . $wrapper . '><!-- .wp-show-posts -->';
 
 	do_action( 'wpsp_after_wrapper', $settings );
 
