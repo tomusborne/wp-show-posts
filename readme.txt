@@ -164,7 +164,7 @@ In most cases, #1 will work fine and is way easier.
 == Changelog ==
 
 = 1.1.4 =
-* Security: Prevent special characters in HTML tag name options
+* Security: Improve escaping of settings that display HTML
 
 = 1.1.3 =
 * New: Button class option
