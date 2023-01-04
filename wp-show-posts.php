@@ -150,7 +150,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 		'wrapper'			 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_wrapper' ) ),
 		'wrapper_class' 	 	 => array_map( 'sanitize_html_class', ( explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_class' ) ) ) ),
 		'wrapper_style' 		 => explode( ' ', esc_attr( wpsp_get_setting( $id, 'wpsp_wrapper_style' ) ) ),
-		'no_results' 		 	 => wp_kses_post( wpsp_get_setting( $id, 'wpsp_no_results' ) ),
+		'no_results' 		 	 => wpsp_get_setting( $id, 'wpsp_no_results' ),
 		'post_meta_bottom_style' => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_bottom_style' ) ),
 		'post_meta_top_style' 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_top_style' ) ),
 		'read_more_class'	 	 => esc_attr( wpsp_get_setting( $id, 'wpsp_read_more_class' ) ),
@@ -361,24 +361,24 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	// Get the wrapper class
 	if ( ! empty( $settings[ 'wrapper_class' ] ) ) {
-		$settings[ 'wrapper_class' ] = ' class="' . implode( ' ', $settings[ 'wrapper_class' ] ) . '"';
+		$settings[ 'wrapper_class' ] = ' class="' . esc_attr( implode( ' ', $settings[ 'wrapper_class' ] ) ) . '"';
 	}
 
 	// Get the wrapper style
 	if ( ! empty( $settings[ 'wrapper_style' ] ) ) {
-		$settings[ 'wrapper_style' ] = ' style="' . implode( ' ', $settings[ 'wrapper_style' ] ) . '"';
+		$settings[ 'wrapper_style' ] = ' style="' . esc_attr( implode( ' ', $settings[ 'wrapper_style' ] ) ) . '"';
 	}
 
 	// Get the inner wrapper class
 	if ( ! empty( $settings[ 'inner_wrapper_style' ] ) ) {
-		$settings[ 'inner_wrapper_style' ] = ' style="' . implode( ' ', $settings[ 'inner_wrapper_style' ] ) . '"';
+		$settings[ 'inner_wrapper_style' ] = ' style="' . esc_attr( implode( ' ', $settings[ 'inner_wrapper_style' ] ) ) . '"';
 	}
 
 	$wrapper = wpsp_clean_string( $settings[ 'wrapper' ] );
 	$inner_wrapper = wpsp_clean_string( $settings[ 'inner_wrapper' ] );
 
 	// Get the wrapper ID
-	$wrapper_id = ' id="wpsp-' . $id . '"';
+	$wrapper_id = ' id="wpsp-' . esc_attr( $id ) . '"';
 
 	$wrapper_atts = apply_filters( 'wpsp_wrapper_atts', '', $settings );
 
@@ -390,7 +390,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 	do_action( 'wpsp_inside_wrapper', $settings );
 
 	if ( $masonry ) {
-		echo '<div class="grid-sizer wpsp-' . $settings[ 'columns' ] . '"></div>';
+		echo '<div class="grid-sizer wpsp-' . esc_attr( $settings[ 'columns' ] ) . '"></div>';
 	}
 
 	// Start the query
@@ -434,8 +434,8 @@ function wpsp_display( $id, $custom_settings = false ) {
 			// Start inner container
 			printf( '<%1$s class="%2$s" itemtype="http://schema.org/%3$s" itemscope>',
 				$inner_wrapper,
-				$post_classes . $column_class . $featured,
-				$settings[ 'itemtype' ]
+				esc_attr( $post_classes . $column_class . $featured ),
+				esc_attr( $settings[ 'itemtype' ] )
 			);
 
 				echo '<div class="wp-show-posts-inner"' . $settings[ 'inner_wrapper_style' ] . '>';
@@ -482,7 +482,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 					// The excerpt or full content
 					if ( 'excerpt' == $settings[ 'content_type' ] && $settings[ 'excerpt_length' ] && ! $more_tag && 'none' !== $settings[ 'content_type' ] ) : ?>
 						<div class="wp-show-posts-entry-summary" itemprop="text">
-							<?php wpsp_excerpt( $settings[ 'excerpt_length' ] ); ?>
+							<?php wpsp_excerpt( absint( $settings[ 'excerpt_length' ] ) ); ?>
 						</div><!-- .entry-summary -->
 					<?php elseif ( ( 'full' == $settings[ 'content_type' ] || $more_tag ) && 'none' !== $settings[ 'content_type' ] ) : ?>
 						<div class="wp-show-posts-entry-content" itemprop="text">
@@ -503,8 +503,8 @@ function wpsp_display( $id, $custom_settings = false ) {
 		}
 	} else {
 		// no posts found
-		echo $settings[ 'columns' ] !== 'col-12' ? '<div class="wpsp-no-results" style="margin-left: ' . $settings[ 'columns_gutter' ] . ';">' : '';
-			echo wpautop( $settings[ 'no_results' ] );
+		echo $settings[ 'columns' ] !== 'col-12' ? '<div class="wpsp-no-results" style="margin-left: ' . esc_attr( $settings[ 'columns_gutter' ] ) . ';">' : '';
+			echo wpautop( wp_kses_post( $settings[ 'no_results' ] ) );
 		echo $settings[ 'columns' ] !== 'col-12' ? '</div>' : '';
 	}
 
