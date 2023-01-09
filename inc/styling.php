@@ -14,7 +14,7 @@ function wpsp_basic_styling( $settings ) {
 		),
 
 		'.wp-show-posts-columns#wpsp-' . $settings[ 'list_id' ] . ' .wp-show-posts-inner' => array(
-			'margin' => ( '' !== $settings[ 'columns_gutter' ] && '12' !== $settings[ 'columns' ] ) ? '0 0 ' . esc_attr( $settings[ 'columns_gutter' ] ) . ' ' . $settings[ 'columns_gutter' ] : null,
+			'margin' => ( '' !== $settings[ 'columns_gutter' ] && '12' !== $settings[ 'columns' ] ) ? '0 0 ' . esc_attr( $settings[ 'columns_gutter' ] ) . ' ' . esc_attr( $settings[ 'columns_gutter' ] ) : null,
 		),
 
 	);

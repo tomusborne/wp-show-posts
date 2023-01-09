@@ -174,23 +174,23 @@ function wpsp_display( $id, $custom_settings = false ) {
 	$args = array();
 
 	if ( '' !== $settings[ 'order' ] ) {
-		$args[ 'order' ] = $settings[ 'order' ];
+		$args[ 'order' ] = esc_attr( $settings[ 'order' ] );
 	}
 
 	if ( '' !== $settings[ 'orderby' ] ) {
-		$args[ 'orderby' ] = $settings[ 'orderby' ];
+		$args[ 'orderby' ] = esc_attr( $settings[ 'orderby' ] );
 	}
 
 	if ( 'rand' == $settings[ 'orderby' ] && $settings[ 'pagination' ] ) {
-		$args[ 'orderby' ] = 'rand(' . $id . ')';
+		$args[ 'orderby' ] = 'rand(' . absint( $id ) . ')';
 	}
 
 	if ( '' !== $settings[ 'post_type' ] ) {
-		$args[ 'post_type' ] = $settings[ 'post_type' ];
+		$args[ 'post_type' ] = esc_attr( $settings[ 'post_type' ] );
 	}
 
 	if ( '' !== $settings[ 'posts_per_page' ] ) {
-		$args[ 'posts_per_page' ] = $settings[ 'posts_per_page' ];
+		$args[ 'posts_per_page' ] = intval( $settings[ 'posts_per_page' ] );
 	}
 
 	if ( $settings[ 'ignore_sticky_posts' ] ) {
@@ -198,19 +198,19 @@ function wpsp_display( $id, $custom_settings = false ) {
 	}
 
 	if ( '' !== $settings[ 'meta_key' ] ) {
-		$args[ 'meta_key' ] = $settings[ 'meta_key' ];
+		$args[ 'meta_key' ] = esc_html( $settings[ 'meta_key' ] );
 	}
 
 	if ( '' !== $settings[ 'meta_value' ] ) {
-		$args[ 'meta_value' ] = $settings[ 'meta_value' ];
+		$args[ 'meta_value' ] = esc_html( $settings[ 'meta_value' ] );
 	}
 
 	if ( $settings[ 'offset' ] > 0 ) {
-		$args[ 'offset' ] = $settings[ 'offset' ];
+		$args[ 'offset' ] = intval( $settings[ 'offset' ] );
 	}
 
 	if ( '' !== $settings[ 'author' ] ) {
-		$args[ 'author' ] = $settings[ 'author' ];
+		$args[ 'author' ] = esc_html( $settings[ 'author' ] );
 	}
 
 	if ( $settings[ 'pagination' ] && ! is_single() ) {
@@ -342,7 +342,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	if ( $masonry ) {
 		$settings[ 'wrapper_class' ][] = 'wp-show-posts-masonry';
-		$settings[ 'inner_wrapper_class' ][] = ' wp-show-posts-masonry-' . $settings[ 'columns' ];
+		$settings[ 'inner_wrapper_class' ][] = ' wp-show-posts-masonry-' . esc_attr( $settings[ 'columns' ] );
 		$settings[ 'inner_wrapper_class' ][] = ' wp-show-posts-masonry-block';
 
 		wp_enqueue_script( 'wpsp-imagesloaded' );
