@@ -395,8 +395,12 @@ function wpsp_display( $id, $custom_settings = false ) {
 		echo '<div class="grid-sizer wpsp-' . esc_attr( $settings[ 'columns' ] ) . '"></div>';
 	}
 
-	// Start the query
-	$query = new WP_Query( apply_filters( 'wp_show_posts_shortcode_args', $args ) );
+	// Filter kept for backward compatibility.
+	$args = apply_filters( 'wp_show_posts_shortcode_args', $args, $settings );
+
+	// Start the query.
+	$query = new WP_Query( apply_filters( 'wpsp_query_args', $args, $settings ) );
+
 	// Start the loop
 	if ( $query->have_posts() ) {
 		while ( $query->have_posts() ) {
