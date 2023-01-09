@@ -85,8 +85,10 @@ function wpsp_get_setting( $id, $key ) {
  */
 function wpsp_clean_string( $string ) {
 	$string = str_replace( ' ', '-', $string );
+	$string = preg_replace( '/[^A-Za-z0-9\-]/', '', $string );
+	$string = str_replace( 'script', 'div', $string );
 
-	return preg_replace( '/[^A-Za-z0-9\-]/', '', $string );
+	return $string;
 }
 
 /*
