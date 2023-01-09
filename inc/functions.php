@@ -174,7 +174,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 
 		$disable_link = apply_filters( 'wpsp_disable_image_link', false, $settings );
 		?>
-		<div class="wp-show-posts-image <?php echo esc_attr( $hover ) . ' wpsp-image-' . esc_attr( $settings[ 'image_alignment' ] ); ?> ">
+		<div class="wp-show-posts-image <?php echo esc_attr( $hover . ' wpsp-image-' . $settings[ 'image_alignment' ] ); ?> ">
 			<?php
 			do_action( 'wpsp_inside_image_container', $settings );
 

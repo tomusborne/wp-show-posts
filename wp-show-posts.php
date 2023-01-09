@@ -194,7 +194,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 	}
 
 	if ( $settings[ 'ignore_sticky_posts' ] ) {
-		$args[ 'ignore_sticky_posts' ] = $settings[ 'ignore_sticky_posts' ];
+		$args[ 'ignore_sticky_posts' ] = wp_validate_boolean( $settings[ 'ignore_sticky_posts' ] );
 	}
 
 	if ( '' !== $settings[ 'meta_key' ] ) {
