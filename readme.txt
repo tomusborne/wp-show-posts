@@ -12,6 +12,10 @@ Add posts to your website from any post type using a simple shortcode.
 
 == Description ==
 
+= Note =
+
+This plugin is only receiving security updates at this time. Check out our [GenerateBlocks](https://generateblocks.com/) plugin for a more modern solution.
+
 https://vimeo.com/175638957
 
 WP Show Posts allows you to display posts anywhere on your website using an easy to use shortcode.
