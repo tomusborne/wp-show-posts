@@ -169,6 +169,7 @@ In most cases, #1 will work fine and is way easier.
 
 = 1.1.4 =
 * Security: Improve escaping of settings that display HTML
+* Tweak: Add wpsp_query_args filter
 
 = 1.1.3 =
 * New: Button class option
