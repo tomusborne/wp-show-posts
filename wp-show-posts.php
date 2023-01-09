@@ -78,6 +78,19 @@ function wpsp_get_setting( $id, $key ) {
 	return get_post_meta( $id, $key ) ? get_post_meta( $id, $key, true ) : $defaults[ $key ];
 }
 
+/**
+ * Remove special characters from a string.
+ *
+ * @param string $string The string to remove special characters from.
+ */
+function wpsp_clean_string( $string ) {
+	$string = str_replace( ' ', '-', $string );
+	$string = preg_replace( '/[^A-Za-z0-9\-]/', '', $string );
+	$string = str_replace( 'script', 'div', $string );
+
+	return $string;
+}
+
 /*
  * Build the front end of the plugin
  * $id parameter needs to match ID of custom post type entry
@@ -139,7 +152,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 		'wrapper'			 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_wrapper' ) ),
 		'wrapper_class' 	 	 => array_map( 'sanitize_html_class', ( explode( ' ', wpsp_get_setting( $id, 'wpsp_wrapper_class' ) ) ) ),
 		'wrapper_style' 		 => explode( ' ', esc_attr( wpsp_get_setting( $id, 'wpsp_wrapper_style' ) ) ),
-		'no_results' 		 	 => wp_kses_post( wpsp_get_setting( $id, 'wpsp_no_results' ) ),
+		'no_results' 		 	 => wpsp_get_setting( $id, 'wpsp_no_results' ),
 		'post_meta_bottom_style' => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_bottom_style' ) ),
 		'post_meta_top_style' 	 => sanitize_text_field( wpsp_get_setting( $id, 'wpsp_post_meta_top_style' ) ),
 		'read_more_class'	 	 => esc_attr( wpsp_get_setting( $id, 'wpsp_read_more_class' ) ),
@@ -350,33 +363,36 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 	// Get the wrapper class
 	if ( ! empty( $settings[ 'wrapper_class' ] ) ) {
-		$settings[ 'wrapper_class' ] = ' class="' . implode( ' ', $settings[ 'wrapper_class' ] ) . '"';
+		$settings[ 'wrapper_class' ] = ' class="' . esc_attr( implode( ' ', $settings[ 'wrapper_class' ] ) ) . '"';
 	}
 
 	// Get the wrapper style
 	if ( ! empty( $settings[ 'wrapper_style' ] ) ) {
-		$settings[ 'wrapper_style' ] = ' style="' . implode( ' ', $settings[ 'wrapper_style' ] ) . '"';
+		$settings[ 'wrapper_style' ] = ' style="' . esc_attr( implode( ' ', $settings[ 'wrapper_style' ] ) ) . '"';
 	}
 
 	// Get the inner wrapper class
 	if ( ! empty( $settings[ 'inner_wrapper_style' ] ) ) {
-		$settings[ 'inner_wrapper_style' ] = ' style="' . implode( ' ', $settings[ 'inner_wrapper_style' ] ) . '"';
+		$settings[ 'inner_wrapper_style' ] = ' style="' . esc_attr( implode( ' ', $settings[ 'inner_wrapper_style' ] ) ) . '"';
 	}
 
+	$wrapper = wpsp_clean_string( $settings[ 'wrapper' ] );
+	$inner_wrapper = wpsp_clean_string( $settings[ 'inner_wrapper' ] );
+
 	// Get the wrapper ID
-	$wrapper_id = ' id="wpsp-' . $id . '"';
+	$wrapper_id = ' id="wpsp-' . esc_attr( $id ) . '"';
 
 	$wrapper_atts = apply_filters( 'wpsp_wrapper_atts', '', $settings );
 
 	do_action( 'wpsp_before_wrapper', $settings );
 
 	// Start the wrapper
-	echo '<' . $settings[ 'wrapper' ] . $wrapper_id . $settings[ 'wrapper_class' ] . $settings[ 'wrapper_style' ] . $wrapper_atts . '>';
+	echo '<' . $wrapper . $wrapper_id . $settings[ 'wrapper_class' ] . $settings[ 'wrapper_style' ] . $wrapper_atts . '>';
 
 	do_action( 'wpsp_inside_wrapper', $settings );
 
 	if ( $masonry ) {
-		echo '<div class="grid-sizer wpsp-' . $settings[ 'columns' ] . '"></div>';
+		echo '<div class="grid-sizer wpsp-' . esc_attr( $settings[ 'columns' ] ) . '"></div>';
 	}
 
 	// Start the query
@@ -419,9 +435,9 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 			// Start inner container
 			printf( '<%1$s class="%2$s" itemtype="http://schema.org/%3$s" itemscope>',
-				$settings[ 'inner_wrapper' ],
-				$post_classes . $column_class . $featured,
-				$settings[ 'itemtype' ]
+				$inner_wrapper,
+				esc_attr( $post_classes . $column_class . $featured ),
+				esc_attr( $settings[ 'itemtype' ] )
 			);
 
 				echo '<div class="wp-show-posts-inner"' . $settings[ 'inner_wrapper_style' ] . '>';
@@ -435,17 +451,19 @@ function wpsp_display( $id, $custom_settings = false ) {
 
 							do_action( 'wpsp_before_title', $settings );
 
+							$title_element = wpsp_clean_string( $settings[ 'title_element' ] );
+
 							$before_title = sprintf(
 								'<%1$s class="wp-show-posts-entry-title" itemprop="headline"><a href="%2$s" rel="bookmark">',
-								$settings[ 'title_element' ],
+								$title_element,
 								esc_url( get_permalink() )
 							);
 
-							$after_title = '</a></' . $settings[ 'title_element' ] . '>';
+							$after_title = '</a></' . $title_element . '>';
 
 							if ( apply_filters( 'wpsp_disable_title_link', false, $settings ) ) {
-								$before_title = '<' . $settings[ 'title_element' ] . ' class="wp-show-posts-entry-title" itemprop="headline">';
-								$after_title = '</' . $settings[ 'title_element' ] . '>';
+								$before_title = '<' . $title_element . ' class="wp-show-posts-entry-title" itemprop="headline">';
+								$after_title = '</' . $title_element . '>';
 							}
 
 							if ( $settings[ 'include_title' ] ) {
@@ -466,7 +484,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 					// The excerpt or full content
 					if ( 'excerpt' == $settings[ 'content_type' ] && $settings[ 'excerpt_length' ] && ! $more_tag && 'none' !== $settings[ 'content_type' ] ) : ?>
 						<div class="wp-show-posts-entry-summary" itemprop="text">
-							<?php wpsp_excerpt( $settings[ 'excerpt_length' ] ); ?>
+							<?php wpsp_excerpt( absint( $settings[ 'excerpt_length' ] ) ); ?>
 						</div><!-- .entry-summary -->
 					<?php elseif ( ( 'full' == $settings[ 'content_type' ] || $more_tag ) && 'none' !== $settings[ 'content_type' ] ) : ?>
 						<div class="wp-show-posts-entry-content" itemprop="text">
@@ -483,12 +501,12 @@ function wpsp_display( $id, $custom_settings = false ) {
 				}
 
 			// End inner container
-			echo '</' . $settings[ 'inner_wrapper' ] . '>';
+			echo '</' . $inner_wrapper . '>';
 		}
 	} else {
 		// no posts found
-		echo $settings[ 'columns' ] !== 'col-12' ? '<div class="wpsp-no-results" style="margin-left: ' . $settings[ 'columns_gutter' ] . ';">' : '';
-			echo wpautop( $settings[ 'no_results' ] );
+		echo $settings[ 'columns' ] !== 'col-12' ? '<div class="wpsp-no-results" style="margin-left: ' . esc_attr( $settings[ 'columns_gutter' ] ) . ';">' : '';
+			echo wpautop( wp_kses_post( $settings[ 'no_results' ] ) );
 		echo $settings[ 'columns' ] !== 'col-12' ? '</div>' : '';
 	}
 
@@ -496,7 +514,7 @@ function wpsp_display( $id, $custom_settings = false ) {
 		echo '<div class="wpsp-clear"></div>';
 	}
 
-	echo '</' . $settings[ 'wrapper' ] . '><!-- .wp-show-posts -->';
+	echo '</' . $wrapper . '><!-- .wp-show-posts -->';
 
 	do_action( 'wpsp_after_wrapper', $settings );
 

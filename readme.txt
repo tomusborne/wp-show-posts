@@ -164,6 +164,7 @@ In most cases, #1 will work fine and is way easier.
 == Changelog ==
 
 = 1.1.4 =
+* Security: Improve escaping of settings that display HTML
 
 = 1.1.3 =
 * New: Button class option
