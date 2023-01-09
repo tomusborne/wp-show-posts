@@ -53,7 +53,7 @@ if ( ! function_exists( 'wpsp_meta' ) ) {
 		}
 
 		if ( ( $settings[ 'include_author' ] && $location == $settings[ 'author_location' ] ) || ( $settings[ 'include_date' ] && $location == $settings[ 'date_location' ] ) || ( $settings[ 'include_terms' ] && $location == $settings[ 'terms_location' ] ) || ( $settings[ 'include_comments' ] && $location == $settings[ 'comments_location' ] ) ) {
-			echo '<div class="wp-show-posts-entry-meta wp-show-posts-entry-meta-' . $location . ' post-meta-' . $post_meta_style . '">';
+			echo '<div class="wp-show-posts-entry-meta wp-show-posts-entry-meta-' . $location . ' post-meta-' . esc_attr( $post_meta_style ) . '">';
 		}
 
 		// If our author is enabled, show it
@@ -174,7 +174,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 
 		$disable_link = apply_filters( 'wpsp_disable_image_link', false, $settings );
 		?>
-		<div class="wp-show-posts-image <?php echo $hover . ' wpsp-image-' . $settings[ 'image_alignment' ]; ?> ">
+		<div class="wp-show-posts-image <?php echo esc_attr( $hover ) . ' wpsp-image-' . esc_attr( $settings[ 'image_alignment' ] ); ?> ">
 			<?php
 			do_action( 'wpsp_inside_image_container', $settings );
 
@@ -188,7 +188,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 			}
 
 				if ( ! empty( $image_atts ) ) : ?>
-					<img src="<?php echo WPSP_Resize( $image_url[0], $image_atts[ 'width' ], $image_atts[ 'height' ], $image_atts[ 'crop' ], true, $image_atts[ 'upscale' ] ); ?>" alt="<?php esc_attr( the_title() ); ?>" itemprop="image" class="<?php echo $settings[ 'image_alignment' ]; ?>" />
+					<img src="<?php echo WPSP_Resize( $image_url[0], $image_atts[ 'width' ], $image_atts[ 'height' ], $image_atts[ 'crop' ], true, $image_atts[ 'upscale' ] ); ?>" alt="<?php esc_attr( the_title() ); ?>" itemprop="image" class="<?php echo esc_attr( $settings[ 'image_alignment' ] ); ?>" />
 				<?php else :
 					the_post_thumbnail( apply_filters( 'wpsp_default_image_size', 'full' ), array( 'itemprop' => 'image' ) );
 				endif;
@@ -196,7 +196,7 @@ if ( ! function_exists( 'wpsp_post_image' ) ) {
 				if ( isset( $settings[ 'image_overlay_color' ] ) && ( '' !== $settings[ 'image_overlay_color' ] || '' !== $settings[ 'image_overlay_icon' ] ) ) {
 					$color = ( $settings[ 'image_overlay_color' ] ) ? 'style="background-color:' . wpsp_hex2rgba( $settings[ 'image_overlay_color' ], apply_filters( 'wpsp_overlay_opacity', 0.7 ) ) . '"' : '';
 					$icon = ( $settings[ 'image_overlay_icon' ] ) ? $settings[ 'image_overlay_icon' ] : 'no-icon';
-					echo '<span class="wp-show-posts-image-overlay ' . $icon . '" ' . $color . '></span>';
+					echo '<span class="wp-show-posts-image-overlay ' . esc_attr( $icon ) . '" ' . $color . '></span>';
 				}
 
 			if ( ! $disable_link ) {
@@ -236,7 +236,7 @@ if ( ! function_exists( 'wpsp_read_more' ) ) {
 			echo apply_filters( 'wpsp_read_more_output', sprintf('<div class="wpsp-read-more"><a title="%1$s" class="%4$s" href="%2$s">%3$s</a></div>',
 				the_title_attribute( 'echo=0' ),
 				esc_url( get_permalink() ),
-				$settings[ 'read_more_text' ],
+				wp_kses_post( $settings[ 'read_more_text' ] ),
 				esc_attr( $settings['read_more_class'] )
 			));
 		}
