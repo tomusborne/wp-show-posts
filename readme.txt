@@ -3,14 +3,18 @@ Contributors: edge22
 Donate link: https://wpshowposts.com
 Tags: show posts, display posts shortcode, portfolio, gallery, post columns
 Requires at least: 4.5
-Tested up to: 5.8
-Stable tag: 1.1.3
+Tested up to: 6.1
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 Add posts to your website from any post type using a simple shortcode.
 
 == Description ==
+
+= Note =
+
+This plugin is only receiving security updates at this time. Check out our [GenerateBlocks](https://generateblocks.com/) plugin for a more modern solution.
 
 https://vimeo.com/175638957
 
@@ -162,6 +166,10 @@ In most cases, #1 will work fine and is way easier.
 7. The "More query ars" settings tab.
 
 == Changelog ==
+
+= 1.1.4 =
+* Security: Improve escaping of settings that display HTML
+* Tweak: Add wpsp_query_args filter
 
 = 1.1.3 =
 * New: Button class option

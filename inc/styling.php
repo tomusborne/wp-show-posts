@@ -10,11 +10,11 @@ function wpsp_basic_styling( $settings ) {
 	$visual_css = array (
 
 		'.wp-show-posts-columns#wpsp-' . $settings[ 'list_id' ] => array(
-			'margin-left' => ( '' !== $settings[ 'columns_gutter' ] && '12' !== $settings[ 'columns' ] ) ? '-' . $settings[ 'columns_gutter' ] : null
+			'margin-left' => ( '' !== $settings[ 'columns_gutter' ] && '12' !== $settings[ 'columns' ] ) ? '-' . esc_attr( $settings[ 'columns_gutter' ] ) : null
 		),
 
 		'.wp-show-posts-columns#wpsp-' . $settings[ 'list_id' ] . ' .wp-show-posts-inner' => array(
-			'margin' => ( '' !== $settings[ 'columns_gutter' ] && '12' !== $settings[ 'columns' ] ) ? '0 0 ' . $settings[ 'columns_gutter' ] . ' ' . $settings[ 'columns_gutter' ] : null,
+			'margin' => ( '' !== $settings[ 'columns_gutter' ] && '12' !== $settings[ 'columns' ] ) ? '0 0 ' . esc_attr( $settings[ 'columns_gutter' ] ) . ' ' . esc_attr( $settings[ 'columns_gutter' ] ) : null,
 		),
 
 	);
