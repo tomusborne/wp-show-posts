@@ -3,8 +3,8 @@ Contributors: edge22
 Donate link: https://wpshowposts.com
 Tags: show posts, display posts shortcode, portfolio, gallery, post columns
 Requires at least: 4.5
-Tested up to: 6.1
-Stable tag: 1.1.4
+Tested up to: 6.4
+Stable tag: 1.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -166,6 +166,8 @@ In most cases, #1 will work fine and is way easier.
 7. The "More query ars" settings tab.
 
 == Changelog ==
+
+= 1.1.5 =
 
 = 1.1.4 =
 * Security: Improve escaping of settings that display HTML
