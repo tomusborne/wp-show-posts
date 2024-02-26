@@ -233,6 +233,11 @@ function wpsp_display( $id, $custom_settings = false ) {
 		$args['post_status'] = $validated;
 	}
 
+	// Prevent private posts from showing up for non-authenticated users.
+	if ( isset( $args['post_status'] ) && ! current_user_can( 'read_private_posts' ) ) {
+		$args['post_status'] = array( 'publish' );
+	}
+
 	// If taxonomy attributes, create a taxonomy query
 	if ( ! empty( $settings[ 'taxonomy' ] ) && ! empty( $settings[ 'tax_term' ] ) ) {
 

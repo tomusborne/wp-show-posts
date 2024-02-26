@@ -168,6 +168,7 @@ In most cases, #1 will work fine and is way easier.
 == Changelog ==
 
 = 1.1.5 =
+* Security: Add user capability check for post status
 
 = 1.1.4 =
 * Security: Improve escaping of settings that display HTML
