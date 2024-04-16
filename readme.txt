@@ -167,6 +167,9 @@ In most cases, #1 will work fine and is way easier.
 
 == Changelog ==
 
+= 1.1.6 =
+* Security: Add capability checks to AJAX functions
+
 = 1.1.5 =
 * Security: Add user capability check for post status
 
