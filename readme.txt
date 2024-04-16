@@ -4,7 +4,7 @@ Donate link: https://wpshowposts.com
 Tags: show posts, display posts shortcode, portfolio, gallery, post columns
 Requires at least: 4.5
 Tested up to: 6.1
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -166,6 +166,9 @@ In most cases, #1 will work fine and is way easier.
 7. The "More query ars" settings tab.
 
 == Changelog ==
+
+= 1.1.6 =
+* Security: Add capability checks to AJAX functions
 
 = 1.1.5 =
 * Security: Add user capability check for post status

@@ -13,6 +13,10 @@ if ( ! function_exists( 'wpsp_get_json_option' ) ) {
 			wp_die( 'Permission declined' );
 		}
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'Permission declined' );
+		}
+
 		$option = ( get_post_meta( intval( $_POST[ 'id' ] ), sanitize_text_field( $_POST[ 'key' ] ) ) ) ? get_post_meta( intval( $_POST[ 'id' ] ), sanitize_text_field( $_POST[ 'key' ] ), true ) : false;
 
 		if ( $option ) {
@@ -31,6 +35,10 @@ if ( ! function_exists( 'wpsp_get_terms' ) ) {
 	 */
 	function wpsp_get_terms() {
 		if ( ! isset( $_POST[ 'wpsp_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'wpsp_nonce' ], 'wpsp_nonce' ) ) {
+			wp_die( 'Permission declined' );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( 'Permission declined' );
 		}
 
@@ -64,6 +72,10 @@ if ( ! function_exists( 'wpsp_get_taxonomies' ) ) {
 			wp_die( 'Permission declined' );
 		}
 
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( 'Permission declined' );
+		}
+
 		$terms = get_object_taxonomies( sanitize_text_field( $_POST[ 'post_type' ] ) );
 		$count = count( $terms );
 		$types = array();
@@ -87,6 +99,10 @@ if ( ! function_exists( 'wpsp_get_post_lists' ) ) {
 	 */
 	function wpsp_get_post_lists() {
 		if ( ! isset( $_POST[ 'wpsp_nonce' ] ) || ! wp_verify_nonce( $_POST[ 'wpsp_nonce' ], 'wpsp_nonce' ) ) {
+			wp_die( 'Permission declined' );
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
 			wp_die( 'Permission declined' );
 		}
 
